@@ -1,0 +1,77 @@
+body{
+  background: #06130a;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+}
+
+.input-round-corners {
+  border-radius: 10px;
+}
+
+.form-control {
+  width: 90% !important;
+}
+
+legend{
+  border:none;
+  text-rendering: optimizelegibility;
+}
+
+fieldset>div{
+  
+}
+
+.btn-primary{
+  background:#144023;
+  border-color: #144023;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:focus{
+  background:#277b43;
+  border-color: #277b43;
+}
+
+.btn-secondary{
+  background:#353f4f;
+  border-color: #353f4f;
+} 
+
+.btn-warning:active,
+.btn-warning.active,
+.btn-warning:focus, .
+.btn-warning:hover,
+.btn-warning{
+  background: #fcd900 ;
+  border-color: #fcd900 ;
+  color: #353f4f;
+}
+
+.btn-info{
+  background: #007dac ;
+  border-color: #007dac ;
+}
+
+.btn-danger{
+  background:#f26747 ;
+  border-color: #f26747 ;
+} 
+
+/*
+.list-group-item:active,
+.list-group-item.active {
+  color: #212529;
+  background-color: #fcd900;
+  border-color: #fcd900;
+} 
+*/
+.card:hover{
+  border:black solid 1px;
+}

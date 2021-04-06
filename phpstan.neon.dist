@@ -1,0 +1,15 @@
+parameters:
+   level: 8
+   paths:
+      - config
+      - application
+   bootstrapFiles:
+      - phpstan.bootstrap.php
+      - config/config.php
+   ignoreErrors:
+      - '#TOBEDELETED#'
+      - '#dbg#'
+      - '#info#'
+      - '#warning#'
+      - '#error#'
+      - '#fatal#'

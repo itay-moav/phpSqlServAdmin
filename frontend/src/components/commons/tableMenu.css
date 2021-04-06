@@ -1,0 +1,18 @@
+/*Using shcema https://www.colorhexa.com/50c878*/
+
+.page-head-wrapper {
+  background-color: #194f2b;
+  color: white;
+  padding-bottom: 5px; 
+}
+
+.table-list > .list-group-item{
+    background-color: #194f2b;
+}
+.table-list > .list-group-item.active{
+    background-color: #226d3b;
+    border-style:none;
+}
+.table-list > .list-group-item:hover{
+    background-color: #1d5e33;
+}
