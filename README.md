@@ -10,3 +10,13 @@ NOTICE!
 4. This tool was tested connecting to an Azure SQL DATABASE instance only.
 5. This tool requires PHP >=7.4 
 6. I am not not responsible nor liable to any damage caused to you by this tool. This tool is for DEVELOPMENT purposes only. Never to be used in production.
+
+
+
+INSTALL (not yet ready - ping me for help)
+==========================================
+```
+<Directory "/var/www/vulcan/api">
+    RewriteRule . index.php [L]
+</Directory>
+```
