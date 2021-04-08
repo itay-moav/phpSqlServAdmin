@@ -4,7 +4,7 @@ import {appInit} from "./store/api";
 
 //Pages
 import ErrorBoundary from "./components/commons/errorBoundry";
-import Layout from './components/commons/layout';
+import Layout from './components/layout/layout';
 
 /**
  * Log's user in, trigger upload of the content

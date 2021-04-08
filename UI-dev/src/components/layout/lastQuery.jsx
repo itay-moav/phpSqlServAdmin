@@ -9,6 +9,7 @@ const LastQuery = () => {
     
     return (  
         <Jumbotron>
+            <h3>Last query</h3>
             <pre>{query}</pre>
         </Jumbotron>
     );

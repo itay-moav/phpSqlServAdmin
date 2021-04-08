@@ -49,7 +49,9 @@ class Run extends \lib\Database\ChainWithConnection
                     
                 default:
                     dbgr('QUERY OUT',$query);
-                    throw new \Exception('Query not supported yet');
+                    //throw new \Exception('Query not supported yet');
+                    (new Command\StoredProcedure($this->Request, $this->Response))->process();
+                    break;
                 
             }
         } catch (\PDOException $e){

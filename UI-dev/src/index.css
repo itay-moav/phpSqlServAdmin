@@ -13,19 +13,6 @@ body{
   border-radius: 10px;
 }
 
-.form-control {
-  width: 90% !important;
-}
-
-legend{
-  border:none;
-  text-rendering: optimizelegibility;
-}
-
-fieldset>div{
-  
-}
-
 .btn-primary{
   background:#144023;
   border-color: #144023;
@@ -39,39 +26,18 @@ fieldset>div{
   border-color: #277b43;
 }
 
-.btn-secondary{
-  background:#353f4f;
-  border-color: #353f4f;
-} 
-
-.btn-warning:active,
-.btn-warning.active,
-.btn-warning:focus, .
-.btn-warning:hover,
-.btn-warning{
-  background: #fcd900 ;
-  border-color: #fcd900 ;
-  color: #353f4f;
+.db-element-clickable{
+  cursor: pointer;
 }
 
-.btn-info{
-  background: #007dac ;
-  border-color: #007dac ;
+.db-element-clickable:hover{
+  cursor: pointer;
+  text-decoration:underline;
 }
 
-.btn-danger{
-  background:#f26747 ;
-  border-color: #f26747 ;
-} 
-
-/*
-.list-group-item:active,
-.list-group-item.active {
-  color: #212529;
-  background-color: #fcd900;
-  border-color: #fcd900;
-} 
-*/
-.card:hover{
-  border:black solid 1px;
+.btn.fa{
+    color: white;
+}
+.btn.fa:hover{
+    color: #DDD;
 }

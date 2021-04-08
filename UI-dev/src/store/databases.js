@@ -10,9 +10,10 @@ const DatabasesSlice = createSlice({
   reducers: {
     loaded: (databases, action) => {
         //TODO MODIFY WHEN THE TIME COMES!
-        databases.current = 'emerald_amwell';
-        databases.list = {emerald_amwell: action.payload.queryResult};
-        //return databases;
+        databases.server  = action.payload.connectedTo.server;
+        databases.current = action.payload.connectedTo.database;
+        databases.tableList ={};
+        databases.tableList[databases.current] = action.payload.queryResult;
     }
   }
 });
