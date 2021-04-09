@@ -4,23 +4,11 @@ import {createSlice} from "@reduxjs/toolkit";
 const UI = createSlice({
   name: "ui",
   initialState: {
-    rightPanel:'query'
+    currentTable: null
   },
   reducers: {
-    wantQuery: (stateOfTheUI, action) => {
-        stateOfTheUI.rightPanel = 'query';
-    },
-
-    wantTableFields: (stateOfTheUI, action) => {
-        stateOfTheUI.rightPanel = 'tableFields';
-    },
-
-    wantTableContent: (stateOfTheUI, action) => {
-        stateOfTheUI.rightPanel = 'queryResults';
-    },
-
-    wantQueryResults: (stateOfTheUI, action) => {
-        stateOfTheUI.rightPanel = 'queryResults';
+    selectedTable: (uiState,action) => {
+      uiState.currentTable = action.payload;
     }
   }
 });

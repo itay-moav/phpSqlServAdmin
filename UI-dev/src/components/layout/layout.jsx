@@ -1,6 +1,6 @@
 import React from "react";
 import {useSelector} from 'react-redux';
-import { Container, Row, Col,Button } from "react-bootstrap";
+import { Container,Row,Col,Button,Navbar,Tabs,Tab } from "react-bootstrap";
 //import UpArrow from "./upArrow";
 import './layout.css';
 import DbTableMenu from "./dbTableMenu";
@@ -43,6 +43,7 @@ export default function Layout(){
 function TopBreadcrumbs(){
   const currentServer = useSelector(state => state.databases.server);
   const currentDB     = useSelector(state => state.databases.current);
+  const currentTable  = useSelector(state => state.ui.currentTable);
 
   return (
     <header className="page-head-wrapper">     
@@ -60,9 +61,20 @@ function TopBreadcrumbs(){
           <i className="btn fa fa-database" aria-hidden="true"></i>
           {currentDB}
         </span> 
-        {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i>
+
+        {currentTable && 
+          (
+          <>
+          <i className="fa fa-angle-double-right" aria-hidden="true"></i>
+          <span className="db-element-clickable">
+            <i className="btn fa fa-database" aria-hidden="true"></i>
+            {currentTable}
+          </span> 
+          </>
+          )
+        }
 
       </span>)}
-    </header>  
+    </header>
   );
 }

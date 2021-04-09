@@ -14,8 +14,8 @@ const reducer = combineReducers({
 
 export default function confStore(){
     return configureStore({
-        reducer,
-        middleware: [
+          reducer,
+          middleware: [
           ...getDefaultMiddleware(),
           api
         ]
