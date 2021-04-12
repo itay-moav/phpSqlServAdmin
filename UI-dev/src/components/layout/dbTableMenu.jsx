@@ -16,7 +16,7 @@ const DbTableMenu = () => {
             {tableList.map(table=>{
             
                 return (<ListGroup.Item key={table.name} active={currentTable === table.name}>
-                            <i className="btn fa fa-database db-element-clickable" aria-hidden="true" onClick={()=>{
+                            <i className="btn fa fa-table db-element-clickable" aria-hidden="true" onClick={()=>{
                                     dispatch(UIActions.selectedTable(table.name));
                                     dispatch(fetchTableFields(table.name));
                                 }

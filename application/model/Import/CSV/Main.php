@@ -5,7 +5,7 @@
  * @author itay
  * @date 2021-04-08
  */
-class Main extends \Talis\Chain\aChainLink{
+class Main extends \lib\Database\ChainWithConnection{
     
     /**
      * 
@@ -15,6 +15,14 @@ class Main extends \Talis\Chain\aChainLink{
     public function process():\Talis\Chain\aChainLink{
         $payload = $this->Response->getPayload();
         dbgr('FIELDS',$payload->queryResult);
+        $file_schema = [];
+        foreach($payload->queryResult as $a_field){
+            $file_schema[] = $a_field['COLUMN_NAME'];
+        }
+        
+        $Looper = new Looper($this->Request->get_param_exists('table'), $this->Request->getBody()->file, $this->Request->getBody()->delimiter, $this->Request->getBody()->header_rows_cnt, $file_schema,$this->conn);
+        $Looper->process();
+        
         return $this;
     }
     

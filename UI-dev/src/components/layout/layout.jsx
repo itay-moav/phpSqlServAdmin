@@ -39,7 +39,8 @@ export default function Layout(){
 	);
 }
 
-
+/**
+ */
 function TopBreadcrumbs(){
   const currentServer = useSelector(state => state.databases.server);
   const currentDB     = useSelector(state => state.databases.current);
@@ -65,9 +66,9 @@ function TopBreadcrumbs(){
         {currentTable && 
           (
           <>
-          <i className="fa fa-angle-double-right" aria-hidden="true"></i>
+          {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i>
           <span className="db-element-clickable">
-            <i className="btn fa fa-database" aria-hidden="true"></i>
+            <i className="btn fa fa-table" aria-hidden="true"></i>
             {currentTable}
           </span> 
           </>
