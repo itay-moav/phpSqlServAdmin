@@ -37,7 +37,8 @@ export const runQuery = (query) => (dispatch) => {
             body: {params:{query}},
             onSuccess: [
                 QueryActions.queryRan.type,
-                QueryActions.resultsLoaded.type
+                QueryActions.resultsLoaded.type,
+                DatabasesActions.schemaModified.type
             ]
         })
     );

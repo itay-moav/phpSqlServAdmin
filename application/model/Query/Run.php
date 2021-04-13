@@ -22,6 +22,9 @@ class Run extends \lib\Database\ChainWithConnection
         $command = strtolower(explode(' ', $query)[0]);
         $payload->command = $command;
         $payload->query = $query;
+        $payload->queryResult = [];
+        $payload->triggerReferesh = 0;//Trigger refresh = 1 will force the UI to reload the state/schemas of the sql server
+        $payload->tables = [];
         $payload->error = '';
         
         try{
@@ -43,6 +46,18 @@ class Run extends \lib\Database\ChainWithConnection
                     (new Command\Delete($this->Request, $this->Response))->process();
                     break;
                     
+                case COMMAND__CREATE:
+                    (new Command\Create($this->Request, $this->Response))->process();
+                    break;
+                    
+                case COMMAND__ALTER:
+                    (new Command\Alter($this->Request, $this->Response))->process();
+                    break;
+                    
+                case COMMAND__DROP:
+                    (new Command\Drop($this->Request, $this->Response))->process();
+                    break;
+                    
                 case COMMAND__SP:
                     (new Command\StoredProcedure($this->Request, $this->Response))->process();
                     break;
@@ -50,13 +65,18 @@ class Run extends \lib\Database\ChainWithConnection
                 default:
                     dbgr('QUERY OUT',$query);
                     //throw new \Exception('Query not supported yet');
-                    (new Command\StoredProcedure($this->Request, $this->Response))->process();
+                    (new Command\Mixed($this->Request, $this->Response))->process();
                     break;
                 
             }
         } catch (\PDOException $e){
             $payload->error = $e->getMessage();
             $payload->queryResult = 'error';
+        }
+        
+        //If we need to refresh the UI with the list of tables (in case of a drop/create/alter statements)
+        if($payload->triggerReferesh === 1){
+            $payload->tables = $this->conn->execute('select * from sys.tables')->fetchAll();
         }
         return $this;
     }

@@ -13,6 +13,7 @@ const Query = createSlice({
   reducers: {
     queryRan: (query, action) => {
         query.lastQuery = action.payload.query;
+        //query.schemaModified = action.payload.triggerReferesh;
         return query;
     },
 
