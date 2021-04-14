@@ -8,7 +8,12 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: white;
 }
-
+a,
+a:active,
+a:hover{
+  color: white;
+  text-decoration: none;
+}
 .input-round-corners {
   border-radius: 10px;
 }

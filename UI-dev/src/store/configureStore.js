@@ -5,7 +5,6 @@ import UIReducer from "./ui";
 import QueryReducer from "./query";
 import api from "./middleware/api";
 
-
 const reducer = combineReducers({
   databases: databasesReducer,
   ui: UIReducer,

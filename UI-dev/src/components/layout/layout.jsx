@@ -1,39 +1,46 @@
 import React from "react";
 import {useSelector} from 'react-redux';
-import { Container,Row,Col,Button,Navbar,Tabs,Tab } from "react-bootstrap";
+import { Container,Row,Col } from "react-bootstrap";
+import ErrorBoundry from "../commons/errorBoundry";
 //import UpArrow from "./upArrow";
 import './layout.css';
 import DbTableMenu from "./dbTableMenu";
-import QueryEditor from "../commons/queryEditor";
-import LastQuery from "./lastQuery";
-import QueryResults from "./queryResults";
 
-export default function Layout(){
+
+export default function Layout({children}){
   
 	return (
 		<>
       <Container fluid>
         <Row>
+          
           <Col md={2}>
-            <h3>phpSqlServAdmin</h3>
-            <small>Powered by TalisMS and ReactJS</small>
+            <Row>
+              <Col>
+                <h3>phpSqlServAdmin</h3>
+                <small>Powered by TalisMS and ReactJS</small>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <DbTableMenu />
+              </Col>
+            </Row>
           </Col>
-          <Col md={10}>
-            <TopBreadcrumbs />
-          </Col>
-        </Row>
 
-        <Row className="mt-5">
-          <Col md={2}>
-            <DbTableMenu />
-          </Col>
           <Col md={10}>
-            <QueryEditor />
-            <LastQuery />
-            <QueryResults />
+          <Row>
+            <Col>
+              <TopBreadcrumbs />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col><ErrorBoundry>{children}</ErrorBoundry></Col>
+          </Row>
+
           </Col>
         </Row>
-        
       </Container>
 		</>
 	);

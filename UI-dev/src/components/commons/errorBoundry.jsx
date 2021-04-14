@@ -3,7 +3,7 @@ import log from './../../services/log';
 
 //TODO delete if I am not using it, it is to encapsulate different mini apps within the page.
 
-export default class ErrorBoundary extends Component {
+export default class ErrorBoundry extends Component {
     constructor(props) {
       super(props);
       this.state = { hasError: false };
