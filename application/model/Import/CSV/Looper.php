@@ -57,10 +57,12 @@ class Looper{
     private \lib\Database\Connection $db_conn;
 
     /**
+     * @param string $table_name
      * @param string $path_file_name
      * @param string $csv_delimiter
-     * @param int $cnt_header_fields
-     * @param array $file_schema field names and their order in the CSV
+     * @param int $header_rows_cnt
+     * @param string[] $file_schema
+     * @param \lib\Database\Connection $db_conn
      */
     public function __construct(string $table_name,string $path_file_name,string $csv_delimiter,int $header_rows_cnt,array $file_schema,\lib\Database\Connection $db_conn){
         $parts = explode('/',$path_file_name);
@@ -79,7 +81,7 @@ class Looper{
     
     /**
      * [idx => [validator1, validator2 ...]]
-     * @var array
+     * placeholder/hook
      */
     private function load_validators() : void {
         $this->validators = [];
@@ -118,7 +120,7 @@ class Looper{
             info($header);
         }
         
-        while (($data = fgetcsv($handle,0, $this->CSV_DELIMITER)) !== false) {
+        while ($data = fgetcsv($handle,0, $this->CSV_DELIMITER)) {//Notice fgetcsv can return [], nmull,false for different reasons.
             dbgr('RECORD',$data);
             $record = [];
 
@@ -162,7 +164,7 @@ class Looper{
     
     /**
      * 
-     * @param array $record
+     * @param array<string, string> $record
      * @return boolean
      */
     private function validate(array $record) {
@@ -180,7 +182,7 @@ class Looper{
 
     /**
      *
-     * @param array $insert_records
+     * @param array<int,array<string,string>> $insert_records
      */
     private function handle_insert(array $insert_records):void{
         info("\n\nINSERTING NOW\n--------------\n");
@@ -205,7 +207,7 @@ class Looper{
     
     /**
      * 
-     * @param array $record
+     * @param array<string,string> $record
      */
     private function handle_error(array $record):void{
         

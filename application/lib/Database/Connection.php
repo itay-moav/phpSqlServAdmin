@@ -255,48 +255,6 @@ class Connection{
     }
 
     /**
-     * Attempts to get Caller function.
-     */
-    private function getCaller(): string
-    {
-        $bt = debug_backtrace(BACKTRACE_MASK);
-        $stack = [];
-        $i = 0;
-        foreach ($bt as $trace_line) {
-            if (! isset($trace_line['file'])) {
-                $trace_line['file'] = 'unknown, probably due to unittest reflection way';
-            }
-            if (! isset($trace_line['line'])) {
-                $trace_line['line'] = 'unknown, probably due to unittest reflection way';
-            }
-
-            if ($i > 4 && $this->logVerbosity < self::LOG_VERBOSITY_ALL) {
-                break;
-            }
-            $function = isset($trace_line['function']) ? $trace_line['function'] : '';
-            // exclude some functions from debug trace
-            if (in_array($function, array(
-                'getCaller',
-                'slog',
-                'execute',
-                'select',
-                'update',
-                'delete',
-                'insert'
-            ))) {
-                continue;
-            }
-
-            // unfold args
-            $args = (isset($trace_line['args']) && ! empty($trace_line['args'])) ? ' args: ' . print_r($trace_line['args'], true) : '';
-            $stack[] = "{$trace_line['file']} ({$trace_line['line']}) function:{$function}{$args}";
-            $i ++;
-        }
-
-        return implode(PHP_EOL, $stack);
-    }
-
-    /**
      * Debug info for who ever wants it
      *
      * @return string

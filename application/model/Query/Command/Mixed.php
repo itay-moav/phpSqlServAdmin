@@ -14,15 +14,13 @@ class Mixed extends \lib\Database\ChainWithConnection
      */
     public function process(): \Talis\Chain\aChainLink
     {
-        dbgn('MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM');
         $payload = $this->Response->getPayload();
         //handle multiple queries with the "GO" delimiter
         $query = str_replace("GO\n",";\n",$payload->query);
-        
+        $run = $this->conn->execute($query);//error handled in Run.php
+
         try{
-            $run = $this->conn->execute($query);
             $possible_res = $run->fetchAll();
-            
         } catch(\PDOException $e){
             if($e->getCode() !== \model\Query\ERROR_CODE__NO_RESULTS){
                 throw $e;
@@ -46,7 +44,6 @@ class Mixed extends \lib\Database\ChainWithConnection
         dbgr("stripos($query,'CREATE')",stripos($query,'CREATE'));
         dbgr("stripos($query,'ALTER')",stripos($query,'ALTER'));
         dbgr("stripos($query,'DROP')",stripos($query,'DROP'));
-        dbgn('ggggggggggggggggggggggggggggggggggggggggg');
         if(stripos($query,'ALTER') !== false || stripos($query,'DROP') !== false || stripos($query,'CREATE') !== false ){
             $payload->triggerReferesh = 1;
         }
