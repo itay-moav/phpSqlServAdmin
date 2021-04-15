@@ -14,7 +14,7 @@ class AppInitRead extends \Talis\Chain\aFilteredValidatedChainLink{
     protected function get_next_bl():array{
         return [
             [AddServerDetails::class,[]],
-            [\model\Query\Run::class,['query' => 'select * from sys.tables']], //fetches all tables in db
+            [\model\Query\Run::class,['query' => 'select * from sys.tables']], //fetches all tables in db  
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];
     }
@@ -45,5 +45,9 @@ class AddServerDetails extends \Talis\Chain\aChainLink
     }
 }
 
+//SELECT * FROM sys.dm_os_sys_info;
+//SELECT * FROM sys.tables
+//SELECT hostname, loginame, cmd FROM sys.sysprocesses
+//select * from sys.configurations
 
 

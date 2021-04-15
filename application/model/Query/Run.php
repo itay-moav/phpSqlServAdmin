@@ -19,7 +19,7 @@ class Run extends \lib\Database\ChainWithConnection
     {
         $query   = trim($this->params['query'] ??  $this->Request->getBodyParamOrFail('query'));
         $payload = $this->Response->getPayload();
-        $command = strtolower(explode(' ', $query)[0]);
+        $command = strtoupper(explode(' ', $query)[0]);
         $payload->command = $command;
         $payload->query = $query;
         $payload->queryResult = [];
@@ -28,7 +28,7 @@ class Run extends \lib\Database\ChainWithConnection
         $payload->error = '';
         
         try{
-            dbgn($command);
+            dbgn("switch command: {$command}");
             switch($command){
                 case COMMAND__SELECT:
                     (new Command\Select($this->Request,$this->Response))->process();

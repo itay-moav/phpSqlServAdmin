@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
+import { Route, Switch, Redirect, HashRouter } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import {appInit} from "./store/api";
 
 //Layout
+import Layout from './components/layout/layout';
 import ErrorBoundary from "./components/commons/errorBoundry";
 
 //Pages
 import DatabasePage from "./components/pages/database/databasePage";
-import TablePage from "./components/pages/table/tablePage";
 
 /**
  * Log's user in, trigger upload of the content
@@ -26,12 +26,15 @@ const App = (props) => {
 
   return (     
     
-    <BrowserRouter>
+    <HashRouter>
+      <Layout>
       <Switch>
-        <Route path="/database/:selectedDb" component={TablePage} />
-        <Redirect to="/database/current" />
+        <Route path="/database/:selectedDb" component={DatabasePage} />
+        <Route path="/database" component={DatabasePage} />
+        <Redirect to="/database" />
       </Switch>
-    </BrowserRouter>
+      </Layout>
+    </HashRouter>
     
  );
 }

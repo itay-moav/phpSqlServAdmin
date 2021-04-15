@@ -161,7 +161,7 @@ class Connection{
     /**
      * Returns the last bind valye array
      *
-     * @return array
+     * @return string[]
      */
     public function getLastbindParams(): array
     {
@@ -172,7 +172,7 @@ class Connection{
      * Fetch the rowset based on the PDO Type (FETCH_ASSOC,...)
      *
      * @param integer $fetch_type
-     * @return array
+     * @return array<string, string>
      */
     public function fetchAll(int $fetch_type = \PDO::FETCH_ASSOC): array
     {
@@ -183,32 +183,61 @@ class Connection{
     /**
      * Fetch the rowset based on the PDO Type (FETCH_OBJ)
      *
-     * @return array of stdClass
+     * @return \stdClass[]
      */
     public function fetchAllObj(): array
     {
-        return $this->lastStatement->fetchAll(\PDO::FETCH_OBJ);
+        $res = $this->lastStatement->fetchAll(\PDO::FETCH_OBJ);
+        if($res === false){
+            throw new \Exception('Failed retrieving results - add logs to debug');
+        }
+        return $res;
     }
 
+    /**
+     * 
+     * @param string $class_name
+     * @param array $ctor_args
+     * @throws \Exception
+     * @return \stdClass[]
+     */
     public function fetchAllUserObj(string $class_name, array $ctor_args = []): array
     {
-        return $this->lastStatement->fetchAll(\PDO::FETCH_CLASS, $class_name, $ctor_args);
+        $res = $this->lastStatement->fetchAll(\PDO::FETCH_CLASS, $class_name, $ctor_args);
+        if($res === false){
+            throw new \Exception('Failed retrieving results - add logs to debug');
+        }
+        return $res;
     }
 
+    /**
+     * 
+     * @param callable $func
+     * @return array<int,mixed>
+     */
     public function fetchAllUserFunc($func): array
     {
-        return $this->lastStatement->fetchAll(\PDO::FETCH_FUNC, $func);
+        $res = $this->lastStatement->fetchAll(\PDO::FETCH_FUNC, $func);
+        if($res === false){
+            throw new \Exception('Failed retrieving results - add logs to debug');
+        }
+        return $res;
     }
 
     /**
      * returns the result index by the first selected field and an array of the
      * rest of the columns
      *
-     * @return array
+     * @param callable $func
+     * @return array<int,mixed>
      */
     public function fetchAllIndexed(callable $func): array
     { // THIS IS STILL THOUGHT UPON!
-        return $this->lastStatement->fetchAll(\PDO::FETCH_UNIQUE | \PDO::FETCH_FUNC, $func);
+        $res=$this->lastStatement->fetchAll(\PDO::FETCH_UNIQUE | \PDO::FETCH_FUNC, $func);
+        if($res === false){
+            throw new \Exception('Failed retrieving results - add logs to debug');
+        }
+        return $res;
     }
 
     /**

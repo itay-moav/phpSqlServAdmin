@@ -40,10 +40,6 @@ class Mixed extends \lib\Database\ChainWithConnection
         } 
         
         //Do we have some schema altering code?
-        dbgr('QUERY',$query);
-        dbgr("stripos($query,'CREATE')",stripos($query,'CREATE'));
-        dbgr("stripos($query,'ALTER')",stripos($query,'ALTER'));
-        dbgr("stripos($query,'DROP')",stripos($query,'DROP'));
         if(stripos($query,'ALTER') !== false || stripos($query,'DROP') !== false || stripos($query,'CREATE') !== false ){
             $payload->triggerReferesh = 1;
         }

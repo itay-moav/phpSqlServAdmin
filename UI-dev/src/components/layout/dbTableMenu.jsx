@@ -1,25 +1,34 @@
 import React from "react";
 import {useSelector,useDispatch} from 'react-redux';
-import { useRouteMatch,Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
 import {fetchTableFields,runQuery} from "../../store/api";
 import {UIActions} from "../../store/ui";
 
 import './dbTableMenu.css';
 const DbTableMenu = () => {
-    const match = useRouteMatch();
     const dispatch = useDispatch();
     //TODO create as a selector function in the proper place
-    const tableList     = useSelector(state => (state.databases.current ? state.databases.tableList[state.databases.current] : []) );
+    const dbSelector = state => {
+        const ret = {
+            current: state.databases.current,
+            tableList: []
+        };
+        if(state.databases.current){
+            ret.tableList = state.databases.tableList[state.databases.current];
+        }
+
+        return ret;
+    };
+    const database      = useSelector(dbSelector)
     const currentTable  = useSelector(state => state.ui.currentTable);
-    
     
     return (  
         <ListGroup variant="flush" bsPrefix="table-list">
-            {tableList.map(table=>{
+            {database.tableList.map(table=>{
             
                 return (<ListGroup.Item key={table.name} active={currentTable === table.name}>
-                            <Link to={`${match.url}/table/${table.name}`}>
+                            <Link to={`/database/${database.current}/table/${table.name}`}>
                             <i className="btn fa fa-table db-element-clickable" aria-hidden="true" onClick={()=>{
                                     dispatch(UIActions.selectedTable(table.name));
                                     dispatch(fetchTableFields(table.name));

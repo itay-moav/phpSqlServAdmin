@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import {useSelector} from 'react-redux';
 import { Container,Row,Col } from "react-bootstrap";
 import ErrorBoundry from "../commons/errorBoundry";
@@ -64,17 +65,20 @@ function TopBreadcrumbs(){
         </span >
         {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i> 
 
-         
+        <NavLink to={`/database/${currentDB}`}>
         <span className="db-element-clickable">
           <i className="btn fa fa-database" aria-hidden="true"></i>
           {currentDB}
-        </span> 
+        </span>
+        </NavLink>
 
         {currentTable && 
           (
           <>
-          {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i>
-          <span className="db-element-clickable">
+          {' '}
+          <i className="fa fa-angle-double-right" aria-hidden="true"></i>
+
+          <span>
             <i className="btn fa fa-table" aria-hidden="true"></i>
             {currentTable}
           </span> 
