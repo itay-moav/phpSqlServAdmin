@@ -3,9 +3,9 @@
 abstract class ChainWithConnection extends \Talis\Chain\aChainLink
 {
     /**
-     * @var Connection
+     * @var ?Connection
      */
-    protected Connection $conn; 
+    protected ?Connection $conn; 
     
     /**
      *
@@ -16,8 +16,9 @@ abstract class ChainWithConnection extends \Talis\Chain\aChainLink
     public function __construct(\Talis\Message\Request $Request,\Talis\Message\Response $Response,array $params=[]){
         parent::__construct($Request, $Response,$params);
         $conn = $this->Request->getBodyParam('CONN',null);
-        if(!$conn){
-            $this->conn = new Connection('amwell_sandbox',app_env()['databases']['amwell_sandbox'],\ZimLogger\MainZim::$CurrentLogger);
+        $connection_name = \Talis\Corwin::$Context->resource('connection_name');
+        if(!$conn && $connection_name !== \Talis\Context::NaN){ //If there is no connection name setup, I return empty
+            $this->conn = new Connection($connection_name,app_env()['databases'][$connection_name],\ZimLogger\MainZim::$CurrentLogger);
             $this->Request->addToBodyParams('CONN',$this->conn);
         } else {
             $this->conn = $conn;

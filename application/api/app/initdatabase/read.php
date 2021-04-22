@@ -1,10 +1,11 @@
 <?php namespace Api;
 /**
+ * Fetch init data for the dabases selected
  * 
  * @author itay
  *
  */
-class AppInitRead extends \Talis\Chain\aFilteredValidatedChainLink{
+class AppInitdatabaseRead extends \Talis\Chain\aFilteredValidatedChainLink{
 
     /**
      * 
@@ -13,7 +14,7 @@ class AppInitRead extends \Talis\Chain\aFilteredValidatedChainLink{
      */
     protected function get_next_bl():array{
         return [
-            [AddServerDetails::class,[]],
+            [GetServers::class,[]],
             [\model\Query\Run::class,['query' => 'select * from sys.tables']], //fetches all tables in db  
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];
@@ -25,7 +26,7 @@ class AppInitRead extends \Talis\Chain\aFilteredValidatedChainLink{
  * @author itay
  *
  */
-class AddServerDetails extends \Talis\Chain\aChainLink
+class GetServers extends \Talis\Chain\aChainLink
 {
     /**
      * {@inheritDoc}
@@ -34,13 +35,25 @@ class AddServerDetails extends \Talis\Chain\aChainLink
     public function process():\Talis\Chain\aChainLink{
         $payload = $this->Response->getPayload();
         $databases = \app_env()['databases'];
+        $servers = [];
         //remove passwords
-        foreach($databases as &$database){
-            unset($database['connection_name']);
+        foreach($databases as $database){
             unset($database['password']);
+            if(!isset($servers[$database['server']])){
+                $servers[$database['server']] = [];
+            }
+            $servers[$database['server']][] = $database;
         }
-        $payload->servers = $databases;
-        $payload->connectedTo = $database;//Notice no (s) at the end. This is the current connection, servers is the possible connections TODO should probably change the logic
+        $payload->servers = $servers;
+        if(count($servers) === 1){
+            $payload->currentServer  = $database['server'];
+            $payload->currentDatabse = $database['database'];
+            \Talis\Corwin::$Context->resource('connection_name',$database['connection_name']);
+        } else {
+            $payload->currentServer  = '';
+            $payload->currentDatabse = '';
+            \Talis\Corwin::$Context->resource('connection_name',null);
+        }
         return $this;
     }
 }
@@ -49,5 +62,6 @@ class AddServerDetails extends \Talis\Chain\aChainLink
 //SELECT * FROM sys.tables
 //SELECT hostname, loginame, cmd FROM sys.sysprocesses
 //select * from sys.configurations
+//EXEC sp_tables
 
 

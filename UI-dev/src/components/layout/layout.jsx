@@ -50,27 +50,46 @@ export default function Layout({children}){
 /**
  */
 function TopBreadcrumbs(){
-  const currentServer = useSelector(state => state.databases.server);
-  const currentDB     = useSelector(state => state.databases.current);
-  const currentTable  = useSelector(state => state.ui.currentTable);
-
+  const currentServer   = useSelector(state => state.servers.currentServer);
+  const currentDatabase = useSelector(state => state.databases.currentDatabase);
+  const currentTable    = useSelector(state => state.ui.currentTable);
+  
   return (
     <header className="page-head-wrapper">     
-      {currentDB && (
+      
       <span className="header-breadcrumbs">
         
+        <NavLink to="/server">
         <span className="db-element-clickable">
           <i className="btn fa fa-server" aria-hidden="true"></i> 
-          {currentServer}
         </span >
+        </NavLink>
+        
+        {
+        currentServer && (
+          <NavLink to={`/server/${currentServer}`}>
+          <span className="db-element-clickable">
+            {currentServer}
+          </span >
+          </NavLink>
+        )
+        }
+
+
+        {
+        currentDatabase && (
+        <>
         {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i> 
 
-        <NavLink to={`/database/${currentDB}`}>
+        <NavLink to={`/database/${currentDatabase}`}>
         <span className="db-element-clickable">
           <i className="btn fa fa-database" aria-hidden="true"></i>
-          {currentDB}
+          {currentDatabase}
         </span>
         </NavLink>
+        </>
+        )}
+
 
         {currentTable && 
           (
@@ -86,7 +105,7 @@ function TopBreadcrumbs(){
           )
         }
 
-      </span>)}
+      </span>
     </header>
   );
 }

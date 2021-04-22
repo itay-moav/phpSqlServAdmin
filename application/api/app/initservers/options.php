@@ -4,7 +4,7 @@
  * @author Itay Moav
  * @Date  20200406
  */
-class AppInitOptions extends \Talis\Chain\OptionsAllowed{
+class AppInitserversOptions extends \Talis\Chain\OptionsAllowed{
     
     /**
      * 

@@ -293,5 +293,3 @@ class Connection{
         return "LAST SQL: \n{$this->lastSql}\nWith params:\n\n" . print_r($this->lastBindParams, true);
     }
 }
-    
-    

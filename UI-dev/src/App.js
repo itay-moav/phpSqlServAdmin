@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, Redirect, HashRouter } from "react-router-dom";
 import {useDispatch} from 'react-redux';
-import {appInit} from "./store/api";
+import {appInitServers} from "./store/api";
 
 //Layout
 import Layout from './components/layout/layout';
-import ErrorBoundary from "./components/commons/errorBoundry";
 
 //Pages
-import DatabasePage from "./components/pages/database/databasePage";
+import ServerPage from "./components/pages/server/serverPage";
 
 /**
  * Log's user in, trigger upload of the content
@@ -18,12 +17,26 @@ const App = (props) => {
   const dispatch = useDispatch();
 
   /**
-   * Init's the app with user and content info
+   * Init's the app with list of available servers
    */
   useEffect( () => {
-    dispatch(appInit());
+    dispatch(appInitServers());
 	},[dispatch] );
 
+  return (     
+    
+    <HashRouter>
+      <Layout>
+      <Switch>
+        <Route path="/server/:selectedServer" component={ServerPage} />
+        <Route path="/server" component={ServerPage} />
+        <Redirect to="/server" />
+      </Switch>
+      </Layout>
+    </HashRouter>
+    
+ );
+/*
   return (     
     
     <HashRouter>
@@ -37,5 +50,6 @@ const App = (props) => {
     </HashRouter>
     
  );
+ */
 }
 export default App;

@@ -1,4 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
+import {ServersActions} from "./servers";
 import {DatabasesActions} from "./databases";
 import {QueryActions} from "./query";
 
@@ -6,12 +7,12 @@ export const apiCallBegan = createAction("api/callBegan");
 export const apiCallSuccess = createAction("api/callSuccess");
 export const apiCallFailed = createAction("api/callFailed");
 
-export const appInit = () => (dispatch) => {
+export const appInitServers = () => (dispatch) => {
     return dispatch(
         apiCallBegan({
-            url: '/app/init',
+            url: '/app/initservers',
             method: 'get',
-            onSuccess: DatabasesActions.loaded.type
+            onSuccess: ServersActions.loaded.type
         })
     );
 };

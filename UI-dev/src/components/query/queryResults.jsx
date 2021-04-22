@@ -1,6 +1,6 @@
 import React from "react";
 import {useSelector} from 'react-redux';
-import { Table,Jumbotron,Alert } from "react-bootstrap";
+import { Table,Alert } from "react-bootstrap";
 
 const QueryResults = () => {
     //TODO create as a selector function in the proper place

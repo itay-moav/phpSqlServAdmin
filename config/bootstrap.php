@@ -8,7 +8,6 @@
 define('CORE_PATH', 		__DIR__ . '/..');
 define('APP_PATH', 			CORE_PATH . '/application');
 ini_set('include_path', '.' . PATH_SEPARATOR . APP_PATH);
-require_once __DIR__ . '/config.php';
 
 /**
  *
@@ -28,6 +27,9 @@ function getAutoloader(){
 spl_autoload_register(getAutoloader(),true);
 require_once __DIR__ . '/../vendor/autoload.php';
 \ZimLogger\MainZim::include_shortcuts();
+
+//PERSONAL CONFIGURATIONS
+require_once __DIR__ . '/config.php';
 
 //Logger
 \ZimLogger\MainZim::setGlobalLogger(
