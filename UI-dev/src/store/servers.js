@@ -5,7 +5,7 @@ const ServersSlice = createSlice({
   name: "servers",
   initialState: {
     currentServer: '',
-    connectionName: '',
+    //connectionName: '',
     databaseList: {} //server:[databases]
   },
   reducers: {

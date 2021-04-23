@@ -11,16 +11,17 @@ const DbTableMenu = () => {
     //TODO create as a selector function in the proper place
     const dbSelector = state => {
         const ret = {
-            current: state.databases.current,
+            current: state.databases.currentDatabase,
             tableList: []
         };
-        if(state.databases.current){
-            ret.tableList = state.databases.tableList[state.databases.current];
+        if(state.databases.currentDatabase){
+            ret.tableList = state.databases.tableList[state.databases.currentDatabase];
         }
 
         return ret;
     };
-    const database      = useSelector(dbSelector)
+    const server        = useSelector(state => state.servers.currentServer);
+    const database      = useSelector(dbSelector);
     const currentTable  = useSelector(state => state.ui.currentTable);
     
     return (  
@@ -28,15 +29,15 @@ const DbTableMenu = () => {
             {database.tableList.map(table=>{
             
                 return (<ListGroup.Item key={table.name} active={currentTable === table.name}>
-                            <Link to={`/database/${database.current}/table/${table.name}`}>
+                            <Link to={`/server/${server}/database/${database.current}/table/${table.name}`}>
                             <i className="btn fa fa-table db-element-clickable" aria-hidden="true" onClick={()=>{
+                                    dispatch(fetchTableFields(server,database.current,table.name));
                                     dispatch(UIActions.selectedTable(table.name));
-                                    dispatch(fetchTableFields(table.name));
                                 }
                             }></i>
                             <span className="table-name db-element-clickable" onClick={()=>{
+                                    dispatch(runQuery(server,database.current,`SELECT * FROM [${table.name}]`));
                                     dispatch(UIActions.selectedTable(table.name));
-                                    dispatch(runQuery(`SELECT * FROM [${table.name}]`));
                                 }
                             }>{table.name}</span>
                             </Link>

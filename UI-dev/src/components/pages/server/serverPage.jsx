@@ -10,7 +10,7 @@ import {
 //import {UIActions} from "../../../store/ui";
 import ShowServer from "./showServer";
 import SelectServer from "./selectServer";
-import ShowDatabase from "../database/databasePage";
+import DatabasePage from "../database/databasePage";
 
 const ServerPage = () => {
     //let match = useRouteMatch();
@@ -24,8 +24,7 @@ const ServerPage = () => {
 
     return (
         <Switch>
-            <Route path="/server/:selectedServer/database/:selectedDb" component={ShowDatabase} />
-            <Route path="/server/:selectedServer/database" component={ShowDatabase} />
+            <Route path="/server/:selectedServer/database" component={DatabasePage} />
             <Route path="/server/:selectedServer" component={ShowServer} />
             <Route path="/server" component={SelectServer} />
         </Switch>

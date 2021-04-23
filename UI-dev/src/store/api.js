@@ -1,4 +1,4 @@
-import { createAction } from "@reduxjs/toolkit";
+import {createAction} from "@reduxjs/toolkit";
 import {ServersActions} from "./servers";
 import {DatabasesActions} from "./databases";
 import {QueryActions} from "./query";
@@ -17,10 +17,20 @@ export const appInitServers = () => (dispatch) => {
     );
 };
 
-export const fetchTableFields = (table_name) => (dispatch) => {
+export const appInitDatabase = (serverName,databaseName) => (dispatch) => {
     return dispatch(
         apiCallBegan({
-            url: '/tables/fields/table/' + table_name,
+            url: '/app/initdatabase/servername/' + serverName + '/databasename/' + databaseName,
+            method: 'get',
+            onSuccess: DatabasesActions.selected.type
+        })
+    );
+};
+
+export const fetchTableFields = (serverName,databaseName,tableName) => (dispatch) => {
+    return dispatch(
+        apiCallBegan({
+            url: `/tables/fields/servername/${serverName}/databasename/${databaseName}/table/${tableName}`,
             method: 'get',
             onSuccess: [
                 QueryActions.queryRan.type,
@@ -30,10 +40,10 @@ export const fetchTableFields = (table_name) => (dispatch) => {
     );
 };
 
-export const runQuery = (query) => (dispatch) => {
+export const runQuery = (serverName,databaseName,query) => (dispatch) => {
     return dispatch(
         apiCallBegan({
-            url: '/query/run',
+            url: `/query/run/servername/${serverName}/databasename/${databaseName}`,
             method: 'post',
             body: {params:{query}},
             onSuccess: [

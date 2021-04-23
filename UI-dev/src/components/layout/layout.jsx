@@ -81,7 +81,7 @@ function TopBreadcrumbs(){
         <>
         {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i> 
 
-        <NavLink to={`/database/${currentDatabase}`}>
+        <NavLink to={`/server/${currentServer}/database/${currentDatabase}`}>
         <span className="db-element-clickable">
           <i className="btn fa fa-database" aria-hidden="true"></i>
           {currentDatabase}

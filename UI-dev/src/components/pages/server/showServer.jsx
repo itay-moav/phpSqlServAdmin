@@ -1,9 +1,22 @@
 import React, { useEffect } from 'react';
-import {useDispatch,useSelector} from 'react-redux';
-import {Link,useRouteMatch} from "react-router-dom";
+import {useDispatch /*,useSelector*/} from 'react-redux';
+import {/*Link,*/useRouteMatch} from "react-router-dom";
 import {ServersActions} from "../../../store/servers";
+import SelectDatabase from "../database/selectDatabase";
 
 const ShowServer = () => {
+    let match = useRouteMatch();
+    const dispatch = useDispatch();
+    const {selectedServer} = match.params;
+
+    useEffect( () => {
+        dispatch(ServersActions.serverSelected({selectedServer}));
+	},[dispatch,selectedServer] );
+
+// TODO: this is just the selectDB option page fopr now, there will be more 
+    return (<SelectDatabase />);
+    
+/*
     let match = useRouteMatch();
     const dispatch = useDispatch();
     const {selectedServer} = match.params;
@@ -30,7 +43,7 @@ const ShowServer = () => {
         )}
         </div>
         
-    );
+    );*/
 }
  
 export default ShowServer;

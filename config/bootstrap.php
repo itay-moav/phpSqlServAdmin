@@ -7,6 +7,7 @@
  */
 define('CORE_PATH', 		__DIR__ . '/..');
 define('APP_PATH', 			CORE_PATH . '/application');
+define('LIB_PATH', 			APP_PATH . '/lib');
 ini_set('include_path', '.' . PATH_SEPARATOR . APP_PATH);
 
 /**
@@ -42,6 +43,8 @@ require_once __DIR__ . '/config.php';
 
 \Talis\Corwin::$APP_PATH = APP_PATH;
 
+//lib to figure out which way do we connect
+require_once LIB_PATH . '/Database/FindConnectionName.php';
 
 
 /*

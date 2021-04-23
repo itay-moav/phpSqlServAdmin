@@ -9,7 +9,7 @@ const DatabasesSlice = createSlice({
   },
   reducers: {
     selected: (databases, action) => {
-        databases.currentDatabase = action.payload.connectedTo.database;
+        databases.currentDatabase = action.payload.selectedDatabase;
         databases.tableList[databases.currentDatabase] = action.payload.queryResult;
     },
 

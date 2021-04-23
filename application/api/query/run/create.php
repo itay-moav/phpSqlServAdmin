@@ -8,6 +8,7 @@ class QueryRunCreate extends \Talis\Chain\aFilteredValidatedChainLink{
      */
     protected function get_next_bl():array{
         return [
+            [\lib\Database\FindConnectionName(),[]],
             [\model\Query\Run::class,[]],
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];
