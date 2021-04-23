@@ -3,6 +3,9 @@ import {useDispatch} from 'react-redux';
 import {useRouteMatch} from "react-router-dom";
 import {UIActions} from "../../../store/ui";
 import {appInitDatabase} from "../../../store/api";
+import QueryEditor from "../../query/queryEditor";
+import LastQuery from "../../query/lastQuery";
+import QueryResults from "../../query/queryResults";
 
 const ShowDatabase = () => {
     let match = useRouteMatch();
@@ -16,7 +19,13 @@ const ShowDatabase = () => {
     useEffect( () => {
         dispatch(UIActions.resetTableUI());
     },[dispatch,selectedDb] );
-    return ( <span>{selectedDb}</span> );
+    return (
+        <>
+            <QueryEditor />
+            <LastQuery />
+            <QueryResults />
+        </>
+    );
 }
  
 export default ShowDatabase;

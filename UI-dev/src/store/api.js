@@ -22,7 +22,10 @@ export const appInitDatabase = (serverName,databaseName) => (dispatch) => {
         apiCallBegan({
             url: '/app/initdatabase/servername/' + serverName + '/databasename/' + databaseName,
             method: 'get',
-            onSuccess: DatabasesActions.selected.type
+            onSuccess:  [
+                QueryActions.queryRan.type,
+                DatabasesActions.selected.type
+            ]
         })
     );
 };

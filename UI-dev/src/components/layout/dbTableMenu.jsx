@@ -29,17 +29,17 @@ const DbTableMenu = () => {
             {database.tableList.map(table=>{
             
                 return (<ListGroup.Item key={table.name} active={currentTable === table.name}>
-                            <Link to={`/server/${server}/database/${database.current}/table/${table.name}`}>
+                            <Link to={`/server/${server}/database/${database.current}/table/${table.TABLE_NAME}`}>
                             <i className="btn fa fa-table db-element-clickable" aria-hidden="true" onClick={()=>{
-                                    dispatch(fetchTableFields(server,database.current,table.name));
-                                    dispatch(UIActions.selectedTable(table.name));
+                                    dispatch(fetchTableFields(server,database.current,table.TABLE_NAME));
+                                    dispatch(UIActions.selectedTable(table.TABLE_NAME));
                                 }
                             }></i>
                             <span className="table-name db-element-clickable" onClick={()=>{
-                                    dispatch(runQuery(server,database.current,`SELECT * FROM [${table.name}]`));
-                                    dispatch(UIActions.selectedTable(table.name));
+                                    dispatch(runQuery(server,database.current,`SELECT * FROM [${table.TABLE_OWNER}].[${table.TABLE_NAME}]`));
+                                    dispatch(UIActions.selectedTable(table.TABLE_NAME));
                                 }
-                            }>{table.name}</span>
+                            }>{table.TABLE_NAME}</span>
                             </Link>
                         </ListGroup.Item>)
             }

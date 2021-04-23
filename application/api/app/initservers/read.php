@@ -16,7 +16,6 @@ class AppInitserversRead extends \Talis\Chain\aFilteredValidatedChainLink{
     protected function get_next_bl():array{
         return [
             [GetServers::class,[]],
-            [\model\Query\Run::class,['query' => 'select * from sys.tables']], //fetches all tables in db  
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];
     }
@@ -53,6 +52,10 @@ class GetServers extends \Talis\Chain\aChainLink
             $payload->currentServer  = $database['server'];
             $payload->currentDatabse = $database['database'];
             \Talis\Corwin::$Context->resource('connection_name',$database['connection_name']);
+            
+            //Fetch database information TODO not sure client side can handle it
+            (new \model\Query\Run($this->Request,$this->Response,['query' => 'select * from sys.tables']))->process();
+            
         } else {
             $payload->currentServer  = '';
             $payload->currentDatabse = '';
