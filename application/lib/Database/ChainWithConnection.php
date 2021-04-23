@@ -3,9 +3,9 @@
 abstract class ChainWithConnection extends \Talis\Chain\aChainLink
 {
     /**
-     * @var ?Connection
+     * @var Connection
      */
-    protected ?Connection $conn; 
+    protected Connection $conn; 
     
     /**
      *
@@ -20,8 +20,10 @@ abstract class ChainWithConnection extends \Talis\Chain\aChainLink
         if(!$conn && $connection_name !== \Talis\Context::NaN){ //If there is no connection name setup, I return empty
             $this->conn = new Connection($connection_name,app_env()['databases'][$connection_name],\ZimLogger\MainZim::$CurrentLogger);
             $this->Request->addToBodyParams('CONN',$this->conn);
-        } else {
+        } elseif($conn) {
             $this->conn = $conn;
+        } else{
+            throw new \Exception('Missing connection details');
         }
     }
 }

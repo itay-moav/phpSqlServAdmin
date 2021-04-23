@@ -27,11 +27,6 @@ class Run extends \lib\Database\ChainWithConnection
         $payload->tables = [];
         $payload->error = '';
         
-        if(!$this->conn){
-            \warning('NO connection name in context');
-            return $this;
-        }
-        
         try{
             dbgn("switch command: {$command}");
             switch($command){

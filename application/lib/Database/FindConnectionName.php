@@ -2,8 +2,8 @@
 /**
  * Finds the connection name and stores in in Context
  */
-function FindConnectionName(){
-    return function (\Talis\Message\Request $Request,\Talis\Message\Response $Response){
+function FindConnectionName():\Closure{
+    return function (\Talis\Message\Request $Request,\Talis\Message\Response $Response):void{
         $payload = $Response->getPayload();
         $server = $Request->get_param_or_fail('servername');
         $database = $Request->get_param_or_fail('databasename');

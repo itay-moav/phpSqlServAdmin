@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * @return array<string, array<string, array<string, int|string>|bool|int|string>>
+ * @return mixed
  */
 function app_env():array
 {

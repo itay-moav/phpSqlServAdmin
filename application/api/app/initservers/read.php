@@ -36,8 +36,11 @@ class GetServers extends \Talis\Chain\aChainLink
     public function process():\Talis\Chain\aChainLink{
         $payload = $this->Response->getPayload();
         $databases = \app_env()['databases'];
+        if(!isset($databases) || !$databases || count($databases) === 0){
+            throw new \Exception('No configuration found');
+        }
+        
         $servers = [];
-        //remove passwords
         foreach($databases as $database){
             unset($database['password']);
             if(!isset($servers[$database['server']])){
