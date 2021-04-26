@@ -1,0 +1,16 @@
+{
+	"name": "a-talis-system/emerald",
+	"description": "Steven Universe Emerald Composer",
+	"type": "git",
+	"keywords": [
+		"steven_universe_emerald php talisms"
+	],
+	"require": {
+		"php": ">=7.4",
+		"director-moav/zimlogger": "v1.0.1",
+		"director-moav/talis-ms": "dev-master"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^0.12.68"
+	}
+}
