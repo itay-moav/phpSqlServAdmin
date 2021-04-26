@@ -5,7 +5,7 @@ abstract class ChainWithConnection extends \Talis\Chain\aChainLink
     /**
      * @var Connection
      */
-    protected Connection $conn; 
+    protected Connection $conn;
     
     /**
      *

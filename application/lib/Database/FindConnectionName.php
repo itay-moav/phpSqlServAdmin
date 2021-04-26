@@ -16,6 +16,7 @@ function FindConnectionName():\Closure{
                 break;
             }
         }
+        dbgr('CONNECTION NAME SELECTED!',$connection_name);
         \Talis\Corwin::$Context->resource('connection_name',$connection_name);
     };
 }

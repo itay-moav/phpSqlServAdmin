@@ -5,7 +5,7 @@
  * @author itay
  * @date 2021-April
  */
-class Connection{
+class Connection implements iConnection{
 
     /**
      *
