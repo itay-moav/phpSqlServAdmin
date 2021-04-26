@@ -1,7 +1,10 @@
-<?php
+<?php namespace lib\Database;
 
-namespace lib\Database;
-
+/**
+ * 
+ * @author itay
+ * @date 2021-April
+ */
 class Connection{
 
     /**
@@ -197,7 +200,7 @@ class Connection{
     /**
      * 
      * @param string $class_name
-     * @param array $ctor_args
+     * @param array<mixed> $ctor_args
      * @throws \Exception
      * @return \stdClass[]
      */
@@ -244,11 +247,15 @@ class Connection{
      * Returns array structured [f1=>f2,f1=>f2,f1=>f2 ...
      * f1=>f2]
      *
-     * @return array
+     * @return array<string,string>
      */
     public function fetchAllPaired(): array
     {
-        return $this->lastStatement->fetchAll(\PDO::FETCH_KEY_PAIR);
+        $res =$this->lastStatement->fetchAll(\PDO::FETCH_KEY_PAIR);
+        if($res === false){
+            throw new \Exception('Failed retrieving results fetchAllPaired - add logs to debug');
+        }
+        return $res;
     }
 
     /**
@@ -256,31 +263,53 @@ class Connection{
      *
      * @param int $column
      *            index in select list
-     * @return array
+     * @return string[]
      */
     public function fetchAllColumn(int $column = 0): array
     {
-        return $this->lastStatement->fetchAll(\PDO::FETCH_COLUMN, $column);
+        $res = $this->lastStatement->fetchAll(\PDO::FETCH_COLUMN, $column);
+        if($res === false){
+            throw new \Exception('Failed retrieving results fetchAllColumn - add logs to debug');
+        }
+        return $res;
+        
     }
 
+    /**
+     * @param int $result_type
+     * @return array<mixed>|\stdClass
+     */
     private function fetchRow($result_type)
     {
-        return $this->lastStatement ? $this->lastStatement->fetch($result_type) : null;
+        $res = $this->lastStatement->fetch($result_type);
+        if($res === false){
+            throw new \Exception('Failed retrieving results fetchRow - add logs to debug');
+        }
+        return $res;
     }
 
+    /**
+     * @return string[]
+     */
     public function fetchNumericArray(): array
     {
-        return $this->fetchRow(\PDO::FETCH_NUM);
+        return $this->fetchRow(\PDO::FETCH_NUM);// @phpstan-ignore-line
     }
 
+    /**
+     * @return array<string,string>
+     */
     public function fetchArray(): array
     {
-        return $this->fetchRow(\PDO::FETCH_ASSOC);
+        return $this->fetchRow(\PDO::FETCH_ASSOC);// @phpstan-ignore-line
     }
 
-    public function fetchObj()
+    /**
+     * @return \stdClass
+     */
+    public function fetchObj():\stdClass
     {
-        return $this->fetchRow(\PDO::FETCH_OBJ);
+        return $this->fetchRow(\PDO::FETCH_OBJ);// @phpstan-ignore-line
     }
 
     /**
