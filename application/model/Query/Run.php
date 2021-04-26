@@ -76,7 +76,7 @@ class Run extends \lib\Database\ChainWithConnection
         
         //If we need to refresh the UI with the list of tables (in case of a drop/create/alter statements)
         if($payload->triggerReferesh === 1){ //@phpstan-ignore-line The value is part of the payload and is being passed by ref to the specific query command classes and modified there
-            $payload->tables = $this->conn->execute('select * from sys.tables')->fetchAll();
+            $payload->tables = $this->conn->execute('EXEC sp_tables')->fetchAll();
         }
         return $this;
     }
