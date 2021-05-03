@@ -5,12 +5,14 @@ const DatabasesSlice = createSlice({
   name: "databases",
   initialState: {
     currentDatabase: '',
-    tableList: {}
+    tableList: {},
+    tablesOwners: {}
   },
   reducers: {
     selected: (databases, action) => {
         databases.currentDatabase = action.payload.selectedDatabase;
         databases.tableList[databases.currentDatabase] = action.payload.queryResult;
+        databases.tablesOwners[databases.currentDatabase] = action.payload.tablesOwners;
     },
 
     //If there was a query the server marks that modified the current db schema

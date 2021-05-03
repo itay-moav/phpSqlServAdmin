@@ -4,6 +4,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const UI = createSlice({
   name: "ui",
   initialState: {
+    dbMenuSelectedTableOwners:[],
     currentTable: null
   },
   reducers: {
@@ -12,7 +13,18 @@ const UI = createSlice({
     },
     resetTableUI:  (uiState,action) => {
       uiState.currentTable = null;
-    }
+    },
+    dbMenuSelectedTableOwnersOpened: (uiState,action) => {
+      if(uiState.dbMenuSelectedTableOwners.indexOf(action.payload) === -1){
+        uiState.dbMenuSelectedTableOwners.push(action.payload);
+      }
+    },
+    dbMenuSelectedTableOwnersClosed: (uiState,action) => {
+      const idx = uiState.dbMenuSelectedTableOwners.indexOf(action.payload);
+      if(idx !== -1){
+        uiState.dbMenuSelectedTableOwners.splice(idx,1);
+      }
+    },
   }
 });
 
