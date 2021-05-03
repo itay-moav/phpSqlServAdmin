@@ -9,6 +9,7 @@ const UI = createSlice({
   },
   reducers: {
     selectedTable: (uiState,action) => {
+      if(!action.payload) return uiState;
       uiState.currentTable = action.payload;
     },
     resetTableUI:  (uiState,action) => {

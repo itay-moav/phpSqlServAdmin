@@ -46,8 +46,8 @@ function ownerMenuItem(owner){
         <ListGroup variant="flush" bsPrefix="table-list">
             <ListGroup.Item variant="primary" onClick={()=>{
                                     show_table_list ?
-                                        dispatch(UIActions.dbMenuSelectedTableOwnersClosed(owner)):
-                                        dispatch(UIActions.dbMenuSelectedTableOwnersOpened(owner));
+                                        dispatch(UIActions.dbMenuSelectedTableOwnersClosed(owner)) :
+                                        dispatch(UIActions.dbMenuSelectedTableOwnersOpened(owner)); 
                                 }
                             }>
                 <i className={`btn fa ${arrow}`} aria-hidden="true"></i>
@@ -68,8 +68,7 @@ function tablesByOwner(owner){
                     return null;
                 } else {
 
-
-                    return (<ListGroup.Item key={table.name} active={currentTable === table.name}>
+                    return (<ListGroup.Item key={table.TABLE_NAME} active={currentTable === table.TABLE_NAME}>
                                 <Link to={`/server/${server}/database/${database.current}/table/${table.TABLE_NAME}`}>
                                 <i className="btn fa fa-table db-element-clickable" aria-hidden="true" onClick={()=>{
                                         dispatch(fetchTableFields(server,database.current,table.TABLE_NAME));
