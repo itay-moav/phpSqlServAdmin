@@ -24,7 +24,7 @@ class AppInitdatabaseRead extends \Talis\Chain\aFilteredValidatedChainLink{
                 $payload = $this->Response->getPayload();
                 $table_owners = [];
                 foreach($payload->queryResult as $table){
-                    $table_owners[$table['TABLE_OWNER']] = $table['TABLE_OWNER'];
+                    $table_owners[$table->TABLE_OWNER] = $table->TABLE_OWNER;
                 }
                 $payload->tablesOwners = array_values($table_owners);
             }
