@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import {useDispatch /*,useSelector*/} from 'react-redux';
-import {/*Link,*/useRouteMatch} from "react-router-dom";
+import {useDispatch} from 'react-redux';
+import {useRouteMatch} from "react-router-dom";
 import {ServersActions} from "../../../store/servers";
 import SelectDatabase from "../database/selectDatabase";
 

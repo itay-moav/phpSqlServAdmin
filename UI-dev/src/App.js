@@ -36,20 +36,5 @@ const App = (props) => {
     </HashRouter>
     
  );
-/*
-  return (     
-    
-    <HashRouter>
-      <Layout>
-      <Switch>
-        <Route path="/database/:selectedDb" component={DatabasePage} />
-        <Route path="/database" component={DatabasePage} />
-        <Redirect to="/database" />
-      </Switch>
-      </Layout>
-    </HashRouter>
-    
- );
- */
 }
 export default App;

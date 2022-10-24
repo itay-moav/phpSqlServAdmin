@@ -1,6 +1,7 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "Vulcan",
+  "version": "1.5.0",
+  "homepage": "vulcan",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",

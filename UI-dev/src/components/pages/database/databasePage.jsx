@@ -1,13 +1,10 @@
 import React from 'react';
-//import {/*useSelector,*/useDispatch} from 'react-redux';
 import {
   Switch,
   Route,
-  Redirect/*,
-  useRouteMatch*/
+  Redirect
 } from "react-router-dom";
 
-//import {UIActions} from "../../../store/ui";
 import ShowDatabase from "./showDatabase";
 import SelectDatabase from "./selectDatabase";
 import TablePage from "../table/tablePage";
@@ -17,15 +14,6 @@ import TablePage from "../table/tablePage";
 //if no db in the uri, it will pull up the selection of db, if there is only one db (CURRENTLY ALWAYS TRUE!) it will select it and route there
 
 const DatabasePage = () => {
-    //let match = useRouteMatch();
-    //const dispatch = useDispatch();
-    //const currentDb  = useSelector(state => (state.databases.current) );
-    //dispatch(UIActions.resetTableUI());
-/*TOBEDELETED?
-    if(!match.params.selectedDb && currentDb){
-        return (<Redirect to={`/database/${currentDb}`} />);
-    }
-*/
     return (
         <Switch>
             <Route path="/server/:selectedServer/database/:selectedDb/table" component={TablePage} />
@@ -37,5 +25,3 @@ const DatabasePage = () => {
 }
  
 export default DatabasePage;
-
-//<span>{match.params.selectedDb}</span>
