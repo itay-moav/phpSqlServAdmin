@@ -8,6 +8,14 @@ function App() {
 
     <Routes>
       <Route path="/" element={<Layout />}>
+        <Route path="servers" element={<h2>servers</h2>} />
+        <Route path="servers/:server" element={<h2>aserver</h2>} />
+        <Route path="servers/:server/databases" element={<h2>databases</h2>} />
+        <Route path="servers/:server/databases/:database" element={<h2>a databases</h2>} />
+        <Route path="servers/:server/databases/:database/tables" element={<h2>tables</h2>} />
+        <Route path="servers/:server/databases/:database/tables/:table" element={<h2>a table</h2>} />
+
+
         <Route path="text" element={    
               <div className="App">
               <header className="App-header">
@@ -57,6 +65,8 @@ function App() {
             </div>
         } />
       </Route>
+      <Route path="*" element={<h2>WTF have you gone?!</h2>} />
+
     </Routes>
   );
 }
