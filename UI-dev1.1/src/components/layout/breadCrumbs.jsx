@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink,useParams } from "react-router-dom";
+import useCurrents from "../../services/useCurrents";
 
 export default function BreadCrumbs(){
-    const currentServer   = useSelector(state => state.servers.currentServer);
-    const currentDatabase = useSelector(state => state.databases.currentDatabase);
-    const currentTable    = useSelector(state => state.ui.currentTable);
+    const current = useCurrents();
     
     return (
       <header className="page-head-wrapper">     
@@ -16,32 +14,33 @@ export default function BreadCrumbs(){
           </NavLink>
           
           {
-          currentServer && (
-            <NavLink to={`/servers/${currentServer}`}>
-            <span className="db-element-clickable">
-              {currentServer}
-            </span >
-            </NavLink>
-          )
+            current.server && (
+              <NavLink to={`/servers/${current.server}/databases`}>
+              <span className="db-element-clickable">
+                {current.server}
+              </span >
+              </NavLink>
+            )
           }
   
   
           {
-          currentDatabase && (
-          <>
-          {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i> 
+            current.database && (
+            <>
+            {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i> 
+    
+            <NavLink to={`/servers/${current.server}/database/${current.database}`}>
+            <span className="db-element-clickable">
+              <i className="btn fa fa-database" aria-hidden="true"></i>
+              {current.database}
+            </span>
+            </NavLink>
+            </>
+            )
+          }
   
-          <NavLink to={`/servers/${currentServer}/database/${currentDatabase}`}>
-          <span className="db-element-clickable">
-            <i className="btn fa fa-database" aria-hidden="true"></i>
-            {currentDatabase}
-          </span>
-          </NavLink>
-          </>
-          )}
   
-  
-          {currentTable && 
+          {current.table && 
             (
             <>
             {' '}
@@ -49,7 +48,7 @@ export default function BreadCrumbs(){
   
             <span>
               <i className="btn fa fa-table" aria-hidden="true"></i>
-              {currentTable}
+              {current.table}
             </span> 
             </>
             )

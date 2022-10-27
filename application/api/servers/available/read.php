@@ -54,9 +54,6 @@ class GetServers extends \Talis\Chain\aChainLink
             }
         }
         
-        //go over the servers and lok for those who do not have databases connection. Fetch by query the available databases
-        
-        
         $payload->servers = $servers;
         if(count($servers) === 1){
             $payload->currentServer  = $db_conn['server'];

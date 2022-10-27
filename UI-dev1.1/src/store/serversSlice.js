@@ -17,10 +17,12 @@ export const fetchServers = createAsyncThunk('servers/fetchservers', async () =>
 const initialState = {
     loadStatus: LoadStatus.IDLE,
     error: '',
-    currentServer: '',
     databaseList: {} //server:[databases]
 };
 
+/**
+ * SLICE
+ */
 const ServersSlice = createSlice({
   name: "servers",
   initialState,
@@ -37,9 +39,10 @@ const ServersSlice = createSlice({
         state.currentServer  = action.payload.selectedServer;
     }
   },
+  //handlers/reducers for the fetchservers Thunk
   extraReducers(builder) {
     builder
-      .addCase(fetchServers.pending, (state, action) => {
+      .addCase(fetchServers.pending, (state) => {
         state.loadStatus = LoadStatus.LOADING
       })
       .addCase(fetchServers.fulfilled, (state, action) => {
