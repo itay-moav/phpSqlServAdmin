@@ -29,7 +29,7 @@ export default function BreadCrumbs(){
             <>
             {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i> 
     
-            <NavLink to={`/servers/${current.server}/database/${current.database}`}>
+            <NavLink to={`/servers/${current.server}/databases/${current.database}/tables`}>
             <span className="db-element-clickable">
               <i className="btn fa fa-database" aria-hidden="true"></i>
               {current.database}

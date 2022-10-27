@@ -22,8 +22,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route path="servers" element={<Servers />} />
         <Route path="servers/:server/databases" element={<ServersServerDatabases />} />
-        <Route path="servers/:server/databases/:database" element={<h2>a databases</h2>} />
-        <Route path="servers/:server/databases/:database/tables" element={<h2>tables</h2>} />
+        <Route path="servers/:server/databases/:database/tables" element={<h2>list of tables</h2>} />
         <Route path="servers/:server/databases/:database/tables/:table" element={<h2>a table</h2>} />
       </Route>
       <Route path="*" element={<h2>WTF have you gone?!</h2>} />

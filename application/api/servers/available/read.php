@@ -34,7 +34,7 @@ class GetServers extends \Talis\Chain\aChainLink
      */
     public function process():\Talis\Chain\aChainLink{
         $payload = $this->Response->getPayload();
-        $db_connections = \app_env()['db-connections'];
+        $db_connections = \app_env()[ENVIRONMENT__DBCONNECTIONS];
         if(!isset($db_connections) || !$db_connections || count($db_connections) === 0){
             throw new \Exception('No configuration found');
         }
