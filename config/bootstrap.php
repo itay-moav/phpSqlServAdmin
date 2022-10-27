@@ -29,6 +29,9 @@ spl_autoload_register(getAutoloader(),true);
 require_once __DIR__ . '/../vendor/autoload.php';
 \ZimLogger\MainZim::include_shortcuts();
 
+//GET CONSTANTS
+require_once __DIR__ . '/CONSTANTS.php';
+
 //PERSONAL CONFIGURATIONS
 require_once __DIR__ . '/config.php';
 

@@ -8,8 +8,8 @@ function FindConnectionName():\Closure{
         $server = $Request->get_param_or_fail('servername');
         $database = $Request->get_param_or_fail('databasename');
         $connection_name = '';
-        foreach(app_env()['databases'] as $conn_name => $connections){
-            if($server === $connections['server'] && $database === $connections['database']){
+        foreach(app_env()['db-connections'] as $conn_name => $connections){
+            if($server === $connections['server'] && $database === $connections['db-connections']){
                 $connection_name = $conn_name;
                 $payload->selectedServer   = $server;
                 $payload->selectedDatabase = $database;

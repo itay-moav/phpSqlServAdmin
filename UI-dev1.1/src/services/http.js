@@ -27,7 +27,10 @@ function setAppUrl(app_url) {
 }
 
 const http = {
-  request: axios.request,
+  get: axios.get,
+  post: axios.post,
+  put: axios.put,
+  delete: axios.delete,
   setAppUrl,
   setJwt
 };
