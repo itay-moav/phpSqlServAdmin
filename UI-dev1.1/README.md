@@ -49,5 +49,10 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Redux
 https://redux.js.org/introduction/getting-started
 
+## Redux - persist to localStorage
+https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
+https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+
+
 ## React Router Dom v6.4
 https://reactrouter.com/en/main

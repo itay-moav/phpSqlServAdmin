@@ -17,14 +17,14 @@ const initialState = {
     databasesLoadStatus: LoadStatus.IDLE,
     schemaTablesLoadStatus: LoadStatus.IDLE,
     error: '',
-    databaseServerTree: {} //[server][database|connectionName][schema][table]
+    tree: {} //[server][database|connectionName][schema][table]
 };
 
 /**
  * SLICE
  */
-const DbElementTreeSlice = createSlice({
-  name: "dbElementTree",
+const DbTreeSlice = createSlice({
+  name: "dbTree",
   initialState,
   reducers: {},
   //handlers/reducers for the fetchservers Thunk
@@ -35,7 +35,7 @@ const DbElementTreeSlice = createSlice({
       })
       .addCase(fetchServers.fulfilled, (state, action) => {
         state.serversLoadStatus = LoadStatus.SUCCEEDED
-        state.databaseServerTree = action.payload.servers;
+        state.tree = action.payload.servers;
       })
       .addCase(fetchServers.rejected, (state, action) => {
         state.status = LoadStatus.FAILED;
@@ -44,5 +44,5 @@ const DbElementTreeSlice = createSlice({
   }
 });
 
-export default DbElementTreeSlice.reducer;
-export const DbElementTreeActions = {...DbElementTreeSlice.actions};
+export default DbTreeSlice.reducer;
+export const DbTreeActions = {...DbTreeSlice.actions};

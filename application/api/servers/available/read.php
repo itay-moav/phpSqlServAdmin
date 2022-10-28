@@ -36,25 +36,28 @@ class GetServers extends \Talis\Chain\aChainLink
         $payload = $this->Response->getPayload();
         $db_connections = \app_env()[ENVIRONMENT__DBCONNECTIONS];
         if(!isset($db_connections) || !$db_connections || count($db_connections) === 0){
-            throw new \Exception('No configuration found');
+            throw new \Exception('No configuration found [' . ENVIRONMENT__DBCONNECTIONS .']');
         }
         
         $servers = [];
         foreach($db_connections as $db_conn){
             unset($db_conn['password']);
-        
+            unset($db_conn['port']);
+            
             //first time - init the server databases list to an empty array
-            if(!isset($servers[$db_conn['server']])){
-                $servers[$db_conn['server']] = [];
+            if(!isset($servers[$db_conn[ENVIRONMENT__DBCONNECTIONS__SERVER]])){
+                $servers[$db_conn[ENVIRONMENT__DBCONNECTIONS__SERVER]] = $db_conn;
+                $servers[$db_conn[ENVIRONMENT__DBCONNECTIONS__SERVER]]['databases'] = [];
             }
             
             //some connection are on the database level (handled here).
-            if(isset($db_conn['database'])){
-                $servers [$db_conn['server']] [$db_conn['database']] = $db_conn;
+            if(isset($db_conn[ENVIRONMENT__DBCONNECTIONS__DATABASE])){
+                $servers[$db_conn[ENVIRONMENT__DBCONNECTIONS__SERVER]]['databases'][$db_conn[ENVIRONMENT__DBCONNECTIONS__DATABASE]] = $db_conn;
             }
         }
         
         $payload->servers = $servers;
+        /*TOBEDELETED
         if(count($servers) === 1){
             $payload->currentServer  = $db_conn['server'];
             $payload->currentDatabse = $db_conn['database'];
@@ -67,7 +70,7 @@ class GetServers extends \Talis\Chain\aChainLink
             $payload->currentServer  = '';
             $payload->currentDatabse = '';
             \Talis\Corwin::$Context->resource('connection_name',\Talis\Context::NaN);
-        }
+        }*/
         return $this;
     }
 }

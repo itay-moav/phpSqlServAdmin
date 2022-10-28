@@ -1,10 +1,12 @@
 import { configureStore,combineReducers } from '@reduxjs/toolkit';
-import DbTreeReducer from './dbTreeSlice';
+import ServerReducer from './serversSlice';
+import DatabasesReducer from "./databasesSlice";
 import QueryReducer from './querySlice';
 import UIReducer from './uiSlice';
 
 const reducer = combineReducers({
-  dbTree: DbTreeReducer,
+  servers: ServerReducer,
+  databases: DatabasesReducer,
   query: QueryReducer,
   ui: UIReducer
 });

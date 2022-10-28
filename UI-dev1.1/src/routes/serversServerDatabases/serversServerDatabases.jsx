@@ -8,8 +8,9 @@ export default function ServersServerDatabases(){
 
     //Read list of databases from state
     const databaseListSelector = state => {
-            if(currentServer && state.servers.databaseList[currentServer]){//server has dabases loaded in state
-                return Object.keys(state.servers.databaseList[currentServer]);
+        console.log('rrrrrrrrrrrr',state.dbTree);
+            if(currentServer && state.dbTree.tree[currentServer].databases){//server has dabases loaded in state
+                return Object.keys(state.dbTree.tree[currentServer].databases);
             } 
             return [];
     };
