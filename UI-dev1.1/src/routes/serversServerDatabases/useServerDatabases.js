@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
+import { LoadStatus } from "../../services/enums";
 import { fetchDatabases,findConnectionNameByServer } from '../../store/dbTreeSlice';
 
 /**
@@ -17,18 +18,21 @@ export default function useServerDatabases(currentServer){
         return [];
     };
     const databaseList  = useSelector(databaseListSelector);
+    const loadDbsStatus = useSelector(state => state.dbTree.databasesLoadStatus);
 
     //Try to load the list of databases for the selected connection from the backend
     useEffect(
         ()=>{
-            if(databaseList.length === 0){
+            console.log('lllll',loadDbsStatus);
+            if(loadDbsStatus === LoadStatus.IDLE && databaseList.length === 0){
                 //making it an async-await 
-                const fetchDb = async () => {await dispatch(fetchDatabases({connectionName,currentServer}))};
+                console.log('LAUNCH');
+                dispatch(fetchDatabases({connectionName,currentServer}));
                 //dispatch load databases
-                fetchDb();
+                //fetchDb();
             }
         },
-        [connectionName,currentServer,databaseList,dispatch]
+        [loadDbsStatus,connectionName,currentServer,databaseList,dispatch]
     );
     return databaseList;
 }

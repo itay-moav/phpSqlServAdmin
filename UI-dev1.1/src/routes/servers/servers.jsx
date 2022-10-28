@@ -1,14 +1,12 @@
 import {useEffect} from "react";
-import {useSelector,useDispatch} from 'react-redux';
+import {useSelector/*,useDispatch*/} from 'react-redux';
 import {NavLink} from "react-router-dom";
-import {fetchServers} from "../../store/dbTreeSlice";
-import { LoadStatus } from '../../services/enums';
+//import { LoadStatus } from '../../services/enums';
 
 export default function Servers(){
 
-  const dispatch = useDispatch();
+  /*
   const fetchServersStatus = useSelector(state=>state.dbTree.serversLoadStatus);
-
   useEffect(
     ()=>{
       if(fetchServersStatus === LoadStatus.IDLE){
@@ -16,6 +14,7 @@ export default function Servers(){
       }
     },[fetchServersStatus,dispatch]
   );
+  */
 
   const servers = useSelector(state => {
       return Object.keys(state.dbTree.tree);
