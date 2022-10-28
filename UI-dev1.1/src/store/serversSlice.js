@@ -2,6 +2,7 @@ import {createSlice,createAsyncThunk} from "@reduxjs/toolkit";
 import { LoadStatus } from "../services/enums";
 import http from "../services/http";
 
+//TOBEDELETED
 // ---------------------------------------------------------------- API --------------------------------------------------------------
 
 export const fetchServers = createAsyncThunk('servers/fetchservers', async () => {

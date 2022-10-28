@@ -1,6 +1,6 @@
 <?php namespace lib\Database;
 
-class GetConnection extends \Talis\Chain\aChainLink
+class GetConnectionTOBEDELETED extends \Talis\Chain\aChainLink
 {
     /**
      * {@inheritDoc}

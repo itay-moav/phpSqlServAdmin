@@ -1,30 +1,12 @@
-import { useEffect } from 'react';
-import {useSelector} from 'react-redux';
+//import { useEffect } from 'react';
+//import {useSelector} from 'react-redux';
+import useServerDatabases from './useServerDatabases';
 import {NavLink} from "react-router-dom";
 import useCurrents from "../../services/useCurrents";
 
 export default function ServersServerDatabases(){
     const currentServer = useCurrents().server;
-
-    //Read list of databases from state
-    const databaseListSelector = state => {
-        console.log('rrrrrrrrrrrr',state.dbTree);
-            if(currentServer && state.dbTree.tree[currentServer].databases){//server has dabases loaded in state
-                return Object.keys(state.dbTree.tree[currentServer].databases);
-            } 
-            return [];
-    };
-    const databaseList  = useSelector(databaseListSelector);
-
-    //Try to load the list of databases for the selcted connection from the backend
-    useEffect(
-        ()=>{
-            if(databaseList.length === 0){
-                //dispatch load databases
-            }
-        },
-        [currentServer,databaseList]
-    );
+    const databaseList  = useServerDatabases(currentServer);
 
     return ( 
         <div style={{"marginTop":"50px"}}>

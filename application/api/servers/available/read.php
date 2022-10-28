@@ -34,9 +34,9 @@ class GetServers extends \Talis\Chain\aChainLink
      */
     public function process():\Talis\Chain\aChainLink{
         $payload = $this->Response->getPayload();
-        $db_connections = \app_env()[ENVIRONMENT__DBCONNECTIONS];
+        $db_connections = \app_env()[\ENVIRONMENT__DBCONNECTIONS];
         if(!isset($db_connections) || !$db_connections || count($db_connections) === 0){
-            throw new \Exception('No configuration found [' . ENVIRONMENT__DBCONNECTIONS .']');
+            throw new \Exception('No configuration found [' . \ENVIRONMENT__DBCONNECTIONS .']');
         }
         
         $servers = [];
@@ -45,14 +45,14 @@ class GetServers extends \Talis\Chain\aChainLink
             unset($db_conn['port']);
             
             //first time - init the server databases list to an empty array
-            if(!isset($servers[$db_conn[ENVIRONMENT__DBCONNECTIONS__SERVER]])){
-                $servers[$db_conn[ENVIRONMENT__DBCONNECTIONS__SERVER]] = $db_conn;
-                $servers[$db_conn[ENVIRONMENT__DBCONNECTIONS__SERVER]]['databases'] = [];
+            if(!isset($servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]])){
+                $servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]] = $db_conn;
+                $servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]]['databases'] = [];
             }
             
             //some connection are on the database level (handled here).
-            if(isset($db_conn[ENVIRONMENT__DBCONNECTIONS__DATABASE])){
-                $servers[$db_conn[ENVIRONMENT__DBCONNECTIONS__SERVER]]['databases'][$db_conn[ENVIRONMENT__DBCONNECTIONS__DATABASE]] = $db_conn;
+            if(isset($db_conn[\ENVIRONMENT__DBCONNECTIONS__DATABASE])){
+                $servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]]['databases'][$db_conn[\ENVIRONMENT__DBCONNECTIONS__DATABASE]] = $db_conn;
             }
         }
         

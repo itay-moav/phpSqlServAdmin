@@ -97,8 +97,8 @@ class Connection implements iConnection{
         $this->Logger = $Logger;
         $this->connection_name = $connection_name;
         $dns = "sqlsrv:server = tcp:{$conf_data['server']},{$conf_data ['port']}";
-        if(isset($conf_data ['database'])){
-            $dns .= "; Database = {$conf_data ['database']}";
+        if(isset($conf_data [\ENVIRONMENT__DBCONNECTIONS__DATABASE])){
+            $dns .= "; Database = {$conf_data [\ENVIRONMENT__DBCONNECTIONS__DATABASE]}";
         }
         $this->NativeDB = new \PDO($dns,"{$conf_data ['username']}", "{$conf_data ['password']}");
         $this->NativeDB->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);

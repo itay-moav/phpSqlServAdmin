@@ -3,13 +3,33 @@ import { LoadStatus } from "../services/enums";
 import http from "../services/http";
 
 // ---------------------------------------------------------------- API --------------------------------------------------------------
+//fetches list of available server connections from environment file
+export const fetchServers = createAsyncThunk('tree/fetchservers', async () => {
+    const {data} = await http.get('/servers/available');
+    return data.payload;
+});
 
-export const fetchServers = createAsyncThunk('servers/fetchservers', async () => {
-    const response = await http.get('/servers/available');
-    return response.data.payload;
-})
+//for server level connection, fetches the list of available databases for this connection
+export const fetchDatabases = createAsyncThunk('tree/fetchserverDatabases', async ({connectionName,currentServer}) => {
+  const {data} = await http.get(`/servers/databases/connection-name/${connectionName}`);
+  data.payload.currentServer = currentServer;
+  return data.payload;
+});
 
 // ---------------------------------------------------------------- EOF API ----------------------------------------------------------
+
+
+
+// ---------------------------------------------------------------- SELECTORS --------------------------------------------------------
+
+export const findConnectionNameByServer = serverName => {
+  return (state) => {
+    return state.dbTree.tree[serverName].connection_name;
+  }
+}
+
+
+// ---------------------------------------------------------------- EOF SELECTORS ----------------------------------------------------
 
 
 const initialState = {
@@ -17,7 +37,7 @@ const initialState = {
     databasesLoadStatus: LoadStatus.IDLE,
     schemaTablesLoadStatus: LoadStatus.IDLE,
     error: '',
-    tree: {} //[server][database|connectionName][schema][table]
+    tree: {} //[server|connectionName]["databases"][database|connectionName][schema][table]
 };
 
 /**
@@ -30,6 +50,7 @@ const DbTreeSlice = createSlice({
   //handlers/reducers for the fetchservers Thunk
   extraReducers(builder) {
     builder
+      //server tree
       .addCase(fetchServers.pending, (state) => {
         state.serversLoadStatus = LoadStatus.LOADING
       })
@@ -38,7 +59,26 @@ const DbTreeSlice = createSlice({
         state.tree = action.payload.servers;
       })
       .addCase(fetchServers.rejected, (state, action) => {
-        state.status = LoadStatus.FAILED;
+        state.serversLoadStatus = LoadStatus.FAILED;
+        state.error = action.error.message;
+      })
+
+      //single server database tree
+      .addCase(fetchDatabases.pending, (state) => {
+        state.databasesLoadStatus = LoadStatus.LOADING
+      })
+      .addCase(fetchDatabases.fulfilled, (state, {payload}) => {
+        state.databasesLoadStatus = LoadStatus.SUCCEEDED
+        state.tree[payload.currentServer].databases = {};
+        payload.queryResult.forEach(element => {
+          state.tree[payload.currentServer].databases[element.name] = {
+                                                                       database:element.name,
+                                                                       tables:{}
+                                                                      };
+        });
+      })
+      .addCase(fetchDatabases.rejected, (state, action) => {
+        state.databasesLoadStatus = LoadStatus.FAILED;
         state.error = action.error.message;
       })
   }

@@ -17,11 +17,11 @@ abstract class ChainWithConnection extends \Talis\Chain\aChainLink
         parent::__construct($Request, $Response,$params);
         $conn = $this->Request->getBodyParam('CONN',null);
         $connection_name = \Talis\Corwin::$Context->resource('connection_name');
-        if(!$conn && $connection_name !== \Talis\Context::NaN){ //If there is no connection name setup, I return empty
-            if(isset(app_env()['db-connections'][$connection_name]['user_connection'])){
-                $this->conn = app_env()['db-connections'][$connection_name]['user_connection']($connection_name,app_env()['db-connections'][$connection_name],\ZimLogger\MainZim::$CurrentLogger);
+        if(!$conn && $connection_name !== \Talis\Context::NaN){ //There is no active connection, but we do have a connection name
+            if(isset(app_env()[\ENVIRONMENT__DBCONNECTIONS][$connection_name]['user_connection'])){//This is a tailored connection, uses proxy or some other starnge configuration
+                $this->conn = app_env()[\ENVIRONMENT__DBCONNECTIONS][$connection_name]['user_connection']($connection_name,app_env()[\ENVIRONMENT__DBCONNECTIONS][$connection_name],\ZimLogger\MainZim::$CurrentLogger);
             } else {
-                $this->conn = new Connection($connection_name,app_env()['db-connections'][$connection_name],\ZimLogger\MainZim::$CurrentLogger);
+                $this->conn = new Connection($connection_name,app_env()[\ENVIRONMENT__DBCONNECTIONS][$connection_name],\ZimLogger\MainZim::$CurrentLogger);
             }
             $this->Request->addToBodyParams('CONN',$this->conn);
         } elseif($conn) {
