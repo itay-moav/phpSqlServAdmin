@@ -1,6 +1,20 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice,createAsyncThunk} from "@reduxjs/toolkit";
+import { LoadStatus } from "../services/enums";
+import http from "../services/http";
+import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME} from "../services/CONSTANTS";
+
+
+// ---------------------------------------------------------------- API --------------------------------------------------------------
+//Dispatches a query to the server
+export const runQuery = createAsyncThunk('query/run', async ({connectionName,currentDatabase,query}) => {
+  const {data} = await http.post(`/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/database/${currentDatabase}`,{params:{query}});
+  return data.payload;
+});
+
+// ---------------------------------------------------------------- EOF API ----------------------------------------------------------
 
 const initialState = {
+  queryStatus: LoadStatus.IDLE,
   lastQuery:'',
   lastResults: [],
   lastError: '',
@@ -11,23 +25,28 @@ const initialState = {
 const Query = createSlice({
   name: "query",
   initialState,
-  reducers: {
-    queryRan: (query, action) => {
-        query.lastQuery = action.payload.query;
-        //query.schemaModified = action.payload.triggerReferesh;
-        return query;
-    },
-
-    resultsLoaded: (query, action) => {
-        query.lastError='';
+  reducers: {},
+  //handlers/reducers for the query Thunk
+  extraReducers(builder) {
+    builder
+      //server tree
+      .addCase(runQuery.pending, (state) => {
+        state.queryStatus = LoadStatus.LOADING
+      })
+      .addCase(runQuery.fulfilled, (state, action) => {
+        state.queryStatus = LoadStatus.SUCCEEDED
+        state.lastQuery = action.payload.query;
+      })
+      .addCase(runQuery.rejected, (state, action) => {
+        state.queryStatus = LoadStatus.FAILED;
+        state.lastError='';
         if(action.payload.queryResult ==='error'){
-          query.lastResults = [];
-          query.lastError = action.payload.error;
+          state.lastResults = [];
+          state.lastError = action.payload.error;
         } else {
-          query.lastResults = action.payload.queryResult;
+          state.lastResults = action.payload.queryResult;
         }
-        return query;
-    }
+      })
   }
 });
 

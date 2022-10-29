@@ -1,4 +1,4 @@
 import Jumbotron from "./jumbotron";
-export default{
+export {
     Jumbotron
 };

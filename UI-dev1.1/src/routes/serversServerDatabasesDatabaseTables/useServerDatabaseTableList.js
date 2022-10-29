@@ -1,14 +1,14 @@
 import { useSelector,useDispatch } from 'react-redux';
 import { LoadStatus } from "../../services/enums";
-import { fetchDatabases,findConnectionNameByServer } from '../../store/dbTreeSlice';
+import { fetchDatabases,findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
 
 /**
  * Fetches the list of databases available to the current selected server
  */
-export default function useServerDatabases(currentServer){
+export default function useServerDatabaseTableList(currentServer,currentDatabase){
     const dispatch = useDispatch();
-    const connectionName = useSelector(findConnectionNameByServer(currentServer));
-
+    const connectionName = useSelector(findConnectionNameByDbOrServer(currentServer,currentDatabase));
+/*
     //Read list of databases from state
     const databaseListSelector = state => {
         if(currentServer && state.dbTree.tree[currentServer].databases){//server has dabases loaded in state
@@ -24,4 +24,6 @@ export default function useServerDatabases(currentServer){
         dispatch(fetchDatabases({connectionName,currentServer}));
     }
     return databaseList;
+    */
+
 }

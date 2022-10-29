@@ -1,5 +1,3 @@
-//import { useEffect } from 'react';
-//import {useSelector} from 'react-redux';
 import useServerDatabases from './useServerDatabases';
 import {NavLink} from "react-router-dom";
 import useCurrents from "../../services/useCurrents";
