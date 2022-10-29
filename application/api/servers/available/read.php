@@ -57,20 +57,6 @@ class GetServers extends \Talis\Chain\aChainLink
         }
         
         $payload->servers = $servers;
-        /*TOBEDELETED
-        if(count($servers) === 1){
-            $payload->currentServer  = $db_conn['server'];
-            $payload->currentDatabse = $db_conn['database'];
-            \Talis\Corwin::$Context->resource('connection_name',$db_conn['connection_name']);
-            
-            //Fetch database information TODO not sure client side can handle it
-            (new \model\Query\Run($this->Request,$this->Response,['query' => 'select * from sys.tables']))->process();
-            
-        } else {
-            $payload->currentServer  = '';
-            $payload->currentDatabse = '';
-            \Talis\Corwin::$Context->resource('connection_name',\Talis\Context::NaN);
-        }*/
         return $this;
     }
 }

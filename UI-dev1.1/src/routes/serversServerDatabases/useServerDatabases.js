@@ -21,18 +21,8 @@ export default function useServerDatabases(currentServer){
     const loadDbsStatus = useSelector(state => state.dbTree.databasesLoadStatus);
 
     //Try to load the list of databases for the selected connection from the backend
-    useEffect(
-        ()=>{
-            console.log('lllll',loadDbsStatus);
-            if(loadDbsStatus === LoadStatus.IDLE && databaseList.length === 0){
-                //making it an async-await 
-                console.log('LAUNCH');
-                dispatch(fetchDatabases({connectionName,currentServer}));
-                //dispatch load databases
-                //fetchDb();
-            }
-        },
-        [loadDbsStatus,connectionName,currentServer,databaseList,dispatch]
-    );
+    if(loadDbsStatus === LoadStatus.IDLE && databaseList.length === 0){
+        dispatch(fetchDatabases({connectionName,currentServer}));
+    }
     return databaseList;
 }

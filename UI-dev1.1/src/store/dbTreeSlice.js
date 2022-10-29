@@ -1,6 +1,8 @@
 import {createSlice,createAsyncThunk} from "@reduxjs/toolkit";
 import { LoadStatus } from "../services/enums";
 import http from "../services/http";
+import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME} from "../services/CONSTANTS";
+
 
 // ---------------------------------------------------------------- API --------------------------------------------------------------
 //fetches list of available server connections from environment file
@@ -11,7 +13,7 @@ export const fetchServers = createAsyncThunk('tree/fetchservers', async () => {
 
 //for server level connection, fetches the list of available databases for this connection
 export const fetchDatabases = createAsyncThunk('tree/fetchserverDatabases', async ({connectionName,currentServer}) => {
-  const {data} = await http.get(`/servers/databases/connection-name/${connectionName}`);
+  const {data} = await http.get(`/servers/databases/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}`);
   data.payload.currentServer = currentServer;
   return data.payload;
 });
@@ -24,7 +26,7 @@ export const fetchDatabases = createAsyncThunk('tree/fetchserverDatabases', asyn
 
 export const findConnectionNameByServer = serverName => {
   return (state) => {
-    return state.dbTree.tree[serverName].connection_name;
+    return state.dbTree.tree[serverName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME];
   }
 }
 
