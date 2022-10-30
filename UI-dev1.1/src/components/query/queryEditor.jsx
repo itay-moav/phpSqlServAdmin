@@ -1,5 +1,5 @@
 import { Form,Button } from "react-bootstrap";
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import useCurrents from "../../services/useCurrents";
 import { Jumbotron } from "../atoms";
 import {runQuery} from "../../store/querySlice";
