@@ -1,7 +1,7 @@
 import {createSlice,createAsyncThunk} from "@reduxjs/toolkit";
 import { LoadStatus } from "../services/enums";
 import http from "../services/http";
-import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME} from "../services/CONSTANTS";
+import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME} from "../services/CONSTANTS";
 
 
 // ---------------------------------------------------------------- API --------------------------------------------------------------
@@ -15,6 +15,14 @@ export const fetchServers = createAsyncThunk('tree/fetchservers', async () => {
 export const fetchDatabases = createAsyncThunk('tree/fetchserverDatabases', async ({connectionName,currentServer}) => {
   const {data} = await http.get(`/servers/databases/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}`);
   data.payload.currentServer = currentServer;
+  return data.payload;
+});
+
+//for server level connection, fetches the list of available databases for this connection
+export const loadDatabaseTables = createAsyncThunk('tree/fetchDatabaseTables', async ({connectionName,server,database}) => {
+  const {data} = await http.get(`/database/tables/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`);
+  data.payload.currentServer = server;
+  data.payload.currentDatabse = database;
   return data.payload;
 });
 
@@ -34,6 +42,10 @@ export const findConnectionNameByDbOrServer = (serverName,dbName) => {
   return (state) => {
     return state.dbTree.tree[serverName]['databases'][dbName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || findConnectionNameByServer(serverName)(state);
   }
+}
+
+export const fetchTableList = (serverName,dbName) => {
+  return state => state.dbTree.tree[serverName]['databases'][dbName]['tables'] || [];
 }
 
 // ---------------------------------------------------------------- EOF SELECTORS ----------------------------------------------------
@@ -57,7 +69,9 @@ const DbTreeSlice = createSlice({
   //handlers/reducers for the fetchservers Thunk
   extraReducers(builder) {
     builder
-      //server tree
+      /**
+       * server tree
+       */
       .addCase(fetchServers.pending, (state) => {
         state.serversLoadStatus = LoadStatus.LOADING
       })
@@ -70,7 +84,9 @@ const DbTreeSlice = createSlice({
         state.error = action.error.message;
       })
 
-      //single server database tree
+      /**
+       * single server database tree
+       */
       .addCase(fetchDatabases.pending, (state) => {
         state.databasesLoadStatus = LoadStatus.LOADING
       })
@@ -87,6 +103,13 @@ const DbTreeSlice = createSlice({
       .addCase(fetchDatabases.rejected, (state, action) => {
         state.databasesLoadStatus = LoadStatus.FAILED;
         state.error = action.error.message;
+      })
+
+      /**
+       * 
+       */
+      .addCase(loadDatabaseTables.fulfilled, (state, {payload}) => {
+        state.tree[payload.currentServer].databases[payload.currentDatabse].tables = payload.queryResult;
       })
   }
 });

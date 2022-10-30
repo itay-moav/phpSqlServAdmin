@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import useCurrents from "../../services/useCurrents";
-import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
+import { findConnectionNameByDbOrServer,fetchTableList,loadDatabaseTables } from '../../store/dbTreeSlice';
 import { runQuery } from '../../store/querySlice';
 import QueryEditor from "../../components/query/queryEditor";
 import LastQuery from "../../components/query/lastQuery";
@@ -13,14 +13,14 @@ export default function ServersServerDatabasesDatabaseTables(){
     const dispatch = useDispatch();
     const {server,database} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
-
+    const tableList = useSelector(fetchTableList(server,database));
+console.log('TTTTT',tableList);
     useEffect(
         ()=>{
-            if(database){
-                const query="SELECT * FROM information_schema.tables ORDER BY table_name ASC";
-                dispatch(runQuery({connectionName,database,query}));
+            if(database && tableList.length===0){
+                dispatch(loadDatabaseTables({connectionName,server,database}));
             }
-        },[connectionName,database]
+        },[connectionName,database,tableList]
     );
 
     return (

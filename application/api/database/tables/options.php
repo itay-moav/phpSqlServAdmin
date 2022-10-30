@@ -4,7 +4,7 @@
  * @author Itay Moav
  * @Date  20200406
  */
-class AppInitdatabaseOptions extends \Talis\Chain\OptionsAllowed{
+class DatabaseTablesOptions extends \Talis\Chain\OptionsAllowed{
     
     /**
      * 

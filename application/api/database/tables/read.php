@@ -6,7 +6,7 @@
  * @author itay
  *
  */
-class AppInitdatabaseRead extends \Talis\Chain\aFilteredValidatedChainLink{
+class DatabaseTablesRead extends \Talis\Chain\aFilteredValidatedChainLink{
 
     /**
      * 
