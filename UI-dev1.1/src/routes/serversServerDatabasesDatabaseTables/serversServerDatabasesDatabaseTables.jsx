@@ -16,9 +16,11 @@ export default function ServersServerDatabasesDatabaseTables(){
 
     useEffect(
         ()=>{
-            const query="SELECT * FROM information_schema.tables ORDER BY table_name ASC";
-            dispatch(runQuery({connectionName,database,query}));
-        },[dispatch,connectionName,database]
+            if(database){
+                const query="SELECT * FROM information_schema.tables ORDER BY table_name ASC";
+                dispatch(runQuery({connectionName,database,query}));
+            }
+        },[connectionName,database]
     );
 
     return (

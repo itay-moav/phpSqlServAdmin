@@ -32,7 +32,6 @@ export const findConnectionNameByServer = serverName => {
 
 export const findConnectionNameByDbOrServer = (serverName,dbName) => {
   return (state) => {
-    console.log('HHHHHH',state.dbTree.tree[serverName]);
     return state.dbTree.tree[serverName]['databases'][dbName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || findConnectionNameByServer(serverName)(state);
   }
 }
