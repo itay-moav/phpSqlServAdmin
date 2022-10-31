@@ -23,6 +23,7 @@ export const loadDatabaseTables = createAsyncThunk('tree/fetchDatabaseTables', a
   const {data} = await http.get(`/database/tables/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`);
   data.payload.currentServer = server;
   data.payload.currentDatabse = database;
+  console.log('DDDDDD',data.payload);
   return data.payload;
 });
 
@@ -45,6 +46,9 @@ export const findConnectionNameByDbOrServer = (serverName,dbName) => {
 }
 
 export const fetchTableList = (serverName,dbName) => {
+  if(!serverName || !dbName){
+    return ()=>[];
+  }
   return state => state.dbTree.tree[serverName]['databases'][dbName]['tables'] || [];
 }
 

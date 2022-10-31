@@ -34,7 +34,7 @@ class GetServers extends \Talis\Chain\aChainLink
      */
     public function process():\Talis\Chain\aChainLink{
         $payload = $this->Response->getPayload();
-        $databases = \app_env()['databases'];
+        $databases = \app_env()[\ENVIRONMENT__DBCONNECTIONS];
         if(!isset($databases) || !$databases || count($databases) === 0){
             throw new \Exception('No configuration found');
         }
@@ -42,10 +42,10 @@ class GetServers extends \Talis\Chain\aChainLink
         $servers = [];
         foreach($databases as $database){
             unset($database['password']);
-            if(!isset($servers[$database['server']])){
-                $servers[$database['server']] = [];
+            if(!isset($servers[$database[ENVIRONMENT__DBCONNECTIONS__SERVER]])){
+                $servers[$database[\ENVIRONMENT__DBCONNECTIONS__SERVER]] = [];
             }
-            $servers[$database['server']][$database['database']] = $database;
+            $servers[$database[\ENVIRONMENT__DBCONNECTIONS__SERVER]][$database['database']] = $database;
         }
         $payload->servers = $servers;
         if(count($servers) === 1){

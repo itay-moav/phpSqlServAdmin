@@ -2,15 +2,30 @@ import {useSelector,useDispatch} from 'react-redux';
 import { Link } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
 import useCurrents from "../../services/useCurrents";
-//import {fetchTableFields,runQuery} from "../../store/api";
-import {UIActions} from "../../store/uiSlice";
+import { fetchTableList } from '../../store/dbTreeSlice';
 
 import './dbTableMenu.css';
 
 export default function DbTableMenu(){
+    const {server,database} = useCurrents();
+    const tableList = useSelector(fetchTableList(server,database));
+    console.log('HAHAHAHAH',tableList);
+    /*
+    const dbSelector = state => {
+        const ret = {
+            current: state.databases.currentDatabase,
+            tableList: [],
+            tableOwnerList: []
+        };
+        if(state.databases.currentDatabase){
+            ret.tableList = state.databases.tableList[state.databases.currentDatabase];
+            ret.tableOwnerList = state.databases.tablesOwners[state.databases.currentDatabase];
+        }
 
+        return ret;
+    };
 
-
+*/
     return (
         <b></b>
     );
