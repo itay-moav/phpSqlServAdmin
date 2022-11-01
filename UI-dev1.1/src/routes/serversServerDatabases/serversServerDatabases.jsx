@@ -23,7 +23,7 @@ export default function ServersServerDatabases(){
     //Try to load the list of databases for the selected connection from the backend
     useEffect(
         ()=>{
-            if(loadDbsStatus === LoadStatus.IDLE && databaseList.length === 0){
+            if(loadDbsStatus === LoadStatus.IDLE){
                 dispatch(fetchDatabases({connectionName,currentServer}));
             }
         },[]
@@ -38,6 +38,5 @@ export default function ServersServerDatabases(){
         </NavLink>) )
         )}
         </div>
-        
     );
 }

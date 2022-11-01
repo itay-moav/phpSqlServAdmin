@@ -1,25 +1,11 @@
-import {useEffect} from "react";
-import {useSelector/*,useDispatch*/} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {NavLink} from "react-router-dom";
-//import { LoadStatus } from '../../services/enums';
 
 export default function Servers(){
-
-  /*
-  const fetchServersStatus = useSelector(state=>state.dbTree.serversLoadStatus);
-  useEffect(
-    ()=>{
-      if(fetchServersStatus === LoadStatus.IDLE){
-        dispatch(fetchServers());
-      }
-    },[fetchServersStatus,dispatch]
-  );
-  */
-
   const servers = useSelector(state => {
       return Object.keys(state.dbTree.tree);
   });
-
+console.log('SSSSSSSSSSS');
   const serverList = servers.map(server => 
     (<NavLink key={server} to={`/servers/${server}/databases`} className="btn btn-primary btn-block btn-lg" style={{"textAlign":"left"}}>
         {server}

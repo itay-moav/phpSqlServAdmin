@@ -49,7 +49,14 @@ export const fetchTableList = (serverName,dbName) => {
   if(!serverName || !dbName){
     return ()=>[];
   }
-  return state => state.dbTree.tree[serverName]['databases'][dbName]['tables'] || [];
+  
+  return state => {
+    const tbList = state.dbTree.tree[serverName]['databases'][dbName]['tables'] || [];
+    if(!Array.isArray(tbList)){
+      return ()=>[];
+    }
+    return tbList;
+  }
 }
 
 // ---------------------------------------------------------------- EOF SELECTORS ----------------------------------------------------
@@ -113,6 +120,7 @@ const DbTreeSlice = createSlice({
        * 
        */
       .addCase(loadDatabaseTables.fulfilled, (state, {payload}) => {
+        console.log('kkkkkkkkkkk',loadDatabaseTables.fulfilled);
         state.tree[payload.currentServer].databases[payload.currentDatabse].tables = payload.queryResult;
       })
   }
