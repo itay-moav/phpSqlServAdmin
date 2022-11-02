@@ -9,7 +9,23 @@ import './dbTableMenu.css';
 export default function DbTableMenu(){
     const {server,database} = useCurrents();
     const tableList = useSelector(fetchTableList(server,database));
+    let menuTables = {};
+    let menuSchema = [];
+    if(Array.isArray(tableList)){
+        tableList.forEach(table=>{
+            if(! menuTables[table.TABLE_OWNER]){
+                menuTables[table.TABLE_OWNER] = [];
+                menuSchema.push(table.TABLE_OWNER);
+            }
+            const {TABLE_NAME,TABLE_TYPE} = table;
+            menuTables[table.TABLE_OWNER].push({tName:TABLE_NAME,tType:TABLE_TYPE});
+        });
+    }
+
+//TODO sort inside a schema by types and give icon names (place holder atleast)
+
     console.log('HAHAHAHAH',tableList);
+    console.log('LLLLLLL',menuSchema,menuTables);
     /*
     const dbSelector = state => {
         const ret = {
