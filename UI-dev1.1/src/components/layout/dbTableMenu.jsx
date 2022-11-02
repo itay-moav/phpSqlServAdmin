@@ -43,11 +43,37 @@ export default function DbTableMenu(){
 
 */
     return (
-        <b></b>
+        <>{menuSchema.map(owner => ownerMenuItem(owner,menuTables) )}</>
     );
 }
 
 
+function ownerMenuItem(owner,menuTables){
+    const show_table_list = true;
+    return (
+        <ListGroup variant="flush" bsPrefix="table-list">
+            <ListGroup.Item variant="primary">
+                <span className="table-name db-element-clickable">{owner}</span>
+            </ListGroup.Item>
+            {show_table_list && tablesByOwner(owner,menuTables[owner])}
+        </ListGroup>
+    );
+}
+
+function tablesByOwner(owner,tables){
+    return (  
+        <>
+            {tables.map(table=>{
+                
+                return (<ListGroup.Item key={table.TABLE_NAME}>
+                            &nbsp;<span className="table-name db-element-clickable">{table.tName}</span>
+                        </ListGroup.Item>);
+                }
+        
+        )}
+        </>
+    );
+}
 
 /*
 export default function DbTableMenu(){

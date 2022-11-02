@@ -6,7 +6,7 @@
  * @author itay
  * @date 2021-04-12
  */
-class Mixed extends \lib\Database\ChainWithConnection
+class MixedQuery extends \lib\Database\ChainWithConnection
 {
     /**
      * {@inheritDoc}

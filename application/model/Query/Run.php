@@ -65,13 +65,14 @@ class Run extends \lib\Database\ChainWithConnection
                 default:
                     dbgr('QUERY OUT',$query);
                     //throw new \Exception('Query not supported yet');
-                    (new Command\Mixed($this->Request, $this->Response))->process();
+                    (new Command\MixedQuery($this->Request, $this->Response))->process();
                     break;
                 
             }
         } catch (\PDOException $e){
             $payload->error = $e->getMessage();
             $payload->queryResult = 'error';
+            return $this;
         }
         
         //If we need to refresh the UI with the list of tables (in case of a drop/create/alter statements)

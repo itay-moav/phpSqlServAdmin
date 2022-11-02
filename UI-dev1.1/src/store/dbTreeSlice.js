@@ -23,7 +23,6 @@ export const loadDatabaseTables = createAsyncThunk('tree/fetchDatabaseTables', a
   const {data} = await http.get(`/database/tables/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`);
   data.payload.currentServer = server;
   data.payload.currentDatabse = database;
-  console.log('DDDDDD',data.payload);
   return data.payload;
 });
 
@@ -120,7 +119,6 @@ const DbTreeSlice = createSlice({
        * 
        */
       .addCase(loadDatabaseTables.fulfilled, (state, {payload}) => {
-        console.log('kkkkkkkkkkk',loadDatabaseTables.fulfilled);
         state.tree[payload.currentServer].databases[payload.currentDatabse].tables = payload.queryResult;
       })
   }

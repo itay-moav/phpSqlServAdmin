@@ -18,6 +18,8 @@ class DatabaseTablesRead extends \Talis\Chain\aFilteredValidatedChainLink{
             [\lib\Database\FindConnectionName(),[]],
             [\model\Query\Run::class,['query' => 'EXEC sp_tables']], //fetches all tables in db
             
+            
+            /* TOBEDELETED
             //Sorts the possible table owners in an easy to use array
             [function (\Talis\Message\Request $Request,\Talis\Message\Response $Response){
                 
@@ -30,6 +32,7 @@ class DatabaseTablesRead extends \Talis\Chain\aFilteredValidatedChainLink{
                 $payload->tablesOwners = array_values($table_owners);
             }
                                                 ,[]],
+                                                */
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];
     }

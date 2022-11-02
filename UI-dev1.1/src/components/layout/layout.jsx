@@ -12,7 +12,7 @@ export default function Layout(){
     <>
       <Container fluid>
         <Row>
-          <Col md={2}>
+          <Col md={3}>
             <Row>
               <Col>
                 <h3>phpSqlServAdmin</h3>
@@ -26,7 +26,7 @@ export default function Layout(){
             </Row>
           </Col>
 
-          <Col md={10}>
+          <Col md={9}>
           <Row>
             <Col>
               <BreadCrumbs />
