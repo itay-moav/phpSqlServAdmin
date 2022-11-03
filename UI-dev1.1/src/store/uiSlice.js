@@ -1,14 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-  dbMenuSelectedTableOwners:[],
-  currentTable: null
+  menuTables:{},
+  menuSchema :[]
 };
 
 const UI = createSlice({
   name: "ui",
   initialState,
   reducers: {
+
+/*
+
     selectedTable: (uiState,action) => {
       if(!action.payload) return uiState;
       uiState.currentTable = action.payload;
@@ -27,7 +30,41 @@ const UI = createSlice({
         uiState.dbMenuSelectedTableOwners.splice(idx,1);
       }
     },
+
+    */
+  },
+
+
+
+
+
+  //handlers/reducers for the fetchservers Thunk
+  extraReducers(builder) {
+    builder
+    
+      /**
+       * 
+       */
+      .addCase('tree/fetchDatabaseTables/fulfilled', (state, {payload}) => {
+        console.log('LOADED',payload);
+        const tableList = payload.queryResult;
+        state.menuTables = {};
+        state.menuSchema = [];
+        
+        if(Array.isArray(tableList)){
+            tableList.forEach(table=>{
+                if(! state.menuTables[table.TABLE_OWNER]){
+                  state.menuTables[table.TABLE_OWNER] = [];
+                  state.menuSchema.push(table.TABLE_OWNER);
+                }
+                const {TABLE_NAME,TABLE_TYPE} = table;
+                state.menuTables[table.TABLE_OWNER].push({tName:TABLE_NAME,tType:TABLE_TYPE});
+            });
+        }
+      })
   }
+
+
 });
 
 export default UI.reducer;

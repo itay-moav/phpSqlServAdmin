@@ -21,10 +21,10 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="servers" element={<Servers />} />
-        <Route path="servers/:server/databases" element={<ServersServerDatabases />} />
-        <Route path="servers/:server/databases/:database/tables" element={<h2><ServersServerDatabasesDatabaseTables /></h2>} />
-        <Route path="servers/:server/databases/:database/tables/:table" element={<h2>a table</h2>} />
+        <Route exact path="servers/:server/databases/:database/tables/:table" element={<h2>a table</h2>} />
+        <Route exact path="servers/:server/databases/:database/tables" element={<h2><ServersServerDatabasesDatabaseTables /></h2>} />
+        <Route exact path="servers/:server/databases" element={<ServersServerDatabases />} />
+        <Route exact path="servers" element={<Servers />} />  
       </Route>
       <Route path="*" element={<h2>WTF have you gone?!</h2>} />
     </Routes>

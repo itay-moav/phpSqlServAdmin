@@ -1,49 +1,12 @@
 import {useSelector,useDispatch} from 'react-redux';
 import { Link } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
-import useCurrents from "../../services/useCurrents";
-import { fetchTableList } from '../../store/dbTreeSlice';
-
 import './dbTableMenu.css';
 
 export default function DbTableMenu(){
-    const {server,database} = useCurrents();
-    const tableList = useSelector(fetchTableList(server,database));
-    let menuTables = {};
-    let menuSchema = [];
-    if(Array.isArray(tableList)){
-        tableList.forEach(table=>{
-            if(! menuTables[table.TABLE_OWNER]){
-                menuTables[table.TABLE_OWNER] = [];
-                menuSchema.push(table.TABLE_OWNER);
-            }
-            const {TABLE_NAME,TABLE_TYPE} = table;
-            menuTables[table.TABLE_OWNER].push({tName:TABLE_NAME,tType:TABLE_TYPE});
-        });
-    }
-
-//TODO sort inside a schema by types and give icon names (place holder atleast)
-
-    console.log('HAHAHAHAH',tableList);
-    console.log('LLLLLLL',menuSchema,menuTables);
-    /*
-    const dbSelector = state => {
-        const ret = {
-            current: state.databases.currentDatabase,
-            tableList: [],
-            tableOwnerList: []
-        };
-        if(state.databases.currentDatabase){
-            ret.tableList = state.databases.tableList[state.databases.currentDatabase];
-            ret.tableOwnerList = state.databases.tablesOwners[state.databases.currentDatabase];
-        }
-
-        return ret;
-    };
-
-*/
+    const {menuSchema,menuTables}= useSelector(state=>state.ui);
     return (
-        <>{menuSchema.map(owner => ownerMenuItem(owner,menuTables) )}</>
+        <>{menuSchema.map(owner => ownerMenuItem(owner,menuTables[owner]) )}</>
     );
 }
 
@@ -51,21 +14,20 @@ export default function DbTableMenu(){
 function ownerMenuItem(owner,menuTables){
     const show_table_list = true;
     return (
-        <ListGroup variant="flush" bsPrefix="table-list">
-            <ListGroup.Item variant="primary">
+        <ListGroup variant="flush" bsPrefix="table-list" key={owner}>
+            <ListGroup.Item variant="primary" key="ownerk">
                 <span className="table-name db-element-clickable">{owner}</span>
             </ListGroup.Item>
-            {show_table_list && tablesByOwner(owner,menuTables[owner])}
+            {show_table_list && tablesByOwner(menuTables)}
         </ListGroup>
     );
 }
 
-function tablesByOwner(owner,tables){
+function tablesByOwner(menuTables){
     return (  
         <>
-            {tables.map(table=>{
-                
-                return (<ListGroup.Item key={table.TABLE_NAME}>
+            {menuTables.map(table=>{
+                return (<ListGroup.Item key={table.tName}>
                             &nbsp;<span className="table-name db-element-clickable">{table.tName}</span>
                         </ListGroup.Item>);
                 }
