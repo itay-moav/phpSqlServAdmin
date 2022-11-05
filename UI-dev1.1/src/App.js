@@ -21,6 +21,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        <Route exact path="servers/:server/databases/:database/tables/:table/structure" element={<h2>a schema</h2>} />
         <Route exact path="servers/:server/databases/:database/tables/:table" element={<h2>a table</h2>} />
         <Route exact path="servers/:server/databases/:database/tables" element={<h2><ServersServerDatabasesDatabaseTables /></h2>} />
         <Route exact path="servers/:server/databases" element={<ServersServerDatabases />} />

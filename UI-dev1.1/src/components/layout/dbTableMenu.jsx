@@ -1,41 +1,62 @@
+import { useState } from 'react';
 import {useSelector,useDispatch} from 'react-redux';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
+import useCurrents from '../../services/useCurrents';
 import './dbTableMenu.css';
 
+/**
+ * 
+ * @returns jsx
+ */
 export default function DbTableMenu(){
     const {menuSchema,menuTables}= useSelector(state=>state.ui);
-    return (
-        <>{menuSchema.map(owner => ownerMenuItem(owner,menuTables[owner]) )}</>
-    );
-}
+    const [selectedOwner,setSelectedOwner] = useState({});
+    const {server,database,table} = useCurrents();
+
+    //creates the table level items
+    const tablesByOwner = (owner,menuTables) => menuTables.map(table=>{
+                                                            return (<ListGroup.Item key={table.tName}>
+                                                                        &nbsp;
+                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/structure`}>
+                                                                        <i className="btn fa fa-table db-element-clickable" aria-hidden="true"></i>
+                                                                        </NavLink>
+                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}`}>
+                                                                        <span className="table-name db-element-clickable">{table.tName}</span>
+                                                                        </NavLink>
+                                                                    </ListGroup.Item>);
+                                                            });
 
 
-function ownerMenuItem(owner,menuTables){
-    const show_table_list = true;
-    return (
-        <ListGroup variant="flush" bsPrefix="table-list" key={owner}>
-            <ListGroup.Item variant="primary" key="ownerk">
-                <span className="table-name db-element-clickable">{owner}</span>
-            </ListGroup.Item>
-            {show_table_list && tablesByOwner(menuTables)}
-        </ListGroup>
-    );
-}
-
-function tablesByOwner(menuTables){
-    return (  
-        <>
-            {menuTables.map(table=>{
-                return (<ListGroup.Item key={table.tName}>
-                            &nbsp;<span className="table-name db-element-clickable">{table.tName}</span>
-                        </ListGroup.Item>);
-                }
+    //Creates the Schema level items
+    const ownerMenuItem = (owner,menuTables) => {
+        const show_table_list = (selectedOwner[owner] && selectedOwner[owner] === 'open');
+        const arrow = show_table_list ? 'fa-arrow-down' : 'fa-arrow-right';
         
-        )}
-        </>
+        return (
+            <ListGroup variant="flush" bsPrefix="table-list" key={owner}>
+                <ListGroup.Item variant="primary" key={owner} onClick={()=>{
+                                    let new_state = {...selectedOwner};
+                                    new_state[owner] = show_table_list ? 'closed' : 'open';
+                                    setSelectedOwner(new_state);
+                                }
+                            }>
+                    <i className={`btn fa ${arrow}`} aria-hidden="true"></i>
+                    <span className="table-name db-element-clickable">{owner}</span>
+                </ListGroup.Item>
+                {show_table_list && tablesByOwner(owner,menuTables)}
+            </ListGroup>
+        );
+    };
+
+    const menuTopLevel = menuSchema.map(owner => ownerMenuItem(owner,menuTables[owner]) ); 
+
+    return (
+        <>{menuTopLevel}</>
     );
 }
+
+
 
 /*
 export default function DbTableMenu(){
