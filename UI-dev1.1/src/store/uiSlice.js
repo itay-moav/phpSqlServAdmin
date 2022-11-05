@@ -53,15 +53,17 @@ const UI = createSlice({
         
         if(Array.isArray(tableList)){
             tableList.forEach(table=>{
-                if(! state.menuTables[table.TABLE_OWNER]){
-                  state.menuTables[table.TABLE_OWNER] = [];
-                  state.menuSchema.push(table.TABLE_OWNER);
+                if(! state.menuTables[table.TABLE_SCHEMA]){
+                  state.menuTables[table.TABLE_SCHEMA] = [];
+                  state.menuSchema.push(table.TABLE_SCHEMA);
                 }
                 const {TABLE_NAME,TABLE_TYPE} = table;
-                state.menuTables[table.TABLE_OWNER].push({tName:TABLE_NAME,tType:TABLE_TYPE});
+                state.menuTables[table.TABLE_SCHEMA].push({tName:TABLE_NAME,tType:TABLE_TYPE});
             });
         }
+        console.log('MENU TABLES NEW STATE',state.menuTables);
       })
+      
   }
 
 

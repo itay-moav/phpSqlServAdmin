@@ -29,7 +29,7 @@ abstract class ChainWithConnection extends \Talis\Chain\aChainLink
             //sometimes the connections are on the server level, which allow view of several databases.
             //In such a case, I get the dbname param from the client so I:
             // 1. connect to the correct db and 2. do not need to add db name to queries Unless I want to.
-            $dbname = $this->Request->getBodyParam(\URL_PARAMS__DATABASE_NAME,null);
+            $dbname = $this->Request->get_param_default(\URL_PARAMS__DATABASE_NAME,'');
             if($dbname && !isset($env[\ENVIRONMENT__DBCONNECTIONS__DATABASE])){
                 $env[\ENVIRONMENT__DBCONNECTIONS__DATABASE] = $dbname;
             }
