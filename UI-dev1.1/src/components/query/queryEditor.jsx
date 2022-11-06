@@ -19,7 +19,7 @@ const QueryEditor = () => {
         const payload={connectionName,server,database,query:form.queryEditorArea.value};
         const response = await dispatch(runQuery(payload)).unwrap();
         if(response.triggerNav){
-            navigate(`${response.triggerNav}`);
+            navigate(`/servers/${server}/databases/${database}/tables/${response.triggerNav}`);
         }
     };
 

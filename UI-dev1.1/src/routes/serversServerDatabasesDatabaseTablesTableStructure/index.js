@@ -1,0 +1,2 @@
+import ServersServerDatabasesDatabaseTablesTableStructure from "./serversServerDatabasesDatabaseTablesTableStructure";
+export default ServersServerDatabasesDatabaseTablesTableStructure;

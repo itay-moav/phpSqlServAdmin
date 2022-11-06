@@ -20,6 +20,7 @@ const QueryResults = () => {
     );
 
     const keys = Object.keys(results[0]);
+    let i = 0;
 
     return (  
         <Table responsive striped bordered hover size="sm" variant="dark">
@@ -31,10 +32,11 @@ const QueryResults = () => {
             <tbody>
                 {
                     results.map(row=>{
-                                    return (<tr>{keys.map(
+                                    i++;
+                                    return (<tr key={i}>{keys.map(
                                         columnKey => {
                                             return (
-                                                <td>{row[columnKey]}</td>
+                                                <td key={columnKey}>{row[columnKey]}</td>
                                             )
                                         }
                                     )}</tr>);
