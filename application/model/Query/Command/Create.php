@@ -30,10 +30,7 @@ class Create extends \lib\Database\ChainWithConnection
                 $table  = $schema_table;
             }
             
-            $payload->queryResult = $this->conn->execute(
-                "SELECT * 
-                 FROM INFORMATION_SCHEMA.COLUMNS 
-                 WHERE TABLE_SCHEMA='{$schema}' AND TABLE_NAME='{$table}'")->fetchAll();
+            $payload->triggerNav = "{$schema}.{$table}/structure";
         }
         return $this;
     }

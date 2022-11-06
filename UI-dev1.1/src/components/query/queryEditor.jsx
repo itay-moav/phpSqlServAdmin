@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Form,Button } from "react-bootstrap";
 import {useDispatch,useSelector} from 'react-redux';
 import useCurrents from "../../services/useCurrents";
@@ -9,13 +10,17 @@ const QueryEditor = () => {
     const dispatch = useDispatch();
     const {server,database} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
+    const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         const form = event.currentTarget;
         event.preventDefault();
         event.stopPropagation();
         const payload={connectionName,server,database,query:form.queryEditorArea.value};
-        dispatch(runQuery(payload));
+        const response = await dispatch(runQuery(payload)).unwrap();
+        if(response.triggerNav){
+            navigate(`${response.triggerNav}`);
+        }
     };
 
     return (  
