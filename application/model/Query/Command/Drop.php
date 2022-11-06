@@ -17,7 +17,7 @@ class Drop extends \lib\Database\ChainWithConnection
         dbgn('IN DROP');
         $payload = $this->Response->getPayload();
         $this->conn->execute($payload->query);
-        $payload->triggerReferesh = 1;
+        $payload->triggerRefresh = 1;
         return $this;
     }
 }

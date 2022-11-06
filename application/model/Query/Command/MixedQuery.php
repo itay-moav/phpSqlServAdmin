@@ -41,7 +41,7 @@ class MixedQuery extends \lib\Database\ChainWithConnection
         
         //Do we have some schema altering code?
         if(stripos($query,'ALTER') !== false || stripos($query,'DROP') !== false || stripos($query,'CREATE') !== false ){
-            $payload->triggerReferesh = 1;
+            $payload->triggerRefresh = 1;
         }
         
         return $this;

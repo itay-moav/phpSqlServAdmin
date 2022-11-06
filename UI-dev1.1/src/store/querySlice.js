@@ -6,9 +6,11 @@ import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME} f
 
 // ---------------------------------------------------------------- API --------------------------------------------------------------
 //Dispatches a query to the server
-export const runQuery = createAsyncThunk('query/run', async ({connectionName,database,query}) => {
+export const runQuery = createAsyncThunk('query/run', async ({connectionName,server,database,query}) => {
   console.log('ABOUT TO RUN:',connectionName,database,query);
   const {data} = await http.post(`/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`,{params:{query}});
+  data.payload.currentServer = server;
+  data.payload.currentDatabse = database;
   return data.payload;
 });
 
@@ -37,7 +39,13 @@ const Query = createSlice({
       .addCase(runQuery.fulfilled, (state, action) => {
         state.queryStatus = LoadStatus.SUCCEEDED;
         state.lastQuery = action.payload.query;
-        state.lastResults = action.payload.queryResult;
+        if(action.payload.queryResult ==='error'){
+          state.lastResults = [];
+          state.lastError = action.payload.error;
+        } else {
+          state.lastResults = action.payload.queryResult;
+          state.lastError = '';
+        }
       })
       .addCase(runQuery.rejected, (state, action) => {
         state.queryStatus = LoadStatus.FAILED;

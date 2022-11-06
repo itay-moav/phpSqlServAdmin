@@ -4,19 +4,20 @@ import { Table,Alert } from "react-bootstrap";
 const QueryResults = () => {
     //TODO create as a selector function in the proper place
     const results = useSelector(state => (state.query.lastResults) );
-    const errors  = useSelector(state => (state.query.lastError) );
+    const errorMessage  = useSelector(state => (state.query.lastError) );
     
-    if(errors.length){
+    if(errorMessage.length > 3){
         return (
                 <Alert variant="danger">
                     <Alert.Heading>SQL Server error!</Alert.Heading>
-                    <pre>{errors}</pre>
+                    <pre>{errorMessage}</pre>
                 </Alert>
             );
-
     }
 
-    if(!results.length) return null;
+    if(results.length === 0)  return (
+        <Alert variant="warning">No results</Alert>
+    );
 
     const keys = Object.keys(results[0]);
 

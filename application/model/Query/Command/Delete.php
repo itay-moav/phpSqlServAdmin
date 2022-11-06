@@ -17,7 +17,7 @@ class Delete extends \lib\Database\ChainWithConnection
         $payload = $this->Response->getPayload();
         $run = $this->conn->execute($payload->query);
         $payload->queryResult = [[
-            'rows deleted'      => $run->numRows
+            'rows deleted' => $run->numRows
         ]];
         return $this;
     }

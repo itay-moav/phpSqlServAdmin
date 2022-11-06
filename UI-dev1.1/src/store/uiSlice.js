@@ -8,35 +8,7 @@ const initialState = {
 const UI = createSlice({
   name: "ui",
   initialState,
-  reducers: {
-
-/*
-
-    selectedTable: (uiState,action) => {
-      if(!action.payload) return uiState;
-      uiState.currentTable = action.payload;
-    },
-    resetTableUI:  (uiState,action) => {
-      uiState.currentTable = null;
-    },
-    dbMenuSelectedTableOwnersOpened: (uiState,action) => {
-      if(uiState.dbMenuSelectedTableOwners.indexOf(action.payload) === -1){
-        uiState.dbMenuSelectedTableOwners.push(action.payload);
-      }
-    },
-    dbMenuSelectedTableOwnersClosed: (uiState,action) => {
-      const idx = uiState.dbMenuSelectedTableOwners.indexOf(action.payload);
-      if(idx !== -1){
-        uiState.dbMenuSelectedTableOwners.splice(idx,1);
-      }
-    },
-
-    */
-  },
-
-
-
-
+  reducers: {},
 
   //handlers/reducers for the fetchservers Thunk
   extraReducers(builder) {
@@ -62,6 +34,32 @@ const UI = createSlice({
             });
         }
         console.log('MENU TABLES NEW STATE',state.menuTables);
+      })
+
+      //after each query the user runs
+      .addCase('query/run/fulfilled', (state, {payload}) => {
+        console.log('Query ui',payload);
+        if(payload.triggerRefresh !== 1) {
+          return state;
+        }
+        
+        const tableList = payload.tables;
+        state.menuTables = {};
+        state.menuSchema = [];
+        
+        if(Array.isArray(tableList)){
+            tableList.forEach(table=>{
+                if(! state.menuTables[table.TABLE_SCHEMA]){
+                  state.menuTables[table.TABLE_SCHEMA] = [];
+                  state.menuSchema.push(table.TABLE_SCHEMA);
+                }
+                const {TABLE_NAME,TABLE_TYPE} = table;
+                state.menuTables[table.TABLE_SCHEMA].push({tName:TABLE_NAME,tType:TABLE_TYPE});
+            });
+        }
+        console.log('QUERY RUN: MENU TABLES NEW STATE',state.menuTables);
+        
+        
       })
       
   }

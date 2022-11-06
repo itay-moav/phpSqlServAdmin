@@ -23,7 +23,7 @@ class Run extends \lib\Database\ChainWithConnection
         $payload->command = $command;
         $payload->query = $query;
         $payload->queryResult = [];
-        $payload->triggerReferesh = 0;//Trigger refresh = 1 will force the UI to reload the state/schemas of the sql server
+        $payload->triggerRefresh = 0;//Trigger refresh = 1 will force the UI to reload the state/schemas of the sql server
         $payload->tables = [];
         $payload->error = '';
         
@@ -76,8 +76,8 @@ class Run extends \lib\Database\ChainWithConnection
         }
         
         //If we need to refresh the UI with the list of tables (in case of a drop/create/alter statements)
-        if($payload->triggerReferesh === 1){ //@phpstan-ignore-line The value is part of the payload and is being passed by ref to the specific query command classes and modified there
-            $payload->tables = $this->conn->execute('EXEC sp_tables')->fetchAll();
+        if($payload->triggerRefresh === 1){ //@phpstan-ignore-line The value is part of the payload and is being passed by ref to the specific query command classes and modified there
+            $payload->tables = $this->conn->execute('SELECT * from INFORMATION_SCHEMA.TABLES')->fetchAll();
         }
         return $this;
     }

@@ -14,7 +14,7 @@ const QueryEditor = () => {
         const form = event.currentTarget;
         event.preventDefault();
         event.stopPropagation();
-        const payload={connectionName,database,query:form.queryEditorArea.value};
+        const payload={connectionName,server,database,query:form.queryEditorArea.value};
         dispatch(runQuery(payload));
     };
 
