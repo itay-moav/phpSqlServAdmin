@@ -5,12 +5,14 @@ import useCurrents from "../../services/useCurrents";
 import { Jumbotron } from "../atoms";
 import {runQuery} from "../../store/querySlice";
 import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
+import { useRef } from "react";
 
 const QueryEditor = () => {
     const dispatch = useDispatch();
     const {server,database} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
     const navigate = useNavigate();
+    const textAreaRef = useRef(null)
 
     const handleSubmit = async (event) => {
         const form = event.currentTarget;
@@ -23,14 +25,21 @@ const QueryEditor = () => {
         }
     };
 
+    const paste =()=>{
+        navigator.clipboard.readText().then((a)=>{
+            textAreaRef.current.value=a;
+        } );
+    }
+
     return (  
         <Jumbotron>
+        <span onClick={paste}>paste</span>
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="queryEditorArea">
-                <Form.Control as="textarea" rows={5} />
+                <Form.Control as="textarea" rows={5} ref={textAreaRef} />
             </Form.Group>
             
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className="mt-1">
                 Run Query
             </Button>
         </Form>
