@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Form,Button } from "react-bootstrap";
+import { Form,Button,ButtonToolbar } from "react-bootstrap";
 import {useDispatch,useSelector} from 'react-redux';
 import useCurrents from "../../services/useCurrents";
 import { Jumbotron } from "../atoms";
@@ -31,9 +31,23 @@ const QueryEditor = () => {
         } );
     }
 
+    const empty =()=>{
+        textAreaRef.current.value='';
+    }
+
+    const runFromLocalfile = ()=>{
+        console.log('COMING SOON!');
+    }
+
+
     return (  
         <Jumbotron>
-        <span onClick={paste}>paste</span>
+            <ButtonToolbar className="pull-right mb-1">
+                <Button onClick={runFromLocalfile} variant="secondary" title="Run from local file" className="mr-1"><i class="fa fa-upload" aria-hidden="true"></i></Button>
+                <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>{' '}
+                <Button onClick={paste} variant="secondary" title="Paste from clipboard"><i className="fa fa-clipboard" aria-label="Paste from clipboard"></i></Button>
+            </ButtonToolbar>
+
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="queryEditorArea">
                 <Form.Control as="textarea" rows={5} ref={textAreaRef} />
