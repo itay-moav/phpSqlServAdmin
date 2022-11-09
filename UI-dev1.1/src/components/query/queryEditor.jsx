@@ -13,50 +13,79 @@ const QueryEditor = () => {
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
     const navigate = useNavigate();
     const textAreaRef = useRef(null)
+    const hiddenFileInputRef = useRef(null);
 
-    const handleSubmit = async (event) => {
-        const form = event.currentTarget;
-        event.preventDefault();
-        event.stopPropagation();
-        const payload={connectionName,server,database,query:form.queryEditorArea.value};
+    // Sends query in textarea to server to run
+    const runQueryFromTextArea = async () => {
+        const payload={connectionName,server,database,query:textAreaRef.current.value};
         const response = await dispatch(runQuery(payload)).unwrap();
         if(response.triggerNav){
             navigate(`/servers/${server}/databases/${database}/tables/${response.triggerNav}`);
         }
     };
 
+    //toolbar: Paste icon
     const paste =()=>{
         navigator.clipboard.readText().then((a)=>{
             textAreaRef.current.value=a;
         } );
     }
 
+    //toolbar: Eraser icon
     const empty =()=>{
         textAreaRef.current.value='';
     }
 
-    const runFromLocalfile = ()=>{
-        console.log('COMING SOON!');
+    /*************************************************
+     * toolbar: uplaod icon
+     *************************************************/
+
+    // starts to read the uploaded file
+    const runFromLocalfile = (e)=>{
+        const fileReader = new FileReader();
+        const file = e.target.files[0];
+        console.log('FILE',file);
+        fileReader.onload = handleFileRead;
+        fileReader.readAsText(file);
     }
+
+    // Fills the textarea with file content and
+    // triggers "Run Query"
+    const handleFileRead = (e) => {
+        const content = e.target.result;
+        textAreaRef.current.value=content;
+        runQueryFromTextArea();
+
+    }
+
+    // Triggers the hidden fileupload, this opens the upload screen
+    const fireUploadFile = ()=>{
+        hiddenFileInputRef.current.click();
+    }
+
+    /*************************************************
+     * EOF --- toolbar: uplaod icon
+     *************************************************/
 
 
     return (  
         <Jumbotron>
             <ButtonToolbar className="pull-right mb-1">
-                <Button onClick={runFromLocalfile} variant="secondary" title="Run from local file" className="mr-1"><i class="fa fa-upload" aria-hidden="true"></i></Button>
+                <input type="file" ref={hiddenFileInputRef} onChange={runFromLocalfile} style={{display: 'none'}} />
+                <Button onClick={fireUploadFile} variant="secondary" title="Run from local file" className="mr-1"><i className="fa fa-upload" aria-hidden="true"></i></Button>
                 <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>{' '}
                 <Button onClick={paste} variant="secondary" title="Paste from clipboard"><i className="fa fa-clipboard" aria-label="Paste from clipboard"></i></Button>
             </ButtonToolbar>
 
-        <Form onSubmit={handleSubmit}>
+
             <Form.Group controlId="queryEditorArea">
                 <Form.Control as="textarea" rows={5} ref={textAreaRef} />
             </Form.Group>
             
-            <Button variant="primary" type="submit" className="mt-1">
+            <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea}>
                 Run Query
             </Button>
-        </Form>
+
         </Jumbotron>
     );
 }
