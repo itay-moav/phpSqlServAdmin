@@ -2,7 +2,7 @@ import {NavLink} from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import useCurrents from "../../services/useCurrents";
 import { LoadStatus } from "../../services/enums";
-import { fetchDatabases,findConnectionNameByServer } from '../../store/dbTreeSlice';
+import { loadDatabases,findConnectionNameByServer,shouldLoadDatabases } from '../../store/dbTreeSlice';
 import { useEffect } from "react";
 
 export default function ServersServerDatabases(){
@@ -18,13 +18,13 @@ export default function ServersServerDatabases(){
         return [];
     };
     const databaseList  = useSelector(databaseListSelector);
-    const loadDbsStatus = useSelector(state => state.dbTree.databasesLoadStatus);
+    const shouldDispatchLoadDb = useSelector(shouldLoadDatabases(currentServer));
 
     //Try to load the list of databases for the selected connection from the backend
     useEffect(
         ()=>{
-            if(loadDbsStatus === LoadStatus.IDLE){
-                dispatch(fetchDatabases({connectionName,currentServer}));
+            if(shouldDispatchLoadDb){
+                dispatch(loadDatabases({connectionName,currentServer}));
             }
         },[]
     );

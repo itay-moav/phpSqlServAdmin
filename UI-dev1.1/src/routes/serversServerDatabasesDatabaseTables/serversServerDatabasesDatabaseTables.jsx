@@ -6,8 +6,6 @@ import QueryEditor from "../../components/query/queryEditor";
 import LastQuery from "../../components/query/lastQuery";
 import QueryResults from "../../components/query/queryResults";
 
-
-
 export default function ServersServerDatabasesDatabaseTables(){
     const dispatch = useDispatch();
     const {server,database} = useCurrents();

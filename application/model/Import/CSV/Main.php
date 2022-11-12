@@ -20,7 +20,12 @@ class Main extends \lib\Database\ChainWithConnection{
             $file_schema[] = $a_field['COLUMN_NAME'];
         }
         
-        $Looper = new Looper($this->Request->get_param_exists('table'), $this->Request->getBody()->file, $this->Request->getBody()->delimiter, $this->Request->getBody()->header_rows_cnt, $file_schema,$this->conn);
+        $Looper = new Looper(
+            $this->Request->get_param_exists('table'),
+            $this->Request->getBody()->file,
+            $this->Request->getBody()->delimiter,
+            $this->Request->getBody()->header_rows_cnt,
+            $file_schema,$this->conn);
         $Looper->process();
         
         return $this;

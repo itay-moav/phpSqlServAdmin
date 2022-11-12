@@ -15,7 +15,7 @@ export default function Layout(){
           <Col md={3}>
             <Row>
               <Col>
-                <h3>phpSqlServAdmin</h3>
+                <h3 style={{cursor:"pointer"}}onClick={()=>window.location.href="/vulcan"}>phpSqlServAdmin</h3>
                 <small>Powered by TalisMS and ReactJS</small>
               </Col>
             </Row>

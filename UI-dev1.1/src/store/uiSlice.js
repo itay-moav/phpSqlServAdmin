@@ -58,8 +58,6 @@ const UI = createSlice({
             });
         }
         console.log('QUERY RUN: MENU TABLES NEW STATE',state.menuTables);
-        
-        
       })
       
   }

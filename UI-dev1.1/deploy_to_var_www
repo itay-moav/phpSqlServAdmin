@@ -1,0 +1,4 @@
+#!/bin/bash -x
+rm -fr ./build
+npm run build
+sudo cp -r build/* /var/www/vulcan/.
