@@ -5,7 +5,7 @@ import useCurrents from "../../services/useCurrents";
 import { Jumbotron } from "../atoms";
 import {runQuery} from "../../store/querySlice";
 import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
-import { useRef } from "react";
+import { useRef,useState } from "react";
 
 const QueryEditor = () => {
     const dispatch = useDispatch();
@@ -14,10 +14,48 @@ const QueryEditor = () => {
     const navigate = useNavigate();
     const textAreaRef = useRef(null)
     const hiddenFileInputRef = useRef(null);
+    const [showOtherButton,setShowOtherButton] = useState(false);
+
+    /*************************************************
+     * text analyzer
+     *************************************************/
+    const analyzeText = e => {
+        const analyzedString = e.target.value;
+        if(analyzedString.includes(';') && !showOtherButton) {
+            setShowOtherButton(true);
+        } else if(! analyzedString.includes(';') && showOtherButton){
+            setShowOtherButton(false);
+        }
+    }
+
+    const runQueryBtns = showBachNoBatch =>{
+        if(showBachNoBatch){
+            return (
+                <>
+                <Button variant="primary" type="submit" className="mt-1" onClick={()=>runQueryFromTextArea(1)}>
+                    Run Queries batched
+                </Button>{' '}
+                <Button variant="primary" type="submit" className="mt-1" onClick={()=>runQueryFromTextArea(0)}>
+                    Run Queries separatly
+                </Button>
+                </>
+            );
+        }
+
+        return (
+            <Button variant="primary" type="submit" className="mt-1" onClick={()=>runQueryFromTextArea(1)}>
+                Run Query
+            </Button>
+        );
+    }
+    /*************************************************
+     * EOF --- text analyzer
+     *************************************************/
+
 
     // Sends query in textarea to server to run
-    const runQueryFromTextArea = async () => {
-        const payload={connectionName,server,database,query:textAreaRef.current.value};
+    const runQueryFromTextArea = async (runBatched) => {
+        const payload={ connectionName,server,database,query:textAreaRef.current.value,runBatched };
         const response = await dispatch(runQuery(payload)).unwrap();
         if(response.triggerNav){
             navigate(`/servers/${server}/databases/${database}/tables/${response.triggerNav}`);
@@ -79,13 +117,10 @@ const QueryEditor = () => {
 
 
             <Form.Group controlId="queryEditorArea">
-                <Form.Control as="textarea" rows={5} ref={textAreaRef} />
+                <Form.Control as="textarea" rows={5} ref={textAreaRef} onChange={analyzeText}/>
             </Form.Group>
             
-            <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea}>
-                Run Query
-            </Button>
-
+            {runQueryBtns(showOtherButton)}
         </Jumbotron>
     );
 }

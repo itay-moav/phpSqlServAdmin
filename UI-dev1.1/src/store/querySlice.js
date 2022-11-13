@@ -6,9 +6,9 @@ import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME} f
 
 // ---------------------------------------------------------------- API --------------------------------------------------------------
 //Dispatches a query to the server
-export const runQuery = createAsyncThunk('query/run', async ({connectionName,server,database,query}) => {
+export const runQuery = createAsyncThunk('query/run', async ({connectionName,server,database,query,runBatched}) => {
   console.log('ABOUT TO RUN:',connectionName,database,query);
-  const {data} = await http.post(`/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`,{params:{query}});
+  const {data} = await http.post(`/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}/runbatched/${runBatched}`,{params:{query}});
   data.payload.currentServer = server;
   data.payload.currentDatabse = database;
   return data.payload;
