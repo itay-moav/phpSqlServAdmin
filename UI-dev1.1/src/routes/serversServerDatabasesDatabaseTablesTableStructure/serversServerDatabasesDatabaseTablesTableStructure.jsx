@@ -15,7 +15,7 @@ export default function ServersServerDatabasesDatabaseTablesTableStructure(){
     const query = `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='${schema}' AND TABLE_NAME='${currentTable}'`; 
     useEffect(
         ()=>{
-            dispatch(runQuery({connectionName,server,database,query}));
+            dispatch(runQuery({connectionName,server,database,query,runBatched:1}));
         },[table]
     );
 

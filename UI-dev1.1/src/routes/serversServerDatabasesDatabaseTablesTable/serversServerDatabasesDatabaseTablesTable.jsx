@@ -13,7 +13,7 @@ export default function ServersServerDatabasesDatabaseTablesTable(){
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
     useEffect(
         ()=>{
-            dispatch(runQuery({connectionName,server,database,query: `SELECT * FROM ${table}`}));
+            dispatch(runQuery({connectionName,server,database,runBatched:1,query: `SELECT * FROM ${table}`}));
         },[table]
     );
 
