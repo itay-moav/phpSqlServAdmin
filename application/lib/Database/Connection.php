@@ -121,7 +121,7 @@ class Connection implements iConnection{
 
         $DB = $this->NativeDB;
 
-        if ($params) {
+        if ($params && count($params) > 0) {
             $this->lastStatement = $DB->prepare($sql);
             $query = $this->lastStatement->execute($params);
             $error = $this->lastStatement->errorInfo();

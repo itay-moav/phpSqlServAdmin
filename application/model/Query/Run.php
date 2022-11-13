@@ -24,14 +24,14 @@ class Run extends \lib\Database\ChainWithConnection
         $payload->query = $query;
         $payload->queryResult = [];
         $payload->triggerRefresh = 0;//Trigger refresh = 1 will force the UI to reload the state/schemas of the sql server
-        $payload->tables = [];
+        $payload->tables = []; //this list is populated if trigger refresh is activated, intercepted by uiSlice
         $payload->error = '';
         
         try{
             dbgn("switch command: {$command}");
             switch($command){
                 case COMMAND__SELECT:
-                    (new Command\Select($this->Request,$this->Response))->process();
+                    (new Command\Select($this->Request,$this->Response,['query'=>$query]))->process();
                     break;
     
                 case COMMAND__INSERT:

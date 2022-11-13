@@ -10,6 +10,11 @@ class QueryRunCreate extends \Talis\Chain\aFilteredValidatedChainLink{
         return [
             [\lib\Database\FindConnectionName(),[]],
             [\model\Query\Run::class,[]],
+            
+            //ON HOLD https://stackoverflow.com/questions/74423340/catch-sqlsrv-execution-plan-with-php   
+            //[\model\Query\PreRunAnalyzer::class,[]],
+            
+            
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];
     }
