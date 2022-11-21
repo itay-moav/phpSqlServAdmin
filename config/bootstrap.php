@@ -9,6 +9,7 @@ define('CORE_PATH', 		__DIR__ . '/..');
 define('APP_PATH', 			CORE_PATH . '/application');
 define('LIB_PATH', 			APP_PATH . '/lib');
 ini_set('include_path', '.' . PATH_SEPARATOR . APP_PATH);
+\define('SHOW_EXCEPTIONS',1);
 
 /**
  *

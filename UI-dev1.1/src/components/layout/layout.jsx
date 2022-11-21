@@ -3,6 +3,7 @@ import { Container,Row,Col } from "react-bootstrap";
 import UpArrow from "./upArrow";
 import BreadCrumbs from "./breadCrumbs";
 import DbTableMenu from "./dbTableMenu";
+import SystemErrorModal from "./systemErrorModal";
 import './layout.css';
 
 
@@ -30,6 +31,10 @@ export default function Layout(){
           <Row>
             <Col>
               <BreadCrumbs />
+            </Col>
+          </Row>
+          <Row><Col>
+            <SystemErrorModal />
             </Col>
           </Row>
 

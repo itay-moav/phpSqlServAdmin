@@ -1,4 +1,9 @@
 <?php namespace Api;
+/**
+ * 
+ * @author itay
+ *
+ */
 class QueryRunCreate extends \Talis\Chain\aFilteredValidatedChainLink{
     
     /**
