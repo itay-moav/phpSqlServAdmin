@@ -17,7 +17,7 @@ class Run extends \lib\Database\ChainWithConnection
      */
     public function process(): \Talis\Chain\aChainLink
     {
-        $query   = trim($this->params['query'] ??  $this->Request->getBodyParamOrFail('query'));
+        $query   = trim($this->params['query'] ?? $this->Request->getBodyParamOrFail('query'));
         $payload = $this->Response->getPayload();
         $command = strtoupper(explode(' ', $query)[0]);
         $payload->command = $command;
@@ -35,37 +35,37 @@ class Run extends \lib\Database\ChainWithConnection
                     break;
     
                 case COMMAND__INSERT:
-                    (new Command\Insert($this->Request,$this->Response))->process();
+                    (new Command\Insert($this->Request,$this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__UPDATE:
-                    (new Command\Update($this->Request,$this->Response))->process();
+                    (new Command\Update($this->Request,$this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__DELETE:
-                    (new Command\Delete($this->Request, $this->Response))->process();
+                    (new Command\Delete($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__CREATE:
-                    (new Command\Create($this->Request, $this->Response))->process();
+                    (new Command\Create($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__ALTER:
-                    (new Command\Alter($this->Request, $this->Response))->process();
+                    (new Command\Alter($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__DROP:
-                    (new Command\Drop($this->Request, $this->Response))->process();
+                    (new Command\Drop($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__SP:
-                    (new Command\StoredProcedure($this->Request, $this->Response))->process();
+                    (new Command\StoredProcedure($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 default:
                     dbgr('QUERY OUT',$query);
                     //throw new \Exception('Query not supported yet');
-                    (new Command\MixedQuery($this->Request, $this->Response))->process();
+                    (new Command\MixedQuery($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                 
             }

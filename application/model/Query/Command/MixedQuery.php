@@ -16,11 +16,13 @@ class MixedQuery extends \lib\Database\ChainWithConnection
     {
         $payload = $this->Response->getPayload();
         //handle multiple queries with the "GO" delimiter
-        $query = str_replace("GO\n",";\n",$payload->query);
+        $query=$this->params['query'];
+        $query = str_replace("GO\n",";\n",$query);
         $run = $this->conn->execute($query);//error handled in Run.php
 
         try{
             $possible_res = $run->fetchAll();
+            dbgr('POSSIBLE RESPONSE FROM SQL SERVER',$possible_res);
         } catch(\PDOException $e){
             if($e->getCode() !== \model\Query\ERROR_CODE__NO_RESULTS){
                 throw $e;
