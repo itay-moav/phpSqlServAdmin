@@ -16,7 +16,6 @@ class TablesDefinitionRead extends \Talis\Chain\aFilteredValidatedChainLink{
     protected function get_next_bl():array{
         return [
             [\lib\Database\FindConnectionName(),[]],
-            //[\model\Query\Run::class,['query' => 'SELECT s.name,o.name,o.object_id FROM sys.objects o WITH (NOWAIT) JOIN sys.schemas s WITH (NOWAIT) ON o.schema_id = s.schema_id WHERE s.name + \'.\' + o.name = \'itay.kokooko1\' AND o.type = \'U\' AND o.is_ms_shipped = 0']],
             [ConstructCreateStatement::class,[]],
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];
@@ -37,6 +36,8 @@ class ConstructCreateStatement extends \lib\Database\ChainWithConnection{
      */
     public function process():\Talis\Chain\aChainLink{
         $schema_table = $this->Request->get_param_or_fail('table');
+        //TODO if this pattern keeps poping, I'd rather store these in a separate file with templats replacements :newline => $newline ...
+        //      Then I can use a more generic chainlink to load a sql templated script.
         $newline = 'CHAR(13) + CHAR(10)';
         
         $query="

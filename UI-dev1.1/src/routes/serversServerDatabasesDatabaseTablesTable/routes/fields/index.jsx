@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import useCurrents from "../../services/useCurrents";
-import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
-import { runQuery } from "../../store/querySlice";
-import QueryEditor from "../../components/query/queryEditor";
-import LastQuery from "../../components/query/lastQuery";
-import QueryResults from "../../components/query/queryResults";
+import useCurrents from "../../../../services/useCurrents";
+import { findConnectionNameByDbOrServer } from '../../../../store/dbTreeSlice';
+import { runQuery } from "../../../../store/querySlice";
+import {LastQuery,QueryEditor,QueryResults} from "../../../../components/query";
 
-export default function ServersServerDatabasesDatabaseTablesTableStructure(){
+export default function TableFields(){
     const dispatch = useDispatch();
     const {server,database,table} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));

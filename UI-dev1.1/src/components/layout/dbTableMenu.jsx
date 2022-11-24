@@ -19,7 +19,7 @@ export default function DbTableMenu(){
     const tablesByOwner = (owner,menuTables) => menuTables.map(table=>{
                                                             return (<ListGroup.Item key={table.tName}>
                                                                         &nbsp;
-                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/structure`}>
+                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/fields`}>
                                                                         <i className="btn fa fa-table db-element-clickable" aria-hidden="true"></i>
                                                                         </NavLink>
                                                                         <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}`}>
