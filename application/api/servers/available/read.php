@@ -47,12 +47,12 @@ class GetServers extends \Talis\Chain\aChainLink
             //first time - init the server databases list to an empty array
             if(!isset($servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]])){
                 $servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]] = $db_conn;
-                $servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]]['databases'] = [];
+                $servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]][\TREE_NODES__DATABASES] = [];
             }
             
             //some connection are on the database level (handled here).
             if(isset($db_conn[\ENVIRONMENT__DBCONNECTIONS__DATABASE])){
-                $servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]]['databases'][$db_conn[\ENVIRONMENT__DBCONNECTIONS__DATABASE]] = $db_conn;
+                $servers[$db_conn[\ENVIRONMENT__DBCONNECTIONS__SERVER]][\TREE_NODES__DATABASES][$db_conn[\ENVIRONMENT__DBCONNECTIONS__DATABASE]] = $db_conn;
             }
         }
         

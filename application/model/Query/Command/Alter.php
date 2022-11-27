@@ -16,8 +16,6 @@ class Alter extends \lib\Database\ChainWithConnection
     {
         $payload = $this->Response->getPayload();
         $this->conn->execute($payload->query);
-        $payload->triggerReferesh = 1;
-        
         return $this;
     }
 }

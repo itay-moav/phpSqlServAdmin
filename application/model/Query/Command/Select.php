@@ -15,7 +15,10 @@ class Select extends \lib\Database\ChainWithConnection
     public function process(): \Talis\Chain\aChainLink
     {
         $payload = $this->Response->getPayload();
-        $payload->queryResult = $this->conn->execute($payload->query)->fetchAll();
+        $query   = $this->params['query'];
+        dbgr('QUERY',$query);
+        $payload->queryResult = $this->conn->execute($query)->fetchAll();
+        dbgr('QUERY RESULTS',$payload->queryResult);
         return $this;
     }
 }

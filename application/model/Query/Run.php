@@ -17,66 +17,67 @@ class Run extends \lib\Database\ChainWithConnection
      */
     public function process(): \Talis\Chain\aChainLink
     {
-        $query   = trim($this->params['query'] ??  $this->Request->getBodyParamOrFail('query'));
+        $query   = trim($this->params['query'] ?? $this->Request->getBodyParamOrFail('query'));
         $payload = $this->Response->getPayload();
         $command = strtoupper(explode(' ', $query)[0]);
         $payload->command = $command;
         $payload->query = $query;
         $payload->queryResult = [];
-        $payload->triggerReferesh = 0;//Trigger refresh = 1 will force the UI to reload the state/schemas of the sql server
-        $payload->tables = [];
+        $payload->triggerRefresh = 0;//Trigger refresh = 1 will force the UI to reload the state/schemas of the sql server
+        $payload->tables = []; //this list is populated if trigger refresh is activated, intercepted by uiSlice
         $payload->error = '';
         
         try{
             dbgn("switch command: {$command}");
             switch($command){
                 case COMMAND__SELECT:
-                    (new Command\Select($this->Request,$this->Response))->process();
+                    (new Command\Select($this->Request,$this->Response,['query'=>$query]))->process();
                     break;
     
                 case COMMAND__INSERT:
-                    (new Command\Insert($this->Request,$this->Response))->process();
+                    (new Command\Insert($this->Request,$this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__UPDATE:
-                    (new Command\Update($this->Request,$this->Response))->process();
+                    (new Command\Update($this->Request,$this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__DELETE:
-                    (new Command\Delete($this->Request, $this->Response))->process();
+                    (new Command\Delete($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__CREATE:
-                    (new Command\Create($this->Request, $this->Response))->process();
+                    (new Command\Create($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__ALTER:
-                    (new Command\Alter($this->Request, $this->Response))->process();
+                    (new Command\Alter($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__DROP:
-                    (new Command\Drop($this->Request, $this->Response))->process();
+                    (new Command\Drop($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 case COMMAND__SP:
-                    (new Command\StoredProcedure($this->Request, $this->Response))->process();
+                    (new Command\StoredProcedure($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                     
                 default:
                     dbgr('QUERY OUT',$query);
                     //throw new \Exception('Query not supported yet');
-                    (new Command\Mixed($this->Request, $this->Response))->process();
+                    (new Command\MixedQuery($this->Request, $this->Response,['query'=>$query]))->process();
                     break;
                 
             }
         } catch (\PDOException $e){
             $payload->error = $e->getMessage();
             $payload->queryResult = 'error';
+            return $this;
         }
         
         //If we need to refresh the UI with the list of tables (in case of a drop/create/alter statements)
-        if($payload->triggerReferesh === 1){ //@phpstan-ignore-line The value is part of the payload and is being passed by ref to the specific query command classes and modified there
-            $payload->tables = $this->conn->execute('EXEC sp_tables')->fetchAll();
+        if($payload->triggerRefresh === 1){ //@phpstan-ignore-line The value is part of the payload and is being passed by ref to the specific query command classes and modified there
+            $payload->tables = $this->conn->execute('SELECT * from INFORMATION_SCHEMA.TABLES')->fetchAll();
         }
         return $this;
     }

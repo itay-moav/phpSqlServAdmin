@@ -113,6 +113,12 @@ class Connection implements iConnection{
      */
     public function execute(string $sql, array $params = []): Connection
     {
+        $this->Logger->info('-----------------------------------------',false);
+        $this->Logger->info('EXECUTING SQL',false);
+        $this->Logger->info($sql,false);
+        $this->Logger->info('QUERY PARAMS:',false);
+        $this->Logger->info($params,false);
+        
         $this->lastSql = $sql;
         $this->lastBindParams = $params;
         $this->Logger->debug($this->getDebugInfo());
@@ -121,7 +127,7 @@ class Connection implements iConnection{
 
         $DB = $this->NativeDB;
 
-        if ($params) {
+        if ($params && count($params) > 0) {
             $this->lastStatement = $DB->prepare($sql);
             $query = $this->lastStatement->execute($params);
             $error = $this->lastStatement->errorInfo();
@@ -140,7 +146,8 @@ class Connection implements iConnection{
         $this->numFields = $this->lastStatement->columnCount();
         $this->numRows   = $this->lastStatement->rowCount();
         $this->lastInsertID = $this->NativeDB->lastInsertId();
-        $this->Logger->debug("NUMFIELDS: [{$this->numFields}]\nNUMROWS: [{$this->numRows}]");
+        $this->Logger->info("NUMFIELDS: [{$this->numFields}]\nNUMROWS: [{$this->numRows}]",false);
+        $this->Logger->info('-----------------------------------------',false);
         return $this;
     }
 

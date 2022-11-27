@@ -16,8 +16,23 @@ class Create extends \lib\Database\ChainWithConnection
     {
         $payload = $this->Response->getPayload();
         $this->conn->execute($payload->query);
-        $payload->triggerReferesh = 1;
+        $payload->triggerRefresh = 1;
         
+        if(stripos($payload->query, 'table')){
+            $part1 = explode(' ',$payload->query)[2];
+            $schema_table = trim(explode('(',$part1)[0]);
+            if(strpos($schema_table,'.')){
+                $schema_table = explode('.',$schema_table);
+                $schema = $schema_table[0];
+                $table  = $schema_table[1];
+            }else{
+                $schema = 'dbo';
+                $table  = $schema_table;
+            }
+            
+            $payload->triggerNav = "{$schema}.{$table}/structure";
+        }
         return $this;
     }
 }
+
