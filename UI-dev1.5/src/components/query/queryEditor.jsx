@@ -28,6 +28,15 @@ const QueryEditor = () => {
      * TOOL BAR 
      *********************************************************/
 
+    /*************************************************
+     * COPY ICON
+     *************************************************/
+     const copy =()=>{
+        textAreaRef.current.select();
+        textAreaRef.current.setSelectionRange(0, 99999);
+        window.document.execCommand('copy');
+        textAreaRef.current.setSelectionRange(0,0);
+    }
 
     /*************************************************
      * PASTE ICON
@@ -63,7 +72,7 @@ const QueryEditor = () => {
     const handleFileRead = (e) => {
         const content = e.target.result;
         textAreaRef.current.value=content;
-        runQueryFromTextArea();
+        //disabling - let user trigger the run after he verifies what he uploaded --- runQueryFromTextArea();
 
     }
 
@@ -82,8 +91,9 @@ const QueryEditor = () => {
             <ButtonToolbar className="pull-right mb-1">
                 <input type="file" ref={hiddenFileInputRef} onChange={runFromLocalfile} style={{display: 'none'}} />
                 <Button onClick={fireUploadFile} variant="secondary" title="Run from local file" className="mr-1"><i className="fa fa-upload" aria-hidden="true"></i></Button>
-                <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>{' '}
-                <Button onClick={paste} variant="secondary" title="Paste from clipboard"><i className="fa fa-clipboard" aria-label="Paste from clipboard"></i></Button>
+                <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>
+                <Button onClick={paste} variant="secondary" title="Paste from clipboard" className="mr-1"><i className="fa fa-paste" aria-label="Paste from clipboard"></i></Button>
+                <Button onClick={copy} variant="secondary" title="Copy to clipboard"><i className="fa fa-copy" aria-label="Copy to clipboard"></i></Button>
             </ButtonToolbar>
 
             <Form.Group controlId="queryEditorArea">

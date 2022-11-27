@@ -187,14 +187,9 @@ SELECT @SQL = 'CREATE TABLE ' + @object_name  + '(' + {$newline} + STUFF((
 SELECT @SQL
         ";
         $res=$this->conn->execute($query,['table_name'=>$schema_table])->fetchAll();
-        info($res,false);
-        var_dump($res[0]);
-        die;
-        
+        info("CREATE STATEMENT");
+        info("\n" . current($res[0]),false);
+        $this->Response->getPayload()->createSql = current($res[0]);
         return $this;
     }
 }
-
-
-// \lib\Database\ChainWithConnection
-//  

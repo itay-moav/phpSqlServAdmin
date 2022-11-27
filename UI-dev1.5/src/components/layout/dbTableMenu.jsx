@@ -13,14 +13,19 @@ import { useEffect } from 'react';
 export default function DbTableMenu(){
     const {menuSchema,menuTables}= useSelector(state=>state.ui);
     const [selectedOwner,setSelectedOwner] = useState({});
-    const {server,database,table} = useCurrents();
+    const {server,database,table:currentTable} = useCurrents();
 
     //creates the table level items
     const tablesByOwner = (owner,menuTables) => menuTables.map(table=>{
-                                                            return (<ListGroup.Item key={table.tName}>
+                                                            const active = currentTable === `${owner}.${table.tName}`;
+                                                            return (<ListGroup.Item key={table.tName} active={active}>
                                                                         &nbsp;
                                                                         <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/fields`}>
                                                                         <i className="btn fa fa-table db-element-clickable" aria-hidden="true"></i>
+                                                                        </NavLink>
+                                                                        {/*Temporary link to the create sql */}
+                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/createsql`}>
+                                                                        <i className="btn fa fa-book db-element-clickable" aria-hidden="true"></i>
                                                                         </NavLink>
                                                                         <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}`}>
                                                                         <span className="table-name db-element-clickable">{table.tName}</span>

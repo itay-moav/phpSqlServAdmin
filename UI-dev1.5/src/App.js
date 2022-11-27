@@ -7,7 +7,8 @@ import Servers from "./routes/servers";
 import ServersServerDatabases from "./routes/serversServerDatabases";
 import ServersServerDatabasesDatabaseTables from './routes/serversServerDatabasesDatabaseTables';
 import ServersServerDatabasesDatabaseTablesTable from "./routes/serversServerDatabasesDatabaseTablesTable";
-import TableFields from './routes/serversServerDatabasesDatabaseTablesTable/routes/fields';
+import TableCreateSql from './routes/serversServerDatabasesDatabaseTablesTable/subroutes/createSql';
+import TableFields    from './routes/serversServerDatabasesDatabaseTablesTable/subroutes/fields';
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        <Route exact path="servers/:server/databases/:database/tables/:table/createsql" element={<TableCreateSql />} />
         <Route exact path="servers/:server/databases/:database/tables/:table/fields" element={<TableFields />} />
         <Route exact path="servers/:server/databases/:database/tables/:table" element={<ServersServerDatabasesDatabaseTablesTable />} />
         <Route exact path="servers/:server/databases/:database/tables" element={<h2><ServersServerDatabasesDatabaseTables /></h2>} />
