@@ -30,7 +30,7 @@ class Create extends \lib\Database\ChainWithConnection
                 $table  = $schema_table;
             }
             
-            $payload->triggerNav = "{$schema}.{$table}/structure";
+            $payload->triggerNav = "{$schema}.{$table}/fields";
         }
         return $this;
     }
