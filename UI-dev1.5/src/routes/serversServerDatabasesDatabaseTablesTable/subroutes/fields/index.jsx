@@ -3,9 +3,11 @@ import { useDispatch,useSelector } from "react-redux";
 import useCurrents from "../../../../services/useCurrents";
 import { findConnectionNameByDbOrServer } from '../../../../store/dbTreeSlice';
 import { runQuery } from "../../../../store/querySlice";
-import {LastQuery,QueryEditor,QueryResults} from "../../../../components/query";
-
+import {LastQuery,QueryEditor} from "../../../../components/query";
+import FormatedFieldsQueryResults from "./formatedFieldsQueryResults";
+import { useNavigate } from "react-router-dom";
 export default function TableFields(){
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {server,database,table} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
@@ -19,9 +21,12 @@ export default function TableFields(){
 
     return (
         <>
-            <QueryEditor />
+            <QueryEditor runTriggers={()=>navigate('./../sql')} />
             <LastQuery />
-            <QueryResults />
+            <FormatedFieldsQueryResults />
         </>
     );
 }
+
+
+//TODO still enable the full/raw view of the query above

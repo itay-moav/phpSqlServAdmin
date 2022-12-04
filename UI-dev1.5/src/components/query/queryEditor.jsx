@@ -7,7 +7,7 @@ import {runQuery} from "../../store/querySlice";
 import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
 import { useRef } from "react";
 
-const QueryEditor = () => {
+const QueryEditor = ({runTriggers}) => {
     const dispatch = useDispatch();
     const {server,database} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
@@ -21,6 +21,8 @@ const QueryEditor = () => {
         const response = await dispatch(runQuery(payload)).unwrap();
         if(response.triggerNav){
             navigate(`/servers/${server}/databases/${database}/tables/${response.triggerNav}`);
+        } else if(runTriggers){
+            runTriggers();
         }
     };
 

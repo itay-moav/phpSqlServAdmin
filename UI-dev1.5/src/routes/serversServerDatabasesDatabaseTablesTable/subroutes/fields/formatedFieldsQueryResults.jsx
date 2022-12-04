@@ -1,0 +1,44 @@
+import {useSelector} from 'react-redux';
+import { Table,Alert } from "react-bootstrap";
+
+
+export default function FormatedFieldsQueryResults(){
+    //TODO create as a selector function in the proper place
+    const results = useSelector(state => (state.query.lastResults) );
+    const errorMessage  = useSelector(state => (state.query.lastError) );
+    
+    if(errorMessage.length > 3){
+        return (
+                <Alert variant="danger">
+                    <Alert.Heading>SQL Server error!</Alert.Heading>
+                    <pre>{errorMessage}</pre>
+                </Alert>
+            );
+    }
+    if(results.length === 0)  return null;
+
+    const keys = Object.keys(results[0]);
+    let i = 0;
+
+    return (
+        <Table striped bordered hover size="sm" variant="dark">
+            <thead>
+                <tr><th colspan="4">Fields for table {`${results[0].TABLE_SCHEMA}.${results[0].TABLE_NAME}`}</th></tr>
+                <tr>
+                    <th>Field Name</th>
+                    <th>Type</th>
+                    <th>Nullable?</th>
+                    <th>Collation</th>
+                </tr>
+            </thead>
+            <tbody>
+               <tr>
+                    <td>{results[0].COLUMN_NAME}</td>
+                    <td>{results[0].DATA_TYPE}({results[0].CHARACTER_MAXIMUM_LENGTH})</td>
+                    <td>{results[0].IS_NULLABLE}</td>
+                    <td>{results[0].COLLATION_NAME}</td>
+               </tr>
+            </tbody>
+        </Table>
+    );
+}
