@@ -32,12 +32,14 @@ export default function FormatedFieldsQueryResults(){
                 </tr>
             </thead>
             <tbody>
-               <tr>
-                    <td>{results[0].COLUMN_NAME}</td>
-                    <td>{results[0].DATA_TYPE}({results[0].CHARACTER_MAXIMUM_LENGTH})</td>
-                    <td>{results[0].IS_NULLABLE}</td>
-                    <td>{results[0].COLLATION_NAME}</td>
-               </tr>
+                {results.map(tr=>{return (
+                <tr key={tr.COLUMN_NAME}>
+                    <td>{tr.COLUMN_NAME}</td>
+                    <td>{tr.DATA_TYPE}({tr.CHARACTER_MAXIMUM_LENGTH})</td>
+                    <td>{tr.IS_NULLABLE}</td>
+                    <td>{tr.COLLATION_NAME}</td>
+                </tr>
+                )})}
             </tbody>
         </Table>
     );
