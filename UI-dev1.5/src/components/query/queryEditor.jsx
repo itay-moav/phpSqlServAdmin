@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { Form,Button,ButtonToolbar } from "react-bootstrap";
+import { Form,Button,ButtonToolbar,Row,Col } from "react-bootstrap";
 import {useDispatch,useSelector} from 'react-redux';
 import useCurrents from "../../services/useCurrents";
 import { Jumbotron } from "../atoms";
 import {runQuery} from "../../store/querySlice";
 import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
 import { useRef } from "react";
+import { useEffect } from "react";
 
 const QueryEditor = ({runTriggers}) => {
     const dispatch = useDispatch();
-    const {server,database} = useCurrents();
+    const {server,database,table} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
     const navigate = useNavigate();
     const textAreaRef = useRef(null)
@@ -97,11 +98,16 @@ const QueryEditor = ({runTriggers}) => {
                 <Button onClick={paste} variant="secondary" title="Paste from clipboard" className="mr-1"><i className="fa fa-paste" aria-label="Paste from clipboard"></i></Button>
                 <Button onClick={copy} variant="secondary" title="Copy to clipboard"><i className="fa fa-copy" aria-label="Copy to clipboard"></i></Button>
             </ButtonToolbar>
+            <Row>
+                <Col>
+                <Form.Group controlId="queryEditorArea">
+                    <Form.Control as="textarea" rows={5} ref={textAreaRef} />
+                </Form.Group>
+                </Col>
+                
+                {table && <TableFieldsHelper table={table} />}
 
-            <Form.Group controlId="queryEditorArea">
-                <Form.Control as="textarea" rows={5} ref={textAreaRef} />
-            </Form.Group>
-            
+            </Row>       
             <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea}>
                 Run Query
             </Button>
@@ -110,3 +116,16 @@ const QueryEditor = ({runTriggers}) => {
 }
  
 export default QueryEditor;
+
+
+function TableFieldsHelper({table}){
+
+
+    //TODO use selector to load current table fields
+
+    return (
+        <Col lg="2">
+        {table}TODO use selector to load current table fields
+        </Col>
+    );
+}

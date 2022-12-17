@@ -5,7 +5,7 @@ import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
 import { runQuery } from "../../store/querySlice";
 import {LastQuery,QueryEditor,QueryResults} from "../../components/query";
 
-export default function ServersServerDatabasesDatabaseTablesTable(){
+export default function TableRows(){
     const dispatch = useDispatch();
     const {server,database,table} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
