@@ -6,15 +6,15 @@ import { Jumbotron } from "../atoms";
 import {runQuery} from "../../store/querySlice";
 import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
 import { useRef } from "react";
-import { useEffect } from "react";
 
-const QueryEditor = ({runTriggers}) => {
+const QueryEditor = ({runTriggers,rightCP}) => {
     const dispatch = useDispatch();
-    const {server,database,table} = useCurrents();
+    const {server,database} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
     const navigate = useNavigate();
     const textAreaRef = useRef(null)
     const hiddenFileInputRef = useRef(null);
+    const injectRightCp = rightCP ? rightCP(textAreaRef) : null;
 
     // Sends query in textarea to server to run
     const runQueryFromTextArea = async () => {
@@ -91,41 +91,28 @@ const QueryEditor = ({runTriggers}) => {
 
     return (  
         <Jumbotron>
-            <ButtonToolbar className="pull-right mb-1">
-                <input type="file" ref={hiddenFileInputRef} onChange={runFromLocalfile} style={{display: 'none'}} />
-                <Button onClick={fireUploadFile} variant="secondary" title="Run from local file" className="mr-1"><i className="fa fa-upload" aria-hidden="true"></i></Button>
-                <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>
-                <Button onClick={paste} variant="secondary" title="Paste from clipboard" className="mr-1"><i className="fa fa-paste" aria-label="Paste from clipboard"></i></Button>
-                <Button onClick={copy} variant="secondary" title="Copy to clipboard"><i className="fa fa-copy" aria-label="Copy to clipboard"></i></Button>
-            </ButtonToolbar>
+
             <Row>
                 <Col>
+                <ButtonToolbar className="pull-right mb-1">
+                    <input type="file" ref={hiddenFileInputRef} onChange={runFromLocalfile} style={{display: 'none'}} />
+                    <Button onClick={fireUploadFile} variant="secondary" title="Run from local file" className="mr-1"><i className="fa fa-upload" aria-hidden="true"></i></Button>
+                    <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>
+                    <Button onClick={paste} variant="secondary" title="Paste from clipboard" className="mr-1"><i className="fa fa-paste" aria-label="Paste from clipboard"></i></Button>
+                    <Button onClick={copy} variant="secondary" title="Copy to clipboard"><i className="fa fa-copy" aria-label="Copy to clipboard"></i></Button>
+                </ButtonToolbar>
                 <Form.Group controlId="queryEditorArea">
                     <Form.Control as="textarea" rows={5} ref={textAreaRef} />
                 </Form.Group>
                 </Col>
-                
-                {table && <TableFieldsHelper table={table} />}
-
+                {injectRightCp}
             </Row>       
             <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea}>
                 Run Query
             </Button>
+            
         </Jumbotron>
     );
 }
  
 export default QueryEditor;
-
-
-function TableFieldsHelper({table}){
-
-
-    //TODO use selector to load current table fields
-
-    return (
-        <Col lg="2">
-        {table}TODO use selector to load current table fields
-        </Col>
-    );
-}

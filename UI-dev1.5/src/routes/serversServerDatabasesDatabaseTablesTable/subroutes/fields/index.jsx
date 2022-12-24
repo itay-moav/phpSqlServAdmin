@@ -6,6 +6,7 @@ import { runQuery } from "../../../../store/querySlice";
 import {LastQuery,QueryEditor} from "../../../../components/query";
 import FormatedFieldsQueryResults from "./formatedFieldsQueryResults";
 import { useNavigate } from "react-router-dom";
+import FieldsHelper from "../../fieldsHelper";
 export default function TableFields(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -18,10 +19,12 @@ export default function TableFields(){
             dispatch(runQuery({connectionName,server,database,query}));
         },[table]
     );
+    
+    const rightCP = (textArea) => <FieldsHelper textArea={textArea} />;
 
     return (
         <>
-            <QueryEditor runTriggers={()=>navigate('./../sql')} />
+            <QueryEditor runTriggers={()=>navigate('./../sql')} rightCP={rightCP} />
             <LastQuery />
             <FormatedFieldsQueryResults />
         </>

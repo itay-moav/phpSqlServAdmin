@@ -23,8 +23,8 @@ export default function FormatedFieldsQueryResults(){
     return (
         <Table striped bordered hover size="sm" variant="dark">
             <thead>
-                <tr><th colspan="4">Fields for table {`${results[0].TABLE_SCHEMA}.${results[0].TABLE_NAME}`}</th></tr>
-                <tr>
+                <tr key="1"><th colSpan="4">Fields for table {`${results[0].TABLE_SCHEMA}.${results[0].TABLE_NAME}`}</th></tr>
+                <tr key="2">
                     <th>Field Name</th>
                     <th>Type</th>
                     <th>Nullable?</th>

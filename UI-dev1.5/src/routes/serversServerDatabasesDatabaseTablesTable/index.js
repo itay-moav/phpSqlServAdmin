@@ -5,12 +5,8 @@ import TableCreateSql from "./subroutes/createSql";
 import TableSql from "./subroutes/sql";
 
 
-
-
-
 export default function ServersServerDatabasesDatabaseTablesTable(){
 
-    //if no fields -> dispatch load fields 
     return <Outlet />
 }
 
