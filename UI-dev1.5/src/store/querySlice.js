@@ -52,7 +52,12 @@ const initialState = {
 const Query = createSlice({
   name: "query",
   initialState,
-  reducers: {},
+  reducers: {
+    manualSetLastQuery: (state,action) => {
+      state.lastQuery = action.payload;
+    }
+
+  },
   //handlers/reducers for the query Thunk
   extraReducers(builder) {
     builder
