@@ -23,10 +23,10 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="servers/:server/databases/:database/tables/:table" element={<ServersServerDatabasesDatabaseTablesTable />}>
-          <Route index element={<TableRows />} />
+          <Route exact path="browse" element={<TableRows />} />
           <Route exact path="sql" element={<TableSql />} />
           <Route exact path="createsql" element={<TableCreateSql />} />
-          <Route exact path="fields" element={<TableFields />} />
+          <Route exact path="structure" element={<TableFields />} />
         </Route>
 
         <Route exact path="servers/:server/databases/:database/tables" element={<h2><ServersServerDatabasesDatabaseTables /></h2>} />
