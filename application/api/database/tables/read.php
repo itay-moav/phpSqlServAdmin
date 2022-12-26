@@ -16,7 +16,7 @@ class DatabaseTablesRead extends \Talis\Chain\aFilteredValidatedChainLink{
     protected function get_next_bl():array{
         return [
             [\lib\Database\FindConnectionName(),[]],
-            [\model\Query\Run::class,['query' => 'SELECT * from INFORMATION_SCHEMA.TABLES']], //fetches all table + views in db
+            [\model\Query\Run::class,['query' => 'SELECT * from INFORMATION_SCHEMA.TABLES ORDER BY TABLE_SCHEMA ASC, TABLE_NAME ASC']], //fetches all table + views in db
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];
     }

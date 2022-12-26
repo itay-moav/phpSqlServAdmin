@@ -1,19 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { Form,Button,ButtonToolbar } from "react-bootstrap";
+import { Form,Button,ButtonToolbar,Row,Col } from "react-bootstrap";
 import {useDispatch,useSelector} from 'react-redux';
 import useCurrents from "../../services/useCurrents";
 import { Jumbotron } from "../atoms";
-import {runQuery} from "../../store/querySlice";
+import {runQuery,QueryActions} from "../../store/querySlice";
 import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
 import { useRef } from "react";
 
-const QueryEditor = ({runTriggers}) => {
+const QueryEditor = ({runTriggers,rightCP}) => {
     const dispatch = useDispatch();
     const {server,database} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
     const navigate = useNavigate();
     const textAreaRef = useRef(null)
     const hiddenFileInputRef = useRef(null);
+    const injectRightCp = rightCP ? rightCP(textAreaRef) : null;
 
     // Sends query in textarea to server to run
     const runQueryFromTextArea = async () => {
@@ -67,6 +68,7 @@ const QueryEditor = ({runTriggers}) => {
         console.log('FILE',file);
         fileReader.onload = handleFileRead;
         fileReader.readAsText(file);
+        dispatch(QueryActions.manualSetLastQuery(`UPLOADING FILE: [${file.name}]`));
     }
 
     // Fills the textarea with file content and
@@ -90,21 +92,26 @@ const QueryEditor = ({runTriggers}) => {
 
     return (  
         <Jumbotron>
-            <ButtonToolbar className="pull-right mb-1">
-                <input type="file" ref={hiddenFileInputRef} onChange={runFromLocalfile} style={{display: 'none'}} />
-                <Button onClick={fireUploadFile} variant="secondary" title="Run from local file" className="mr-1"><i className="fa fa-upload" aria-hidden="true"></i></Button>
-                <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>
-                <Button onClick={paste} variant="secondary" title="Paste from clipboard" className="mr-1"><i className="fa fa-paste" aria-label="Paste from clipboard"></i></Button>
-                <Button onClick={copy} variant="secondary" title="Copy to clipboard"><i className="fa fa-copy" aria-label="Copy to clipboard"></i></Button>
-            </ButtonToolbar>
 
-            <Form.Group controlId="queryEditorArea">
-                <Form.Control as="textarea" rows={5} ref={textAreaRef} />
-            </Form.Group>
-            
+            <Row>
+                <Col>
+                <ButtonToolbar className="pull-right mb-1">
+                    <input type="file" ref={hiddenFileInputRef} onChange={runFromLocalfile} style={{display: 'none'}} />
+                    <Button onClick={fireUploadFile} variant="secondary" title="Run from local file" className="mr-1"><i className="fa fa-upload" aria-hidden="true"></i></Button>
+                    <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>
+                    <Button onClick={paste} variant="secondary" title="Paste from clipboard" className="mr-1"><i className="fa fa-paste" aria-label="Paste from clipboard"></i></Button>
+                    <Button onClick={copy} variant="secondary" title="Copy to clipboard"><i className="fa fa-copy" aria-label="Copy to clipboard"></i></Button>
+                </ButtonToolbar>
+                <Form.Group controlId="queryEditorArea">
+                    <Form.Control as="textarea" rows={5} ref={textAreaRef} />
+                </Form.Group>
+                </Col>
+                {injectRightCp}
+            </Row>       
             <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea}>
                 Run Query
             </Button>
+            
         </Jumbotron>
     );
 }

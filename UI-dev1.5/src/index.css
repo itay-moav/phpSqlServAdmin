@@ -46,3 +46,22 @@ a:hover{
 .btn.fa:hover{
     color: #DDD;
 }
+
+.vulcan-page-title{
+  font-size:1.1em;
+  margin-top:5px;
+  margin-bottom: 20px;
+}
+
+.nav.nav-tabs{
+  font-size: 0.9em;
+  border-bottom-style: none;
+}
+span.link{
+  cursor: pointer;
+}
+.modal-content.danger{
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}

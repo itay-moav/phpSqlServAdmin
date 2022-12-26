@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
 import useCurrents from '../../services/useCurrents';
 import './dbTableMenu.css';
-import { useEffect } from 'react';
 
 /**
  * 
@@ -20,14 +19,14 @@ export default function DbTableMenu(){
                                                             const active = currentTable === `${owner}.${table.tName}`;
                                                             return (<ListGroup.Item key={table.tName} active={active}>
                                                                         &nbsp;
-                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/fields`}>
+                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/structure`}>
                                                                         <i className="btn fa fa-table db-element-clickable" aria-hidden="true"></i>
                                                                         </NavLink>
                                                                         {/*Temporary link to the create sql */}
                                                                         <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/createsql`}>
                                                                         <i className="btn fa fa-book db-element-clickable" aria-hidden="true"></i>
                                                                         </NavLink>
-                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}`}>
+                                                                        <NavLink to={`servers/${server}/databases/${database}/tables/${owner}.${table.tName}/browse`}>
                                                                         <span className="table-name db-element-clickable">{table.tName}</span>
                                                                         </NavLink>
                                                                     </ListGroup.Item>);

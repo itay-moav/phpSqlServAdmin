@@ -1,5 +1,5 @@
 import { useEffect,useState } from 'react';
-import {useDispatch,useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import useCurrents from "../../../../services/useCurrents";
 import { findConnectionNameByDbOrServer } from '../../../../store/dbTreeSlice';
 import { Jumbotron } from "../../../../components/atoms";

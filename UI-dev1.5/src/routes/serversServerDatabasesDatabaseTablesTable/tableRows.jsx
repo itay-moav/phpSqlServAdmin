@@ -4,8 +4,9 @@ import useCurrents from "../../services/useCurrents";
 import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
 import { runQuery } from "../../store/querySlice";
 import {LastQuery,QueryEditor,QueryResults} from "../../components/query";
+import FieldsHelper from "./fieldsHelper";
 
-export default function ServersServerDatabasesDatabaseTablesTable(){
+export default function TableRows(){
     const dispatch = useDispatch();
     const {server,database,table} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
@@ -14,10 +15,12 @@ export default function ServersServerDatabasesDatabaseTablesTable(){
             dispatch(runQuery({connectionName,server,database,query: `SELECT * FROM ${table}`}));
         },[table]
     );
-
+    
+    const rightCP = (textArea) => <FieldsHelper textArea={textArea} />;
+    
     return (
         <>
-            <QueryEditor />
+            <QueryEditor rightCP={rightCP}/>
             <LastQuery />
             <QueryResults />
         </>
