@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
 import useCurrents from '../../services/useCurrents';
 import './dbTableMenu.css';
-import { useEffect } from 'react';
 
 /**
  * 

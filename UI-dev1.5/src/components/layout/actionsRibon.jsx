@@ -7,7 +7,7 @@ export default function ActionsRibon(){
         <Col>
         <Routes>
             <Route path="/servers/:server/databases/:database/tables/:table/:link" element={<SingleTableRibon />} />
-            {/* <Route path="/servers/:server/databases/:database/tables" element={<DatabaseTablesRibon />} />*/}  
+            <Route path="/servers/:server/databases/:database/:link" element={<DatabaseTablesRibon />} />
         </Routes>
         </Col>
       </Row>
@@ -18,15 +18,12 @@ export default function ActionsRibon(){
 
 
 function DatabaseTablesRibon(){
+    const currentLink = useParams().link;
     return (
-        <ul className="nav nav-tabs" style={{fontSize:"0.9em",borderBottomStyle: "none"}}>
-            <li className="nav-item">
-            <a className="nav-link active">Structure</a>
-            </li>
-            <li className="nav-item">
-            <a className="nav-link" href="#">Stored Procedures</a>
-            </li>
-        </ul>
+        <ul className="nav nav-tabs">
+        <RibbonNav currentLink={currentLink} link="tables" text="Tables" />
+        <RibbonNav currentLink={currentLink} link="sql" text="SQL" />
+    </ul>
     );
 }
 
@@ -35,11 +32,11 @@ function DatabaseTablesRibon(){
 function SingleTableRibon(){
     const currentLink = useParams().link;
     return (
-        <ul className="nav nav-tabs" style={{fontSize:"0.9em",borderBottomStyle: "none"}}>
+        <ul className="nav nav-tabs">
             <RibbonNav currentLink={currentLink} link="browse" text="Browse" />
             <RibbonNav currentLink={currentLink} link="sql" text="SQL" />
             <RibbonNav currentLink={currentLink} link="structure" text="Structure" />
-            <RibbonNav currentLink={currentLink} link="insert" text="Insert" />
+            { /* TODO: <RibbonNav currentLink={currentLink} link="insert" text="Insert" /> */}
             <RibbonNav currentLink={currentLink} link="createsql" text="CreateSQL" />
         </ul>
     );

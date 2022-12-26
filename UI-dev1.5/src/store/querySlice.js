@@ -53,8 +53,11 @@ const Query = createSlice({
   name: "query",
   initialState,
   reducers: {
-    manualSetLastQuery: (state,action) => {
+    manualSetLastQuery: (state,action) => {//To manually insert text into the last query box, like last file name uploaded
       state.lastQuery = action.payload;
+    },
+    reset: ()=>{
+      return initialState;
     }
 
   },

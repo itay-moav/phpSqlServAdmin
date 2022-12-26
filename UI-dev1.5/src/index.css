@@ -46,3 +46,14 @@ a:hover{
 .btn.fa:hover{
     color: #DDD;
 }
+
+.vulcan-page-title{
+  font-size:1.1em;
+  margin-top:5px;
+  margin-bottom: 20px;
+}
+
+.nav.nav-tabs{
+  font-size: 0.9em;
+  border-bottom-style: none;
+}

@@ -6,6 +6,7 @@ import Layout from "./components/layout";
 import Servers from "./routes/servers";
 import ServersServerDatabases from "./routes/serversServerDatabases";
 import ServersServerDatabasesDatabaseTables from './routes/serversServerDatabasesDatabaseTables';
+import ServersServerDatabasesDatabaseSql from './routes/serversServerDatabasesDatabaseSql';
 import ServersServerDatabasesDatabaseTablesTable, { TableRows,TableCreateSql,TableFields,TableSql } from "./routes/serversServerDatabasesDatabaseTablesTable";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         </Route>
 
         <Route exact path="servers/:server/databases/:database/tables" element={<h2><ServersServerDatabasesDatabaseTables /></h2>} />
+        <Route exact path="servers/:server/databases/:database/sql" element={<h2><ServersServerDatabasesDatabaseSql /></h2>} />
         <Route exact path="servers/:server/databases" element={<ServersServerDatabases />} />
         <Route exact path="servers" element={<Servers />} />  
       </Route>
