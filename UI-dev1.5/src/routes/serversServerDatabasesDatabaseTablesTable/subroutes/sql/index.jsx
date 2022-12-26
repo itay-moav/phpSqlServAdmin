@@ -5,7 +5,6 @@ export default function TableSql(){
 
     return (
         <>
-        <FieldsHelper />
             <QueryEditor rightCP={rightCP}/>
             <LastQuery />
             <QueryResults />

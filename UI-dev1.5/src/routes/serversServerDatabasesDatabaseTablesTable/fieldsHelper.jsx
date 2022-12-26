@@ -47,7 +47,7 @@ export default function FieldsHelper({textArea}){
         setAddPrefixes(prefixs);
     }
 
-    const getPrefixs = () => {
+    const getPrefixs = (isTable) => {
         let pref = '';
         if(addPrefixes.db === 1){
             pref += database +'.';
@@ -57,7 +57,7 @@ export default function FieldsHelper({textArea}){
             pref += schema +'.';
         }
 
-        if(addPrefixes.tbl === 1){
+        if(addPrefixes.tbl === 1 && isTable !== "[[table]]"){
             pref += currentTable +'.';
         }
         return pref;
@@ -69,11 +69,12 @@ export default function FieldsHelper({textArea}){
 
     const insertField = columnName => {
         //window.alert(getPrefixs() + field.COLUMN_NAME)
-        const insertText = getPrefixs() + columnName;
+        const forReal = (columnName === "[[table]]") ? currentTable : columnName;
+        const insertText = getPrefixs(columnName) + forReal;
         const idx = textArea.current.selectionStart;
-        textArea.current.value= textArea.current.value.substring(0,idx) + insertText + textArea.current.value.substring(idx);
-        textArea.current.selectionStart = idx + insertText.length;
-        textArea.current.selectionEnd =  idx + insertText.length;
+        textArea.current.value= textArea.current.value.substring(0,idx) + " " + insertText + textArea.current.value.substring(idx);
+        textArea.current.selectionStart = idx + insertText.length+1;
+        textArea.current.selectionEnd =  idx + insertText.length+1;
     }
 
     useEffect(
@@ -92,6 +93,18 @@ export default function FieldsHelper({textArea}){
                 <Button variant={variant('tbl')} onClick={()=>togglePrefix('tbl')}>tbl.</Button>
             </ButtonToolbar>
             <div className="list-group">
+                <Button
+                          variant="light"
+                          className="list-group-item list-group-item-action"
+                          onClick={()=>insertField("[[table]]")}
+                          style={{paddingTop:0,paddingBottom:0}}>
+
+                        <i className="fa fa-angle-double-left" aria-hidden="true"></i>
+                        &nbsp;
+                        &nbsp;
+                        {currentTable}</Button>
+
+                <hr />
             {fieldList && (fieldList.map(field=>{
                 return (
                     <Button key={field.COLUMN_NAME}
