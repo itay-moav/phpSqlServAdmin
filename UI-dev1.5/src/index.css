@@ -57,3 +57,11 @@ a:hover{
   font-size: 0.9em;
   border-bottom-style: none;
 }
+span.link{
+  cursor: pointer;
+}
+.modal-content.danger{
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
