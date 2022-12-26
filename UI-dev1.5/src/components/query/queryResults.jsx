@@ -1,11 +1,12 @@
 import {useSelector} from 'react-redux';
 import { Table,Alert } from "react-bootstrap";
 
-const QueryResults = () => {
+const QueryResults = ({noResults}) => {
     //TODO create as a selector function in the proper place
     const results = useSelector(state => (state.query.lastResults) );
     const errorMessage  = useSelector(state => (state.query.lastError) );
     
+    //Server error handler
     if(errorMessage.length > 3){
         return (
                 <Alert variant="danger">
@@ -15,10 +16,17 @@ const QueryResults = () => {
             );
     }
 
-    if(results.length === 0)  return (
-        <Alert variant="warning">No results</Alert>
-    );
-
+    //How to handle no resuts found
+    if(results.length === 0){
+        if(noResults && noResults==="hide"){
+            return null;
+        } else {   
+            return (
+                <Alert variant="warning">No results</Alert>
+            );
+        }
+    }
+    
     const keys = Object.keys(results[0]);
     let i = 0;
 
