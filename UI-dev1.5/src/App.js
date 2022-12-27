@@ -30,8 +30,8 @@ function App() {
           <Route exact path="structure" element={<TableFields />} />
         </Route>
 
-        <Route exact path="servers/:server/databases/:database/tables" element={<h2><ServersServerDatabasesDatabaseTables /></h2>} />
-        <Route exact path="servers/:server/databases/:database/sql" element={<h2><ServersServerDatabasesDatabaseSql /></h2>} />
+        <Route exact path="servers/:server/databases/:database/tables" element={<ServersServerDatabasesDatabaseTables />} />
+        <Route exact path="servers/:server/databases/:database/sql" element={<ServersServerDatabasesDatabaseSql />} />
         <Route exact path="servers/:server/databases" element={<ServersServerDatabases />} />
         <Route exact path="servers" element={<Servers />} />  
       </Route>
