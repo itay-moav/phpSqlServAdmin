@@ -38,6 +38,20 @@ export default function BreadCrumbs(){
             </>
             )
           }
+
+          {current.schema && (
+            <>
+            {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i>
+
+            <NavLink to={`/servers/${current.server}/databases/${current.database}/schema/${current.schema}`}>
+            <span className="db-element-clickable">
+              <i className="btn fa fa-cubes" aria-hidden="true"></i>
+              {current.schema}
+            </span>
+            </NavLink>
+            </>
+            )
+          }
   
   
           {current.table && 
@@ -45,11 +59,13 @@ export default function BreadCrumbs(){
             <>
             {' '}
             <i className="fa fa-angle-double-right" aria-hidden="true"></i>
-  
+            
+            <NavLink to={`/servers/${current.server}/databases/${current.database}/schema/${current.schema}/tables/${current.table}/structure`}>
             <span>
               <i className="btn fa fa-table" aria-hidden="true"></i>
               {current.table}
-            </span> 
+            </span>
+            </NavLink>
             </>
             )
           }

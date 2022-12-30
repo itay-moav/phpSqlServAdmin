@@ -6,7 +6,7 @@ export default function ActionsRibon(){
         <Row className="pl-3">
         <Col>
         <Routes>
-            <Route path="/servers/:server/databases/:database/tables/:table/:link" element={<SingleTableRibon />} />
+            <Route path="/servers/:server/databases/:database/schema/:schema/tables/:table/:link" element={<SingleTableRibon />} />
             <Route path="/servers/:server/databases/:database/:link" element={<DatabaseTablesRibon />} />
         </Routes>
         </Col>
