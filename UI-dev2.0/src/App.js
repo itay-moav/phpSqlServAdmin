@@ -22,7 +22,7 @@ function App() {
   );
   return (
     <Routes>
-      <Route path="*" element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         <Route path="servers/:server/databases/:database/schema/:schema/tables/:table" element={<ServersServerDatabasesDatabaseSchemaTablesTable />}>
           <Route exact path="browse" element={<TableBrowse />} />
           <Route exact path="sql" element={<TableSql />} />
@@ -30,6 +30,8 @@ function App() {
           <Route exact path="structure" element={<TableFields />} />
         </Route>
 
+        <Route exact path="servers/:server/databases/:database/schema/:schema/tables" element={<ServersServerDatabasesDatabaseTables />} />
+        <Route exact path="servers/:server/databases/:database/schema/:schema/sql" element={<ServersServerDatabasesDatabaseSql />} />
         <Route exact path="servers/:server/databases/:database/tables" element={<ServersServerDatabasesDatabaseTables />} />
         <Route exact path="servers/:server/databases/:database/sql" element={<ServersServerDatabasesDatabaseSql />} />
         <Route exact path="servers/:server/databases" element={<ServersServerDatabases />} />

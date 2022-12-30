@@ -7,6 +7,7 @@ export default function ActionsRibon(){
         <Col>
         <Routes>
             <Route path="/servers/:server/databases/:database/schema/:schema/tables/:table/:link" element={<SingleTableRibon />} />
+            <Route path="/servers/:server/databases/:database/schema/:schema/:link" element={<DatabaseTablesRibon />} /> 
             <Route path="/servers/:server/databases/:database/:link" element={<DatabaseTablesRibon />} />
         </Routes>
         </Col>
@@ -54,4 +55,3 @@ function RibbonNav({currentLink,link,text}){
         </li>
     );
 }
-

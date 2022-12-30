@@ -10,7 +10,7 @@ import {LastQuery,QueryResults} from "../../components/query";
 export default function ServersServerDatabasesDatabaseTables(){
     const [modalDanger, setModalDanger] = useState({show:false,tableName:''});
     const dispatch = useDispatch();
-    const {server,database} = useCurrents();
+    const {server,database,schema} = useCurrents();
     const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
     const dbTables = useSelector(fetchTableList(server,database));
 
@@ -67,6 +67,12 @@ export default function ServersServerDatabasesDatabaseTables(){
         });
     }
 
+    //if I am in schema, I remove all tables not in current schema
+    let dbTablesBySchema = dbTables;
+    if(schema){
+        dbTablesBySchema = dbTables.filter(tr=>tr.TABLE_SCHEMA===schema);
+    }
+
     //RENDER TABLE LISTS
     let previousSchema = '';
     return (
@@ -76,25 +82,28 @@ export default function ServersServerDatabasesDatabaseTables(){
             <QueryResults noResults="hide" />
             <Table striped bordered hover size="sm" variant="dark">
             <tbody>
-                {dbTables.map(tr=>{
+                {dbTablesBySchema.map(tr=>{
                     const key = `${tr.TABLE_SCHEMA}.${tr.TABLE_NAME}`;
-                    const subPath = `schema/${tr.TABLE_SCHEMA}/tables/${tr.TABLE_NAME}`;
-                    let schemaTR = null;
+                    const rootPath = `/servers/${server}/databases/${database}/schema/${tr.TABLE_SCHEMA}/tables/${tr.TABLE_NAME}`;
+                    // tobedeleted let schemaTR = null;
+                    let style={};
                     if(tr.TABLE_SCHEMA !== previousSchema){
+                        if(previousSchema !== ''){
+                            style={borderTop:"2px solid white"};
+                        }
                         previousSchema = tr.TABLE_SCHEMA;
-                        schemaTR = (<tr key={tr.TABLE_SCHEMA}><td colSpan="6"><b>{tr.TABLE_SCHEMA}</b></td></tr>)
+                        //tobedeleted? schemaTR = (<tr key={tr.TABLE_SCHEMA}><td colSpan="6"><b>{tr.TABLE_SCHEMA}</b></td></tr>)
                     }
                     return (
-                        <>
-                        {schemaTR}
-                        <tr key={key}>
-                            <td><NavLink to={`./../${subPath}/structure`}>{key}</NavLink></td>
-                            <td><NavLink to={`./../${subPath}/structure`}>[structure]</NavLink></td>
-                            <td><NavLink to={`./../${subPath}/browse`}>[browse]</NavLink></td>
+
+                        <tr key={key} style={style}>
+                            <td><NavLink to={`${rootPath}/structure`}>{key}</NavLink></td>
+                            <td><NavLink to={`${rootPath}/structure`}>[structure]</NavLink></td>
+                            <td><NavLink to={`${rootPath}/browse`}>[browse]</NavLink></td>
                             <td><span className="link" onClick={()=>{startEmpty(key)}}>[empty]</span></td>
                             <td><span className="link" onClick={()=>{startDrop(key)}}>[drop]</span></td>
                         </tr>
-                        </>
+
                 )})}
             </tbody>
             </Table>
@@ -130,3 +139,5 @@ function DangerAreaAction({modalParams,onCancel}){
         </Modal>
       );
 }
+//working
+//http://localhost:3000/vulcan/servers/127.0.0.1/databases/a/schema/itay/tables/kokooko1/structure

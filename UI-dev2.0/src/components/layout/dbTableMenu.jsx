@@ -12,11 +12,11 @@ import './dbTableMenu.css';
 export default function DbTableMenu(){
     const {menuSchema,menuTables}= useSelector(state=>state.ui);
     const [selectedOwner,setSelectedOwner] = useState({});
-    const {server,database,schema,table} = useCurrents();
+    const {server,database,schema,table:currentTable} = useCurrents();
 
     //creates the table level items
     const tablesByOwner = (owner,menuTables) => menuTables.map(table=>{
-                                                            const active = (owner===schema) && (table === table.tName);
+                                                            const active = (owner===schema) && (currentTable === table.tName);
                                                             return (<ListGroup.Item key={table.tName} active={active}>
                                                                         &nbsp;
                                                                         <NavLink to={`servers/${server}/databases/${database}/schema/${owner}/tables/${table.tName}/structure`}>
