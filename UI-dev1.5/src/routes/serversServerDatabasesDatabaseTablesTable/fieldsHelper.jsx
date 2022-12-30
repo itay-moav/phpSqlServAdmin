@@ -5,6 +5,15 @@ import { findConnectionNameByDbOrServer } from "../../store/dbTreeSlice";
 import { getSilentQueryResults, runQuerySilent } from "../../store/querySlice";
 import useCurrents from "../../services/useCurrents";
 
+/**
+ * Responsible on the box, right to the query editor, 
+ * with table name and fields names.
+ * Pressing on them will populate them into the query editor.
+ * Saving the user the need to type field/table names or remember them
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 export default function FieldsHelper({textArea}){
 
     const dispatch = useDispatch();

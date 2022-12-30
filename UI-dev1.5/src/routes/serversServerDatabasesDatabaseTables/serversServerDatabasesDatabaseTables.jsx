@@ -87,7 +87,7 @@ export default function ServersServerDatabasesDatabaseTables(){
                     <>
                     {schemaTR}
                     <tr key={key}>
-                        <td>{key}</td>
+                        <td><NavLink to={`${key}/structure`}>{key}</NavLink></td>
                         <td><NavLink to={`${key}/structure`}>[structure]</NavLink></td>
                         <td><NavLink to={`${key}/browse`}>[browse]</NavLink></td>
                         <td><span className="link" onClick={()=>{startEmpty(key)}}>[empty]</span></td>
