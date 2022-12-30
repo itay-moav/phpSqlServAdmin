@@ -4,6 +4,7 @@ parameters:
       - application
    bootstrapFiles:
       - phpstan.bootstrap.php
+      - config/CONSTANTS.php
       - config/config-template.php
       - application/model/Query/CONSTANTS.php
       - vendor/director-moav/zimlogger/src/ZimLogger/shortcuts.php
