@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Build Composer
         uses: php-actions/composer@v5
         with:
@@ -17,7 +17,7 @@ jobs:
         uses: actions-x/phpstan@v1
         with:
           installComposer: 0
-          phpstanVersion: ^0.12
+          phpstanVersion: ^1.9
           level: 8
           paths: application 
           arguments: --autoload-file vendor/autoload.php

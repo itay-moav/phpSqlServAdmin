@@ -60,7 +60,7 @@ class ScrapAPIs extends \Talis\Chain\aChainLink
             dbgn($value);
             if(!is_dir("{$dir}/{$value}")){
                 $results[] = "{$dir}/{$value}";
-            } elseif(is_dir("{$dir}/{$value}")) {
+            } else {
                 $results[] = "{$dir}/{$value}";
                 $results = array_merge($results,$this->getDirContents("{$dir}/{$value}"));
             }

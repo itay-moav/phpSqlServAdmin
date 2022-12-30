@@ -36,7 +36,9 @@ const UI = createSlice({
         console.log('MENU TABLES NEW STATE',state.menuTables);
       })
 
-      //after each query the user runs
+      // after each query the user runs
+      // If the server tells the UI the schema of the server has changed
+      // I am deleting the menu item and re populating them
       .addCase('query/run/fulfilled', (state, {payload}) => {
         console.log('Query ui',payload);
         if(payload.triggerRefresh !== 1) {
