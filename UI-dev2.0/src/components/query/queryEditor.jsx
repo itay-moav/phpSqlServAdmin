@@ -97,6 +97,7 @@ const QueryEditor = ({runTriggers,rightCP}) => {
                 <Col>
                 <ButtonToolbar className="pull-right mb-1">
                     <input type="file" ref={hiddenFileInputRef} onChange={runFromLocalfile} style={{display: 'none'}} />
+                    <Button onClick={runQueryFromTextArea} variant="secondary" title="Run query" className="mr-1"><i className="fa fa-play" aria-hidden="true"></i></Button>
                     <Button onClick={fireUploadFile} variant="secondary" title="Run from local file" className="mr-1"><i className="fa fa-upload" aria-hidden="true"></i></Button>
                     <Button onClick={empty} variant="secondary" title="Empty" className="mr-1"><i className="fa fa-eraser" aria-hidden="true"></i></Button>
                     <Button onClick={paste} variant="secondary" title="Paste from clipboard" className="mr-1"><i className="fa fa-paste" aria-label="Paste from clipboard"></i></Button>
