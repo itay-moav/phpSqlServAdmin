@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {useSelector} from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
+import { PageTitle } from '../atoms';
 import useCurrents from '../../services/useCurrents';
 import './dbTableMenu.css';
 
@@ -10,7 +11,7 @@ import './dbTableMenu.css';
  * @returns jsx
  */
 export default function DbTableMenu(){
-    const {menuSchema,menuTables}= useSelector(state=>state.ui);
+    const {menuSchema,menuTables,schemaWithNoTable}= useSelector(state=>state.ui);
     const [selectedOwner,setSelectedOwner] = useState({});
     const {server,database,schema,table:currentTable} = useCurrents();
     useEffect(
@@ -65,7 +66,28 @@ export default function DbTableMenu(){
 
     const menuTopLevel = menuSchema.map(owner => ownerMenuItem(owner,menuTables[owner]) ); 
 
+
+    //TODO move the schema with no tables to it's own component
+
     return (
-        <>{menuTopLevel}</>
+        <>
+        <PageTitle>Schemas with tables</PageTitle>
+        {menuTopLevel}
+        <hr />
+        {schemaWithNoTable.length>0 &&
+        (<>
+        <PageTitle>Schemas with no tables</PageTitle>
+        <ListGroup variant="flush" bsPrefix="table-list">
+                {schemaWithNoTable.map(ntschema=>{
+                    return (
+                    <ListGroup.Item variant="secondary" key={ntschema.schema_id}>
+                        <span className="table-name">{ntschema.schema_name}</span>
+                    </ListGroup.Item>
+                    );
+                })}
+            </ListGroup>
+            </>)
+            }
+        </>
     );
 }

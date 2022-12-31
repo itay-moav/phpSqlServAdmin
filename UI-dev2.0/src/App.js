@@ -36,9 +36,12 @@ function App() {
         <Route exact path="servers/:server/databases/:database/sql" element={<ServersServerDatabasesDatabaseSql />} />
         <Route exact path="servers/:server/databases" element={<ServersServerDatabases />} />
         <Route exact path="servers" element={<Servers />} />  
+      
+
+        <Route index path="*" element={<h2>WhereTF have you gone?!</h2>} />
       </Route>
 
-      <Route index path="*" element={<h2>WhereTF have you gone?!</h2>} />
+      
 
     </Routes>
   );

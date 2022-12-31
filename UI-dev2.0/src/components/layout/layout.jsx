@@ -17,11 +17,11 @@ export default function Layout(){
           <Col md={3}>
             <Row>
               <Col>
-                <h3 style={{cursor:"pointer"}}onClick={()=>window.location.href="/vulcan"}>phpSqlServAdmin <small style={{fontSize:"0.4em"}}>v2.2.0</small></h3>
-                <small>Powered by <a href="https://github.com/itay-moav/TalisMS">TalisMS</a> and ReactJS</small>
+                <h3 className="mb-0 pb-0" style={{cursor:"pointer"}} onClick={()=>window.location.href="/vulcan"}>phpSqlServAdmin <small style={{fontSize:"0.4em"}}>v2.2.0</small></h3>
+                <small style={{fontSize:"0.6em"}}>Powered by <a href="https://github.com/itay-moav/TalisMS">TalisMS</a> and ReactJS</small>
               </Col>
             </Row>
-            <Row>
+            <Row className="mt-3">
               <Col>
                 <DbTableMenu />
               </Col>

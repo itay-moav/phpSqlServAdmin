@@ -29,7 +29,7 @@ class Create extends \lib\Database\ChainWithConnection
                 $schema = 'dbo';
                 $table  = $schema_table;
             }
-            $nav_to = str_replace(['[',']'],'', "{$schema}.{$table}/structure");
+            $nav_to = str_replace(['[',']'],'', "./../schema/{$schema}/tables/{$table}/structure");
             $payload->triggerNav = $nav_to;
         }
         return $this;

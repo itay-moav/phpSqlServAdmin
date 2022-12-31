@@ -2,7 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
   menuTables:{},
-  menuSchema :[]
+  menuSchema :[],
+  schemaWithNoTable: []
 };
 
 const UI = createSlice({
@@ -22,6 +23,7 @@ const UI = createSlice({
         const tableList = payload.queryResult;
         state.menuTables = {};
         state.menuSchema = [];
+        state.schemaWithNoTable = payload.schemaWithNoTable;
         
         if(Array.isArray(tableList)){
             tableList.forEach(table=>{
@@ -33,7 +35,7 @@ const UI = createSlice({
                 state.menuTables[table.TABLE_SCHEMA].push({tName:TABLE_NAME,tType:TABLE_TYPE});
             });
         }
-        console.log('MENU TABLES NEW STATE',state.menuTables);
+        console.log('MENU TABLES NEW STATE',state);
       })
 
       // after each query the user runs
@@ -48,6 +50,7 @@ const UI = createSlice({
         const tableList = payload.tables;
         state.menuTables = {};
         state.menuSchema = [];
+        state.schemaWithNoTable = payload.schemaWithNoTable;
         
         if(Array.isArray(tableList)){
             tableList.forEach(table=>{

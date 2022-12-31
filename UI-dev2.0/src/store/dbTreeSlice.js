@@ -73,7 +73,7 @@ const initialState = {
     databasesLoadStatus: LoadStatus.IDLE,
     schemaTablesLoadStatus: LoadStatus.IDLE,
     error: '',
-    tree: {} //[server|connectionName]["databases"][database|connectionName][schema][table]
+    tree: {} //[server | connectionName]["databases"][database | connectionName][schema.table | schemas]
 };
 
 /**
