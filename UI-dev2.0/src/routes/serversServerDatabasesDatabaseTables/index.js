@@ -139,5 +139,3 @@ function DangerAreaAction({modalParams,onCancel}){
         </Modal>
       );
 }
-//working
-//http://localhost:3000/vulcan/servers/127.0.0.1/databases/a/schema/itay/tables/kokooko1/structure

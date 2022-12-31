@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useSelector} from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
@@ -13,6 +13,15 @@ export default function DbTableMenu(){
     const {menuSchema,menuTables}= useSelector(state=>state.ui);
     const [selectedOwner,setSelectedOwner] = useState({});
     const {server,database,schema,table:currentTable} = useCurrents();
+    useEffect(
+        ()=>{
+            const new_state = {};
+            if(schema){
+                new_state[schema] = 'open';
+            }
+            setSelectedOwner(new_state);
+        },[schema]
+    );
 
     //creates the table level items
     const tablesByOwner = (owner,menuTables) => menuTables.map(table=>{
