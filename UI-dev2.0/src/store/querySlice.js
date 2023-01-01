@@ -7,6 +7,10 @@ import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME} f
 // ---------------------------------------------------------------- API --------------------------------------------------------------
 //Dispatches a query to the server
 export const runQuery = createAsyncThunk('query/run', async ({connectionName,server,database,query}) => {
+  if(!connectionName){
+    console.error('No conncetionname was found in runQuery');
+    return {};
+  }
   console.log('ABOUT TO RUN:',connectionName,database,query);
   const {data} = await http.post(`/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`,{params:{query}});
   data.payload.currentServer = server;
@@ -16,6 +20,10 @@ export const runQuery = createAsyncThunk('query/run', async ({connectionName,ser
 
 //Dispatches a query to the server without updating the query editors UI of this query
 export const runQuerySilent = createAsyncThunk('query/runSilent', async ({connectionName,server,database,query}) => {
+  if(!connectionName){
+    console.error('No conncetionname was found in runQuerySilent');
+    return {};
+  }
   console.log('ABOUT TO SILENT RUN:',connectionName,database,query);
   const {data} = await http.post(`/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`,{params:{query}});
   data.payload.currentServer = server;

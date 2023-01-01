@@ -13,6 +13,10 @@ export const fetchServers = createAsyncThunk('tree/fetchservers', async () => {
 
 //for server level connection, fetches the list of available databases for this connection
 export const loadDatabases = createAsyncThunk('tree/fetchserverDatabases', async ({connectionName,currentServer}) => {
+  if(!connectionName){
+    console.error('connection name not found in loadDatabases');
+    return {};
+  }
   const {data} = await http.get(`/servers/databases/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}`);
   data.payload.currentServer = currentServer;
   return data.payload;
@@ -20,6 +24,10 @@ export const loadDatabases = createAsyncThunk('tree/fetchserverDatabases', async
 
 //for server level connection, fetches the list of available databases for this connection
 export const loadDatabaseTables = createAsyncThunk('tree/fetchDatabaseTables', async ({connectionName,server,database}) => {
+  if(!connectionName){
+    console.error('connection name not defined in loadDatabaseTables');
+    return {};
+  }
   const {data} = await http.get(`/database/tables/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`);
   data.payload.currentServer = server;
   data.payload.currentDatabse = database;
@@ -34,12 +42,16 @@ export const loadDatabaseTables = createAsyncThunk('tree/fetchDatabaseTables', a
 
 export const findConnectionNameByServer = serverName => {
   return (state) => {
-    return state.dbTree.tree[serverName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME];
+    return state.dbTree.tree[serverName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || false;
   }
 }
 
 export const findConnectionNameByDbOrServer = (serverName,dbName) => {
   return (state) => {
+    if(!state.dbTree.tree[serverName] || !state.dbTree.tree[serverName][TREE_NODES__DATABASES] || !state.dbTree.tree[serverName][TREE_NODES__DATABASES][dbName]){
+      console.error('No connectoion name was found in selector findConnectionNameByDbOrServer ')
+      return false;
+    }
     return state.dbTree.tree[serverName][TREE_NODES__DATABASES][dbName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || findConnectionNameByServer(serverName)(state);
   }
 }
@@ -47,6 +59,9 @@ export const findConnectionNameByDbOrServer = (serverName,dbName) => {
 //If current server has no databases either previously loaded or from server side config, will signal should try to load them
 export const shouldLoadDatabases  = serverName => {
   return state => {
+    if(!state.dbTree.tree[serverName]){
+      return false;
+    }
     const databases = state.dbTree.tree[serverName][TREE_NODES__DATABASES];
     return (Array.isArray(databases) && databases.length === 0)
   }
