@@ -7,12 +7,14 @@ import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME,TR
 // ---------------------------------------------------------------- API --------------------------------------------------------------
 //fetches list of available server connections from environment file
 export const fetchServers = createAsyncThunk('tree/fetchservers', async () => {
+    console.log('tree/fetchservers');
     const {data} = await http.get('/servers/available');
     return data.payload;
 });
 
 //for server level connection, fetches the list of available databases for this connection
 export const loadDatabases = createAsyncThunk('tree/fetchserverDatabases', async ({connectionName,currentServer}) => {
+  console.log('tree/fetchserverDatabases for',connectionName);
   if(!connectionName){
     console.error('connection name not found in loadDatabases');
     return {};
@@ -42,14 +44,18 @@ export const loadDatabaseTables = createAsyncThunk('tree/fetchDatabaseTables', a
 
 export const findConnectionNameByServer = serverName => {
   return (state) => {
+    if(!state.dbTree.tree[serverName]){
+      return false; //we get here in case a page refresh has happened.
+    }
     return state.dbTree.tree[serverName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || false;
   }
 }
 
-export const findConnectionNameByDbOrServer = (serverName,dbName) => {
+//Checks if there is a db in the state, if no -> returns false. If yes, return the connection name on the db level
+export const findConnectionNameByServerAndDb = (serverName,dbName) => {
   return (state) => {
     if(!state.dbTree.tree[serverName] || !state.dbTree.tree[serverName][TREE_NODES__DATABASES] || !state.dbTree.tree[serverName][TREE_NODES__DATABASES][dbName]){
-      console.error('No connectoion name was found in selector findConnectionNameByDbOrServer ')
+      console.error('No connectoion name was found in selector findConnectionNameByServerAndDb ')
       return false;
     }
     return state.dbTree.tree[serverName][TREE_NODES__DATABASES][dbName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || findConnectionNameByServer(serverName)(state);

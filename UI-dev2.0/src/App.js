@@ -4,10 +4,8 @@ import Layout from "./components/layout";
 
 //pages
 import Servers from "./routes/servers";
-import ServersServerDatabases from "./routes/serversServerDatabases";
-import ServersServerDatabasesDatabaseTables from './routes/serversServerDatabasesDatabaseTables';
-import ServersServerDatabasesDatabaseSql from './routes/serversServerDatabasesDatabaseSql';
-import ServersServerDatabasesDatabaseSchemaTablesTable, { TableBrowse,TableCreateSql,TableFields,TableSql } from "./routes/serversServerDatabasesDatabaseSchemaTablesTable";
+import ServersServerDatabases,{DatabasesSql,DatabasesTables,RefreshHandler} from "./routes/serversServerDatabases";
+import { TableBrowse,TableCreateSql,TableFields,TableSql } from "./routes/serversServerDatabasesDatabaseSchemaTablesTable";
 
 function App() {
   const navigate = useNavigate();
@@ -22,27 +20,31 @@ function App() {
   );
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="servers/:server/databases/:database/schema/:schema/tables/:table" element={<ServersServerDatabasesDatabaseSchemaTablesTable />}>
-          <Route exact path="browse" element={<TableBrowse />} />
-          <Route exact path="sql" element={<TableSql />} />
-          <Route exact path="createsql" element={<TableCreateSql />} />
-          <Route exact path="structure" element={<TableFields />} />
-        </Route>
-
-        <Route exact path="servers/:server/databases/:database/schema/:schema/tables" element={<ServersServerDatabasesDatabaseTables />} />
-        <Route exact path="servers/:server/databases/:database/schema/:schema/sql" element={<ServersServerDatabasesDatabaseSql />} />
-        <Route exact path="servers/:server/databases/:database/tables" element={<ServersServerDatabasesDatabaseTables />} />
-        <Route exact path="servers/:server/databases/:database/sql" element={<ServersServerDatabasesDatabaseSql />} />
+      <Route path="/*" element={<Layout />}>
+        
         <Route exact path="servers/:server/databases" element={<ServersServerDatabases />} />
-        <Route exact path="servers" element={<Servers />} />  
-      
+        <Route path="servers/:server/databases/:database" element={<RefreshHandler />}>
+          <Route exact path="tables" element={<DatabasesTables />} />
+          <Route exact path="sql" element={<DatabasesSql />} />
 
+          <Route exact path="schema/:schema">            
+            <Route exact path="tables" element={<DatabasesTables />} />
+            <Route exact path="sql" element={<DatabasesSql />} />
+
+            <Route path="tables/:table">
+              <Route exact path="browse" element={<TableBrowse />} />
+              <Route exact path="sql" element={<TableSql />} />
+              <Route exact path="createsql" element={<TableCreateSql />} />
+              <Route exact path="structure" element={<TableFields />} />
+            </Route>
+            
+          </Route>
+
+        </Route>
+        
+        <Route exact path="servers" element={<Servers />} />        
         <Route index path="*" element={<h2>WhereTF have you gone?!</h2>} />
       </Route>
-
-      
-
     </Routes>
   );
 }

@@ -8,7 +8,6 @@ export default function ServersServerDatabases(){
     const currentServer = useCurrents().server;
     const dispatch = useDispatch();
     const connectionName = useSelector(findConnectionNameByServer(currentServer));
-
     //Read list of databases from state
     const databaseListSelector = state => {
         if(currentServer && state.dbTree.tree[currentServer].databases){//server has dabases loaded in state

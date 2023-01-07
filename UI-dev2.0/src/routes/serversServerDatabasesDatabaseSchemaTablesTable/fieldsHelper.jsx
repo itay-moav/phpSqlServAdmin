@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { Button, ButtonToolbar, Col } from "react-bootstrap";
-import { findConnectionNameByDbOrServer } from "../../store/dbTreeSlice";
+import { findConnectionNameByServerAndDb } from "../../store/dbTreeSlice";
 import { getSilentQueryResults, runQuerySilent } from "../../store/querySlice";
 import useCurrents from "../../services/useCurrents";
 
@@ -18,7 +18,7 @@ export default function FieldsHelper({textArea}){
 
     const dispatch = useDispatch();
     const {server,database,schema,table} = useCurrents();
-    const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
+    const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));
     const fieldList = useSelector(getSilentQueryResults());
 
     const [addPrefixes,setAddPrefixes] = useState({
@@ -123,7 +123,7 @@ export default function FieldsHelper({textArea}){
                           variant="light"
                           className="list-group-item list-group-item-action"
                           onClick={()=>insertField(field.COLUMN_NAME)}
-                          style={{paddingTop:0,paddingBottom:0}}>
+                          style={{paddingTop:0,paddingBottom:0,fontSize:"0.7em"}}>
 
                         <i className="fa fa-angle-double-left" aria-hidden="true"></i>
                         &nbsp;

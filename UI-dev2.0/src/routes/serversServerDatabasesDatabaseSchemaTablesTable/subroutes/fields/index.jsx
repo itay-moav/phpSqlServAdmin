@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import useCurrents from "../../../../services/useCurrents";
-import { findConnectionNameByDbOrServer } from '../../../../store/dbTreeSlice';
+import { findConnectionNameByServerAndDb } from '../../../../store/dbTreeSlice';
 import { runQuery } from "../../../../store/querySlice";
 import {LastQuery,QueryEditor} from "../../../../components/query";
 import FormatedFieldsQueryResults from "./formatedFieldsQueryResults";
@@ -11,7 +11,7 @@ export default function TableFields(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {server,database,schema,table} = useCurrents();
-    const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
+    const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));
     const query = `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='${schema}' AND TABLE_NAME='${table}'`; 
     useEffect(
         ()=>{

@@ -4,13 +4,13 @@ import {useDispatch,useSelector} from 'react-redux';
 import useCurrents from "../../services/useCurrents";
 import { Jumbotron } from "../atoms";
 import {runQuery,QueryActions} from "../../store/querySlice";
-import { findConnectionNameByDbOrServer } from '../../store/dbTreeSlice';
+import { findConnectionNameByServerAndDb } from '../../store/dbTreeSlice';
 import { useRef } from "react";
 
 const QueryEditor = ({runTriggers,rightCP}) => {
     const dispatch = useDispatch();
     const {server,database} = useCurrents();
-    const connectionName = useSelector(findConnectionNameByDbOrServer(server,database));
+    const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));
     const navigate = useNavigate();
     const textAreaRef = useRef(null)
     const hiddenFileInputRef = useRef(null);
