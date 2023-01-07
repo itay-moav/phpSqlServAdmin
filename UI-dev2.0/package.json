@@ -1,6 +1,6 @@
 {
   "name": "Vulcan",
-  "version": "1.5.0",
+  "version": "2.3.0",
   "homepage": "vulcan",
   "private": true,
   "dependencies": {
