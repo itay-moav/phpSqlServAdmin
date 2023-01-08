@@ -28,7 +28,7 @@ INSTALL (not yet ready - ping me for help)
 ![list of configured servers](./docs/2_select_server.png)
 
 ## Select the database you want to look at
-![list of databases in selected server](./docs/3-select_database.png)
+![list of databases in selected server](./docs/3_select_database.png)
 
 ## Show list of schema and tables in each schema under selected database
 ![list of schema and tables](./docs/4_list_schema_and_tables.png)
