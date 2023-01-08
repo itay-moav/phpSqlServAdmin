@@ -5,7 +5,7 @@ import Layout from "./components/layout";
 //pages
 import Servers from "./routes/servers";
 import ServersServerDatabases,{DatabasesSql,DatabasesTables,RefreshHandler} from "./routes/serversServerDatabases";
-import { TableBrowse,TableCreateSql,TableFields,TableSql } from "./routes/serversServerDatabasesDatabaseSchemaTablesTable";
+import { TableBrowse,TableCreateSql,TableFields,TableSql,TableOperations } from "./routes/serversServerDatabasesDatabaseSchemaTablesTable";
 
 function App() {
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ function App() {
               <Route exact path="sql" element={<TableSql />} />
               <Route exact path="createsql" element={<TableCreateSql />} />
               <Route exact path="structure" element={<TableFields />} />
+              <Route exact path="operations" element={<TableOperations />} />
             </Route>
             
           </Route>

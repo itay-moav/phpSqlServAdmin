@@ -39,6 +39,7 @@ function SingleTableRibon(){
             <RibbonNav currentLink={currentLink} link="structure" text="Structure" />
             { /* TODO: <RibbonNav currentLink={currentLink} link="insert" text="Insert" /> */}
             <RibbonNav currentLink={currentLink} link="createsql" text="CreateSQL" />
+            <RibbonNav currentLink={currentLink} link="operations" text="Operations" />
         </ul>
     );
 }

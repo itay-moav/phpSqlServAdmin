@@ -1,2 +1,0 @@
-import ServersServerDatabasesDatabaseTables from "./serversServerDatabasesDatabaseTables";
-export default ServersServerDatabasesDatabaseTables;
