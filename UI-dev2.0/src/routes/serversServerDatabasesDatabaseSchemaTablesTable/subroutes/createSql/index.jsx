@@ -2,7 +2,7 @@ import { useEffect,useState } from 'react';
 import {useSelector} from 'react-redux';
 import useCurrents from "../../../../services/useCurrents";
 import { findConnectionNameByServerAndDb } from '../../../../store/dbTreeSlice';
-import { Jumbotron } from "../../../../components/atoms";
+import { Jumbotron,OperationCard } from "../../../../components/atoms";
 import { ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME } from '../../../../services/CONSTANTS';
 import http from '../../../../services/http';
 
@@ -23,8 +23,9 @@ export default function TableCreateSql(){
 
     return (
         <Jumbotron>
-            <h3>SQL CREATE STATMENT</h3>
+            <OperationCard title="SQL CREATE STATEMENTS" copyText={sqlCreateStatement}>
             <pre>{sqlCreateStatement}</pre>
+            </OperationCard>
         </Jumbotron>
     );
 }
