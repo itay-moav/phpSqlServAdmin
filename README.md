@@ -42,7 +42,7 @@ INSTALL (not yet ready - ping me for help)
 ## See the raw CREATE TABLE statement
 ![sql CREATE TABLE](./docs/7_table_create_sql.png)
 
-## Use the Query Editor with various short cuts and helpers
+## Use the Query Editor with various shortcuts and helpers
 ![Query Editor](./docs/8_query_editor.png)
 
 ## Import SQL files into the current database
