@@ -20,3 +20,6 @@ INSTALL (not yet ready - ping me for help)
     RewriteRule . index.php [L]
 </Directory>
 ```
+
+## The PHP config
+![example php config](./docs/1_config.jpeg)
