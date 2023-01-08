@@ -16,6 +16,7 @@ function App() {
       if(location.pathname === "/"){
         navigate('servers');
       }
+     // eslint-disable-next-line
     },[]
   );
   return (

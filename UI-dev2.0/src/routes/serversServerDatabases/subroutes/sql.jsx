@@ -7,6 +7,7 @@ export default function DatabasesSql(){
     useEffect(
         ()=>{
             dispatch(QueryActions.reset());
+        // eslint-disable-next-line
         },[]
     );
     return (

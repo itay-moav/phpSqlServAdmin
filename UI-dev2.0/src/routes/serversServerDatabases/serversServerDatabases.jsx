@@ -24,7 +24,8 @@ export default function ServersServerDatabases(){
             if(shouldDispatchLoadDb){
                 dispatch(loadDatabases({connectionName,currentServer}));
             }
-        },[]
+        // eslint-disable-next-line 
+        },[shouldDispatchLoadDb]
     );
     
     return ( 

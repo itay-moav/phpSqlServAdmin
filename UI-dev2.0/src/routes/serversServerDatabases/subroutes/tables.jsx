@@ -21,7 +21,7 @@ export default function DatabasesTables(){
                 dispatch(loadDatabaseTables({connectionName,server,database}));
             }
             dispatch(QueryActions.reset());
-        },[]
+        },[connectionName,server,database,dispatch]
     );
 
     //NO TABLES

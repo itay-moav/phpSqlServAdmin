@@ -56,3 +56,6 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
 
 ## React Router Dom v6.4
 https://reactrouter.com/en/main
+
+##COLOR SCHEMA USED
+https://www.colorhexa.com/50c878

@@ -49,8 +49,9 @@ function RibbonNav({currentLink,link,text}){
     return (
         <li className="nav-item">
             {(link===currentLink) ? 
-                    (<a className="nav-link active">{text}</a>) : 
-                    (<a className="nav-link" href="#" onClick={()=>{
+                     // eslint-disable-next-line
+                    (<a className="nav-link active" href="#">{text}</a>) : 
+                    (<a className="nav-link" href={`../${link}`} onClick={()=>{
                         navigate("./../"+link);
                     }}>{text}</a>)}
         </li>
