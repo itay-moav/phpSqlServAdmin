@@ -1,7 +1,7 @@
 import {createSlice,createAsyncThunk} from "@reduxjs/toolkit";
 import { LoadStatus } from "../services/enums";
 import http from "../services/http";
-import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME,TREE_NODES__DATABASES} from "../services/CONSTANTS";
+import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME,TREE_NODES__DATABASES, TREE_NODES__TABLE_STRUCTURE} from "../services/CONSTANTS";
 
 
 // ---------------------------------------------------------------- API --------------------------------------------------------------
@@ -35,6 +35,21 @@ export const loadDatabaseTables = createAsyncThunk('tree/fetchDatabaseTables', a
   data.payload.currentDatabse = database;
   return data.payload;
 });
+
+//Called for each table (lazy) when user has to do some actions on it
+export const loadTableStructure = createAsyncThunk('tree/loadTableStructure',async ({connectionName,server,database,schema,table})=>{
+  if(!connectionName){
+    console.error('connection name not defined in loadTableStructure');
+    return {};
+  }
+  const {data} = await http.get(`/tables/structure/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}/schema/${schema}/table/${table}`);
+
+  data.payload.currentServer  = server;
+  data.payload.currentDatabse = database;
+  data.payload.currentSchema  = schema;
+  data.payload.currentTable   = table;
+  return data.payload;
+})
 
 // ---------------------------------------------------------------- EOF API ----------------------------------------------------------
 
@@ -87,6 +102,23 @@ export const fetchTableList = (serverName,dbName) => {
   }
 }
 
+export const tableStructure = (serverName,dbName,schema,table) =>{
+  return state => {
+    const tree = state.dbTree.tree;
+    if(!tree[serverName] || 
+       !tree[serverName][TREE_NODES__DATABASES][dbName] || 
+       !tree[serverName][TREE_NODES__DATABASES][dbName][TREE_NODES__TABLE_STRUCTURE]){
+      return false;
+    }
+
+    const branch = tree[serverName][TREE_NODES__DATABASES][dbName][TREE_NODES__TABLE_STRUCTURE];
+    if(!branch[schema] || !branch[schema][table]){
+      return false;
+    }
+    return branch[schema][table];
+  }
+}
+
 // ---------------------------------------------------------------- EOF SELECTORS ----------------------------------------------------
 
 const initialState = {
@@ -95,6 +127,9 @@ const initialState = {
     schemaTablesLoadStatus: LoadStatus.IDLE,
     error: '',
     tree: {} //[server | connectionName]["databases"][database | connectionName][schema.table | schemas]
+             //                                                                 [table-structure][schema][table name: {columns:[array of columns:{cname,ctype...isPk}],
+             //                                                                                                       pk:[f1,f2,f3] ... todo for later}
+             //                                                                                                     
 };
 
 /**
@@ -133,6 +168,7 @@ const DbTreeSlice = createSlice({
         state.tree[payload.currentServer][TREE_NODES__DATABASES] = {};
         payload.queryResult.forEach(element => {
           state.tree[payload.currentServer][TREE_NODES__DATABASES][element.name] = {
+                                                                       [TREE_NODES__TABLE_STRUCTURE]:{},
                                                                        database:element.name,
                                                                        tables:{}
                                                                       };
@@ -148,6 +184,16 @@ const DbTreeSlice = createSlice({
        */
       .addCase(loadDatabaseTables.fulfilled, (state, {payload}) => {
         state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse].tables = payload.queryResult;
+      })
+
+      /**
+       * Loads the structure of a single table, called on [structure] tab, update and insert table actions
+       */
+      .addCase(loadTableStructure.fulfilled, (state, {payload}) => {
+        if(!state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse][TREE_NODES__TABLE_STRUCTURE][payload.currentSchema]){
+          state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse][TREE_NODES__TABLE_STRUCTURE][payload.currentSchema]={};
+        }
+        state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse][TREE_NODES__TABLE_STRUCTURE][payload.currentSchema][payload.currentTable] = payload;
       })
   }
 });
