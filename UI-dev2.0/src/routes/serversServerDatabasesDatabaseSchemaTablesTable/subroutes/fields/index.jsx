@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { Table} from "react-bootstrap";
 import useCurrents from "../../../../services/useCurrents";
@@ -10,14 +9,9 @@ export default function TableFields(){
     const {server,database,schema,table} = useCurrents();
     const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));
     const structure = useSelector(tableStructure(server,database,schema,table));
-    console.log('gggddddd',structure);
-    useEffect(
-        ()=>{
-            dispatch(loadTableStructure({connectionName,server,database,schema,table}));
-        },[schema,table]
-    );
 
     if(!structure){
+        dispatch(loadTableStructure({connectionName,server,database,schema,table}));
         return null;
     }
 
