@@ -109,7 +109,7 @@ const QueryEditor = ({runTriggers,rightCP}) => {
                 </Col>
                 {injectRightCp}
             </Row>       
-            <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea}>
+            <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea} tabIndex="0">
                 Run Query
             </Button>
             
