@@ -4,7 +4,7 @@
  * @author Itay Moav
  * @Date  20200406
  */
-class TablesFieldsOptions extends \Talis\Chain\OptionsAllowed{
+class TablesStructureOptions extends \Talis\Chain\OptionsAllowed{
     
     /**
      * 

@@ -109,7 +109,7 @@ const QueryEditor = ({runTriggers,rightCP}) => {
                 </Col>
                 {injectRightCp}
             </Row>       
-            <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea}>
+            <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea} tabIndex="0">
                 Run Query
             </Button>
             
@@ -118,3 +118,17 @@ const QueryEditor = ({runTriggers,rightCP}) => {
 }
  
 export default QueryEditor;
+
+
+
+
+/* EXAMPLES : TODO make an MD with this
+
+<QueryEditor runTriggers={()=>navigate('./../sql')} rightCP={rightCP} />
+
+
+1. This will trigger navigate('./../sql') after query has finished running.
+2. (not related to 1) this will render <rightCp /> (what ever it is) on the 
+   last two or three Col of the Query Editor, shrinking the width of the SQL textaread
+
+*/
