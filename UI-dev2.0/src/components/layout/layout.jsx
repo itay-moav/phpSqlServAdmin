@@ -4,9 +4,9 @@ import UpArrow from "./upArrow";
 import BreadCrumbs from "./breadCrumbs";
 import DbTableMenu from "./dbTableMenu";
 import SystemErrorModal from "./systemErrorModal";
-import './layout.css';
 import ActionsRibon from "./actionsRibon";
-
+import ErrorBoundary from "../atoms/errorBoundary";
+import './layout.css';
 
 export default function Layout(){
   
@@ -34,8 +34,9 @@ export default function Layout(){
               <BreadCrumbs />
             </Col>
           </Row>
-
+          <ErrorBoundary>
           <ActionsRibon />
+          </ErrorBoundary>
           
           <Row>
             <Col>
@@ -44,7 +45,7 @@ export default function Layout(){
           </Row>
 
           <Row>
-            <Col><Outlet /></Col>
+            <Col><ErrorBoundary><Outlet /></ErrorBoundary></Col>
           </Row>
 
           </Col>
