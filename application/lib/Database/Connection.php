@@ -59,9 +59,9 @@ class Connection implements iConnection{
     /**
      * Holds the last inserted ID
      *
-     * @var string
+     * @var string|false
      */
-    public string $lastInsertID = '';
+    public string|false $lastInsertID = '';
 
     /**
      * Wether to execute the query or not.
