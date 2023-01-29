@@ -92,7 +92,6 @@ const QueryEditor = ({runTriggers,rightCP}) => {
 
     return (  
         <Jumbotron>
-
             <Row>
                 <Col>
                 <ButtonToolbar className="pull-right mb-1">
@@ -108,11 +107,14 @@ const QueryEditor = ({runTriggers,rightCP}) => {
                 </Form.Group>
                 </Col>
                 {injectRightCp}
-            </Row>       
-            <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea} tabIndex="0">
-                Run Query
-            </Button>
-            
+            </Row>
+            <Row>
+                <Col className="mt-3">
+                <Button variant="primary" type="submit" className="mt-1" onClick={runQueryFromTextArea} tabIndex="0">
+                    Run Query
+                </Button>
+                </Col>
+            </Row>
         </Jumbotron>
     );
 }

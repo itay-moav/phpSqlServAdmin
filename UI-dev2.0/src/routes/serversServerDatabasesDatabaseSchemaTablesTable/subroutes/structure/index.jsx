@@ -4,7 +4,7 @@ import useCurrents from "../../../../services/useCurrents";
 import { findConnectionNameByServerAndDb } from '../../../../store/dbTreeSlice';
 import { loadTableStructure,tableStructure } from "../../../../store/dbTreeSlice";
 import { Jumbotron } from "../../../../components/atoms";
-export default function TableFields(){
+export default function TableStructure(){
     const dispatch = useDispatch();
     const {server,database,schema,table} = useCurrents();
     const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));

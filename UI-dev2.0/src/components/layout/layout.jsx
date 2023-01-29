@@ -17,7 +17,7 @@ export default function Layout(){
           <Col md={3}>
             <Row>
               <Col>
-                <h3 className="mb-0 pb-0" style={{cursor:"pointer"}} onClick={()=>window.location.href="/vulcan"}>phpSqlServAdmin <small style={{fontSize:"0.4em"}}>v2.4.0</small></h3>
+                <h3 className="mb-0 pb-0" style={{cursor:"pointer"}} onClick={()=>window.location.href="/vulcan"}>phpSqlServAdmin <small style={{fontSize:"0.4em"}}>v2.6.0</small></h3>
                 <small style={{fontSize:"0.6em"}}>Powered by <a href="https://github.com/itay-moav/TalisMS">TalisMS</a> and ReactJS</small>
               </Col>
             </Row>
