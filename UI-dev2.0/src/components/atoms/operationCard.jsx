@@ -18,7 +18,9 @@ export default function OperationCard({children,title,goHandler,copyText}){
         {title}
         {copyText &&
         (<ButtonToolbar className="pull-right mb-1">
-            <Button onClick={copy} variant="secondary" title="Copy to clipboard"><i className="fa fa-copy" aria-label="Copy to clipboard"></i></Button>
+            <Button onClick={copy} variant="secondary" title="Copy to clipboard">
+              <i className="fa fa-copy" aria-label="Copy to clipboard"></i>
+            </Button>
         </ButtonToolbar>)
         }
       </div>
