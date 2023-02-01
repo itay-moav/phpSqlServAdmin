@@ -190,10 +190,22 @@ const DbTreeSlice = createSlice({
        * Loads the structure of a single table, called on [structure] tab, update and insert table actions
        */
       .addCase(loadTableStructure.fulfilled, (state, {payload}) => {
+        if(!state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse][TREE_NODES__TABLE_STRUCTURE]){
+          state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse][TREE_NODES__TABLE_STRUCTURE]={};
+        }
+
         if(!state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse][TREE_NODES__TABLE_STRUCTURE][payload.currentSchema]){
           state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse][TREE_NODES__TABLE_STRUCTURE][payload.currentSchema]={};
         }
         state.tree[payload.currentServer][TREE_NODES__DATABASES][payload.currentDatabse][TREE_NODES__TABLE_STRUCTURE][payload.currentSchema][payload.currentTable] = payload;
+      })
+      
+      /**
+       * 
+       */
+      .addCase(loadTableStructure.rejected, (state, action) => {
+        console.error('loadTableStructure.rejected',action);
+        return state;
       })
   }
 });
