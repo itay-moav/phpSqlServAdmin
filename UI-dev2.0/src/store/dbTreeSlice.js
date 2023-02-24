@@ -57,44 +57,58 @@ export const loadTableStructure = createAsyncThunk('tree/loadTableStructure',asy
 
 // ---------------------------------------------------------------- SELECTORS --------------------------------------------------------
 
-export const findConnectionNameByServer = serverName => {
+export const findConnectionNameByServer = server => {
   return (state) => {
-    if(!state.dbTree.tree[serverName]){
+    const connectionName = state.dbTree.tree?.[server]?.[ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME];
+    return connectionName || false;
+
+    /*TOBEDELETED
+    if(!state.dbTree.tree[server]){
       return false; //we get here in case a page refresh has happened.
     }
-    return state.dbTree.tree[serverName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || false;
+    return state.dbTree.tree[server][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || false;
+    */
   }
 }
 
 //Checks if there is a db in the state, if no -> returns false. If yes, return the connection name on the db level
-export const findConnectionNameByServerAndDb = (serverName,dbName) => {
+export const findConnectionNameByServerAndDb = (server,database) => {
   return (state) => {
-    if(!state.dbTree.tree[serverName] || !state.dbTree.tree[serverName][TREE_NODES__DATABASES] || !state.dbTree.tree[serverName][TREE_NODES__DATABASES][dbName]){
-      console.error('No connectoion name was found in selector findConnectionNameByServerAndDb ')
+    const subTree = state.dbTree.tree?.[server]?.[TREE_NODES__DATABASES]?.[database];
+    if(!subTree){
+      console.error('No connectoion name was found in selector findConnectionNameByServerAndDb',
+                    server,
+                    database);
       return false;
     }
-    return state.dbTree.tree[serverName][TREE_NODES__DATABASES][dbName][ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || findConnectionNameByServer(serverName)(state);
+    /*TOBEDELETED
+    if(!state.dbTree.tree[server] || !state.dbTree.tree[server][TREE_NODES__DATABASES] || !state.dbTree.tree[server][TREE_NODES__DATABASES][database]){
+      console.error('No connectoion name was found in selector findConnectionNameByServerAndDb ')
+      return false;
+    }*/
+    return subTree[ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME] || findConnectionNameByServer(server)(state);
   }
 }
 
 //If current server has no databases either previously loaded or from server side config, will signal should try to load them
-export const shouldLoadDatabases  = serverName => {
+export const shouldLoadDatabases  = server => {
   return state => {
+    /*TOBEDELETED
     if(!state.dbTree.tree[serverName]){
       return false;
-    }
-    const databases = state.dbTree.tree[serverName][TREE_NODES__DATABASES];
-    return (Array.isArray(databases) && databases.length === 0)
+    }*/
+    const databases = state.dbTree.tree?.[server]?.[TREE_NODES__DATABASES];
+    return (!databases || (Array.isArray(databases) && databases.length === 0));
   }
 }
 
-export const fetchTableList = (serverName,dbName) => {
-  if(!serverName || !dbName){
+export const fetchTableList = (server,database) => {
+  if(!server || !database){
     return ()=>[];
   }
   
   return state => {
-    const tbList = state.dbTree.tree[serverName][TREE_NODES__DATABASES][dbName]['tables'] || [];
+    const tbList = state.dbTree.tree[server][TREE_NODES__DATABASES][database]['tables'] || [];
     if(!Array.isArray(tbList)){
       return ()=>[];
     }
@@ -102,20 +116,31 @@ export const fetchTableList = (serverName,dbName) => {
   }
 }
 
-export const tableStructure = (serverName,dbName,schema,table) =>{
+export const tableStructure = (server,database,schema,table) =>{
   return state => {
-    const tree = state.dbTree.tree;
+    return state.dbTree.tree?.[server]
+                            ?.[TREE_NODES__DATABASES]
+                            ?.[database]
+                            ?.[TREE_NODES__TABLE_STRUCTURE]
+                            ?.[schema]
+                            ?.[table] 
+
+                            || false;
+                            
+    /*TOBEDELETED
     if(!tree[serverName] || 
        !tree[serverName][TREE_NODES__DATABASES][dbName] || 
        !tree[serverName][TREE_NODES__DATABASES][dbName][TREE_NODES__TABLE_STRUCTURE]){
       return false;
     }
+    
 
     const branch = tree[serverName][TREE_NODES__DATABASES][dbName][TREE_NODES__TABLE_STRUCTURE];
     if(!branch[schema] || !branch[schema][table]){
       return false;
     }
     return branch[schema][table];
+    */
   }
 }
 
