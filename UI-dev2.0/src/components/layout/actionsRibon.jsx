@@ -36,9 +36,9 @@ function SingleTableRibon(){
         <ul className="nav nav-tabs">
             <RibbonNav currentLink={currentLink} link="browse" text="Browse" />
             <RibbonNav currentLink={currentLink} link="search" text="Search" />
+            <RibbonNav currentLink={currentLink} link="insert" text="Insert" />
             <RibbonNav currentLink={currentLink} link="sql" text="SQL" />
             <RibbonNav currentLink={currentLink} link="structure" text="Structure" />
-            { /* TODO: <RibbonNav currentLink={currentLink} link="insert" text="Insert" /> */}
             <RibbonNav currentLink={currentLink} link="createsql" text="CreateSQL" />
             <RibbonNav currentLink={currentLink} link="operations" text="Operations" />
         </ul>

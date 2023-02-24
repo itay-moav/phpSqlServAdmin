@@ -5,7 +5,13 @@ import Layout from "./components/layout";
 //pages
 import Servers from "./routes/servers";
 import ServersServerDatabases,{DatabasesSql,DatabasesTables,RefreshHandler} from "./routes/serversServerDatabases";
-import { TableBrowse,TableSearch,TableCreateSql,TableStructure,TableSql,TableOperations } from "./routes/serversServerDatabasesDatabaseSchemaTablesTable";
+import {  TableBrowse,
+          TableSearch,
+          TableInsert,
+          TableCreateSql,
+          TableStructure,
+          TableSql,
+          TableOperations } from "./routes/serversServerDatabasesDatabaseSchemaTablesTable";
 
 function App() {
   const navigate = useNavigate();
@@ -35,6 +41,7 @@ function App() {
             <Route path="tables/:table">
               <Route exact path="browse" element={<TableBrowse />} />
               <Route exact path="search" element={<TableSearch />} />
+              <Route exact path="insert" element={<TableInsert />} />
               <Route exact path="sql" element={<TableSql />} />
               <Route exact path="createsql" element={<TableCreateSql />} />
               <Route exact path="structure" element={<TableStructure />} />
