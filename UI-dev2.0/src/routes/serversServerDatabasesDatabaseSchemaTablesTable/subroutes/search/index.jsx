@@ -8,7 +8,7 @@ import { loadTableStructure,tableStructure } from "../../../../store/dbTreeSlice
 import { Jumbotron } from "../../../../components/atoms";
 import { QueryActions } from "../../../../store/querySlice";
 import {LastQuery,QueryResults} from "../../../../components/query";
-import useRunSearch from "./useRunSearch";
+import handleSearch from "./handleSearch";
 
 export default function TableSearch(){
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export default function TableSearch(){
     const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));
     const structure = useSelector(tableStructure(server,database,schema,table));
     const { register, handleSubmit, reset } = useForm();
-    const onSubmit = useRunSearch(dispatch,connectionName,server,database,schema,table);
+    const onSubmit = handleSearch(dispatch,connectionName,server,database,schema,table);
 
     useEffect(
         ()=>{

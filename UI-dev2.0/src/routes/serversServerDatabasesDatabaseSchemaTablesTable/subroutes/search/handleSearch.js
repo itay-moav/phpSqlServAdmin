@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { runQuery } from "../../../../store/querySlice";
 
-export default function useRunSearch(dispatch,connectionName,server,database,schema,table){
+export default function handleSearch(dispatch,connectionName,server,database,schema,table){
 
     return data=>{
         console.log('SEARCHING WITH',data);
