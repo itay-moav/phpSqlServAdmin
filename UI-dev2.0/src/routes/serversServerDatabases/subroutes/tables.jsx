@@ -2,7 +2,7 @@ import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Table,Alert,Modal,Button } from "react-bootstrap";
-import useCurrents from "../../../services/useCurrents";
+import useConnectionCurrents from "../../../services/useConnectionCurrents";
 import { findConnectionNameByServerAndDb,loadDatabaseTables,fetchTableList } from '../../../store/dbTreeSlice';
 import { QueryActions,runQuery } from "../../../store/querySlice";
 import {LastQuery,QueryResults} from "../../../components/query";
@@ -10,18 +10,20 @@ import {LastQuery,QueryResults} from "../../../components/query";
 export default function DatabasesTables(){
     const [modalDanger, setModalDanger] = useState({show:false,tableName:''});
     const dispatch = useDispatch();
-    const {server,database,schema} = useCurrents();
-    const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));
+    const {server,database,schema,connectionName} = useConnectionCurrents();
     const dbTables = useSelector(fetchTableList(server,database));
 
-    //init
+    //init - CAREFULL, this is re-rendered and React elements
+    // is reset every time you press a link, dure router dom behavior.
+    // So I am adding extra conditions to not load from server if I already have data
+    // ...... && !dbTables){
     useEffect(
         ()=>{
-            if(database){
+            if(database && !dbTables){
                 dispatch(loadDatabaseTables({connectionName,server,database}));
             }
             dispatch(QueryActions.reset());
-        },[connectionName,server,database,dispatch]
+        },[connectionName,server,database]
     );
 
     //NO TABLES
@@ -60,9 +62,13 @@ export default function DatabasesTables(){
             text:alertText,
             query,
             action: async () => {
-                await dispatch(runQuery({ connectionName,server,database,query}));
-                dispatch(loadDatabaseTables({connectionName,server,database}));
-                resetModalAction();//just reset
+                dispatch(runQuery({ connectionName,server,database,query})).then(
+                    ()=>{
+                        dispatch(loadDatabaseTables({connectionName,server,database}));
+                        resetModalAction();//just reset
+                    }
+                );
+
             }
         });
     }
