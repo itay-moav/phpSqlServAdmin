@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import useCurrents from "../../../services/useCurrents";
-import { findConnectionNameByServer,findConnectionNameByServerAndDb, loadDatabases, loadDatabaseTables } from "../../../store/dbTreeSlice";
+import { 
+    findConnectionNameByServer,
+    findConnectionNameByServerAndDb, 
+    loadDatabases, 
+    loadDatabaseTables
+} from "../../../store/dbTreeSlice";
 
 export default function RefreshHandler(){
     //console.log('I need to come clean here, I have no idea how I made this refresh handler to work.');
@@ -11,6 +16,8 @@ export default function RefreshHandler(){
     const connectionNameByServer = useSelector(findConnectionNameByServer(server));
     const connectionNameByDb = useSelector(findConnectionNameByServerAndDb(server,database));
     const dispatch = useDispatch();
+
+    //IF page reload happened by user, the db connection wont be around anymore
     if(!connectionNameByDb){
         console.log('Handling Refresh on DB level for ',connectionNameByServer,server,database,schema,table);
         dispatch(loadDatabases({connectionName:connectionNameByServer,currentServer:server})).then(()=>{

@@ -3,7 +3,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Table,Alert,Modal,Button } from "react-bootstrap";
 import useConnectionCurrents from "../../../services/useConnectionCurrents";
-import { findConnectionNameByServerAndDb,loadDatabaseTables,fetchTableList } from '../../../store/dbTreeSlice';
+import { loadDatabaseTables,fetchTableList } from '../../../store/dbTreeSlice';
 import { QueryActions,runQuery } from "../../../store/querySlice";
 import {LastQuery,QueryResults} from "../../../components/query";
 
@@ -19,7 +19,13 @@ export default function DatabasesTables(){
     // ...... && !dbTables){
     useEffect(
         ()=>{
-            if(database && !dbTables){
+            //WARNING this is the initial load of a db list of tables
+            //if for some reason it is not loaded, check this code
+            //and the fetchTableList selector
+            //make sure this runs only once, otherwise an empty database
+            //will be in an infinite loop.
+            //useEffect hopefully takes care of
+            if(database && dbTables.length===0){
                 dispatch(loadDatabaseTables({connectionName,server,database}));
             }
             dispatch(QueryActions.reset());

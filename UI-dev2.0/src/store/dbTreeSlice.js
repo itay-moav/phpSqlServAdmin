@@ -110,7 +110,7 @@ export const fetchTableList = (server,database) => {
   return state => {
     const tbList = state.dbTree.tree[server][TREE_NODES__DATABASES][database]['tables'] || [];
     if(!Array.isArray(tbList)){
-      return ()=>[];
+      return [];
     }
     return tbList;
   }
