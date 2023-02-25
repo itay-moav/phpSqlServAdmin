@@ -1,19 +1,12 @@
 import { useDispatch,useSelector } from "react-redux";
 import { Table} from "react-bootstrap";
 import useCurrents from "../../../../services/useCurrents";
-import { findConnectionNameByServerAndDb } from '../../../../store/dbTreeSlice';
-import { loadTableStructure,tableStructure } from "../../../../store/dbTreeSlice";
+import { tableStructure } from "../../../../store/dbTreeSlice";
 import { Jumbotron } from "../../../../components/atoms";
 export default function TableStructure(){
     const dispatch = useDispatch();
     const {server,database,schema,table} = useCurrents();
-    const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));
     const structure = useSelector(tableStructure(server,database,schema,table));
-
-    if(!structure){
-        dispatch(loadTableStructure({connectionName,server,database,schema,table}));
-        return null;
-    }
 
     return (
         <Jumbotron>

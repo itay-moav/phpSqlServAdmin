@@ -5,7 +5,7 @@ import Layout from "./components/layout";
 //pages
 import Servers from "./routes/servers";
 import ServersServerDatabases,{DatabasesSql,DatabasesTables,RefreshHandler} from "./routes/serversServerDatabases";
-import {  TableBrowse,
+import ServersServerDatabasesDatabaseSchemaTablesTable,{  TableBrowse,
           TableSearch,
           TableInsert,
           TableCreateSql,
@@ -38,7 +38,7 @@ function App() {
             <Route exact path="tables" element={<DatabasesTables />} />
             <Route exact path="sql" element={<DatabasesSql />} />
 
-            <Route path="tables/:table">
+            <Route path="tables/:table" element={<ServersServerDatabasesDatabaseSchemaTablesTable />}>
               <Route exact path="browse" element={<TableBrowse />} />
               <Route exact path="search" element={<TableSearch />} />
               <Route exact path="insert" element={<TableInsert />} />

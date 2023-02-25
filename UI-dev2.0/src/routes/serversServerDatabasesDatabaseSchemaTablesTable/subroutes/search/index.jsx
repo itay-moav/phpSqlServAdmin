@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { Button, Table} from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import useCurrents from "../../../../services/useCurrents";
-import { findConnectionNameByServerAndDb } from '../../../../store/dbTreeSlice';
-import { loadTableStructure,tableStructure } from "../../../../store/dbTreeSlice";
+import useConnectionCurrents from "../../../../services/useConnectionCurrents";
+import { tableStructure } from "../../../../store/dbTreeSlice";
 import { Jumbotron } from "../../../../components/atoms";
 import { QueryActions } from "../../../../store/querySlice";
 import {LastQuery,QueryResults} from "../../../../components/query";
@@ -12,8 +11,7 @@ import handleSearch from "./handleSearch";
 
 export default function TableSearch(){
     const dispatch = useDispatch();
-    const {server,database,schema,table} = useCurrents();
-    const connectionName = useSelector(findConnectionNameByServerAndDb(server,database));
+    const {server,database,schema,table,connectionName} = useConnectionCurrents();
     const structure = useSelector(tableStructure(server,database,schema,table));
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = handleSearch(dispatch,connectionName,server,database,schema,table);
@@ -23,11 +21,6 @@ export default function TableSearch(){
             dispatch(QueryActions.reset());
         },[]
     );
-
-    if(!structure){
-        dispatch(loadTableStructure({connectionName,server,database,schema,table}));
-        return null;
-    }
 
     return (
         <>
