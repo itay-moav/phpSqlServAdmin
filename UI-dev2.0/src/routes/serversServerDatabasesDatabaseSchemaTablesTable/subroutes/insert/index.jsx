@@ -7,7 +7,7 @@ import { tableStructure } from "../../../../store/dbTreeSlice";
 import { Jumbotron } from "../../../../components/atoms";
 import { QueryActions } from "../../../../store/querySlice";
 import {LastQuery,QueryResults} from "../../../../components/query";
-import {validationSchemaCreator,columnRenderer} from "./columnUtils";
+import {validationSchemaCreator,ColumnInput} from "./columnUtils";
 import handleInsert from "./handleInsert";
 
 const errors={};
@@ -38,7 +38,8 @@ export default function TableInsert(){
                     <tr key="2">
                         <th>Field Name</th>
                         <th>Type</th>
-                        <th>Constraints</th>
+                        <th>Keys</th>
+                        <th>Null?</th>
                         <th>Value</th>
                     </tr>
                 </thead>
@@ -49,8 +50,8 @@ export default function TableInsert(){
                             <tr key={tr.column_name}>
                                 <td>{tr.column_name}</td>
                                 <td>{tr.data_type}</td>
-                                <td>{tr.is_primary_key === "1" ? "PK ,":""} {tr.is_nullable === "0"? "Not Null":""}</td>
-                                <td>{columnRenderer(tr,register,errors)}</td>
+                                <td>{tr.is_primary_key === "1" ? "PK":""}</td>
+                                {ColumnInput(tr,register,errors)}
                             </tr>
                             )})}
                 </tbody>
@@ -63,7 +64,7 @@ export default function TableInsert(){
         </Jumbotron>
 
         <LastQuery />
-        <QueryResults noResults="hide"/>
+        <QueryResults noResults="hide" />
         </>
     );
 }
