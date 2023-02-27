@@ -28,7 +28,8 @@ export function ColumnInput(columnDefinition,register,errors){
         </td>
         <td>
         <div className="input-group">
-            {!isCurrentlyNull && (
+            {columnDefinition.is_primary_key === "1" && (<b>identity(1,129)</b>)}
+            {!isCurrentlyNull && columnDefinition.is_primary_key !== "1" && (
                 <>
                 <input className="form-control" 
                     type="text" {...register(`value-${columnDefinition.column_name}`)} />
