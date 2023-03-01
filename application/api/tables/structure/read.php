@@ -101,11 +101,11 @@ class FetchTableColumns extends \lib\Database\ChainWithConnection{
                     
         ";
         
-        $this->Response->getPayload()->columns = $conn->execute($read_table_columns_sql,['schema'=>$schema,'table'=>$table])->fetchAll();
+        $this->Response->getPayload()->columns = $conn->execute($read_table_columns_sql,['schema'=>$schema,'table'=>$table])->fetchAllObj();
         $pk=[];
         foreach($this->Response->getPayload()->columns as $column){
-            if($column['is_primary_key']){
-                $pk[]=$column['column_name'];
+            if($column->is_primary_key){
+                $pk[]=$column->column_name;
             }
         }
         $this->Response->getPayload()->pk=$pk;

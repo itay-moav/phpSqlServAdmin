@@ -190,7 +190,11 @@ class Connection implements iConnection{
     public function fetchAll(int $fetch_type = \PDO::FETCH_ASSOC): array
     {
         $res = $this->lastStatement->fetchAll($fetch_type);
-        return $res ?: [];
+        if($res === false){
+            throw new \Exception('Failed retrieving results - add logs to debug');
+        }
+        return $res;
+        //Was before, should I use this?   return $res ?: [];
     }
 
     /**
@@ -200,11 +204,14 @@ class Connection implements iConnection{
      */
     public function fetchAllObj(): array
     {
+        return $this->fetchAll(\PDO::FETCH_OBJ);
+        /*TOBEDELETED
         $res = $this->lastStatement->fetchAll(\PDO::FETCH_OBJ);
         if($res === false){
             throw new \Exception('Failed retrieving results - add logs to debug');
         }
         return $res;
+        */
     }
 
     /**
