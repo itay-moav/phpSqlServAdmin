@@ -3,9 +3,10 @@ import {Routes,Route,useNavigate,useLocation} from "react-router-dom";
 import Layout from "./components/layout";
 
 //pages
-import Servers from "./routes/servers";
-import ServersServerDatabases,{DatabasesSql,DatabasesTables,RefreshHandler} from "./routes/serversServerDatabases";
-import ServersServerDatabasesDatabaseSchemaTablesTable,{  TableBrowse,
+import ServerIndex from "./routes/server/serverIndex";
+import ServersServerDatabases,{DatabasesSql,DatabasesTables} from "./routes/serversServerDatabases";
+import ServersServerDatabasesDatabaseSchemaTablesTable,{  
+          TableBrowse,
           TableSearch,
           TableInsert,
           TableCreateSql,
@@ -20,7 +21,7 @@ function App() {
   useEffect(
     ()=>{
       if(location.pathname === "/"){
-        navigate('servers');
+        navigate('server');
       }
      // eslint-disable-next-line
     },[]
@@ -28,9 +29,14 @@ function App() {
   return (
     <Routes>
       <Route path="/*" element={<Layout />}>
-        
-        <Route exact path="servers/:server/databases" element={<ServersServerDatabases />} />
-        <Route path="servers/:server/databases/:database" element={<RefreshHandler />}>
+        <Route path="server">
+          <Route index element={<ServerIndex />} />
+
+
+          <Route exact path=":server/databases" element={<ServersServerDatabases />} />
+
+          
+          <Route path=":server/databases/:database">
           <Route exact path="tables" element={<DatabasesTables />} />
           <Route exact path="sql" element={<DatabasesSql />} />
 
@@ -51,8 +57,13 @@ function App() {
           </Route>
 
         </Route>
-        
-        <Route exact path="servers" element={<Servers />} />        
+
+
+        </Route>
+
+
+
+   
         <Route index path="*" element={<h2>WhereTF have you gone?!</h2>} />
       </Route>
     </Routes>

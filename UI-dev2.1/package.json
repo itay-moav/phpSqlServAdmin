@@ -1,18 +1,12 @@
 {
   "name": "vulcan",
   "homepage": "/vulcan/",
-  "version": "2.7.0",
-  "description": "phpSqlServerAdmin app",
+  "version": "2.8.0",
+  "description": "Vulcan MS-SQL dev mate app",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/itay-moav/vulcan.git"
+    "build": "react-scripts build"
   },
   "keywords": [
     "mssql",
@@ -26,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/itay-moav/vulcan/issues"
   },
-  "dependencies": {
+  "dependenciesssssss": {
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.2",
     "react": "^18.2.0",
@@ -55,6 +49,17 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-transform-react-jsx-source": "^7.19.6"
+    "@babel/plugin-transform-react-jsx-source": "^7.22.5"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.6",
+    "axios": "^1.5.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.9.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.46.2",
+    "react-redux": "^8.1.3",
+    "react-router-dom": "^6.16.0",
+    "react-scripts": "^5.0.1"
   }
 }
