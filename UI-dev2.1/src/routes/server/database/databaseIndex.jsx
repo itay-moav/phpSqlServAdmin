@@ -1,10 +1,10 @@
 import {NavLink} from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
-import useCurrents from "../../services/useCurrents";
-import { loadDatabases,findConnectionNameByServer,shouldLoadDatabases } from '../../store/dbTreeSlice';
+import useCurrents from "../../../services/useCurrents";
+import { loadDatabases,findConnectionNameByServer,shouldLoadDatabases } from '../../../store/dbTreeSlice';
 import { useEffect } from "react";
 
-export default function ServersServerDatabases(){
+export default function Databaseindex(){
     const currentServer = useCurrents().server;
     const dispatch = useDispatch();
     const connectionName = useSelector(findConnectionNameByServer(currentServer));
@@ -32,7 +32,7 @@ export default function ServersServerDatabases(){
         <div style={{"marginTop":"50px"}}>
         <h2>Databases in {currentServer} </h2>
         {databaseList.length > 0 && (databaseList.map(database => 
-        (<NavLink key={database} to={`${database}/tables`} className="btn btn-primary btn-block btn-lg" style={{"textAlign":"left"}}>
+        (<NavLink key={database} to={`${database}/objects`} className="btn btn-primary btn-block btn-lg" style={{"textAlign":"left"}}>
             {database}
         </NavLink>) )
         )}

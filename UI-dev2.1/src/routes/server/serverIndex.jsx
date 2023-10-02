@@ -6,7 +6,7 @@ export default function ServerIndex(){
       return Object.keys(state.dbTree.tree);
   });
   const serverList = servers.map(server => 
-    (<NavLink key={server} to={`/server/${server}/databases`} className="btn btn-primary btn-block btn-lg" style={{"textAlign":"left"}}>
+    (<NavLink key={server} to={`/server/${server}/database`} className="btn btn-primary btn-block btn-lg" style={{"textAlign":"left"}}>
         {server}
     </NavLink>));
     

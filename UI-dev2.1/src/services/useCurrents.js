@@ -8,3 +8,4 @@ export default function useCurrents(){
         table: useParams().table || false
     }
 }
+

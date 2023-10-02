@@ -6,9 +6,9 @@ export default function ActionsRibon(){
         <Row className="pl-3">
         <Col>
         <Routes>
-            <Route path="/servers/:server/databases/:database/schema/:schema/tables/:table/:link" element={<SingleTableRibon />} />
-            <Route path="/servers/:server/databases/:database/schema/:schema/:link" element={<DatabaseTablesRibon />} /> 
-            <Route path="/servers/:server/databases/:database/:link" element={<DatabaseTablesRibon />} />
+            <Route path="/server/:server/database/:database/schema/:schema/tables/:table/:link" element={<SingleTableRibon />} />
+            <Route path="/server/:server/database/:database/schema/:schema/:link" element={<DatabaseTablesRibon />} /> 
+            <Route path="/server/:server/database/:database/:link" element={<DatabaseTablesRibon />} />
         </Routes>
         </Col>
       </Row>
@@ -22,7 +22,7 @@ function DatabaseTablesRibon(){
     const currentLink = useParams().link;
     return (
         <ul className="nav nav-tabs">
-        <RibbonNav currentLink={currentLink} link="tables" text="Tables" />
+        <RibbonNav currentLink={currentLink} link="objects" text="DB Objects" />
         <RibbonNav currentLink={currentLink} link="sql" text="SQL" />
     </ul>
     );

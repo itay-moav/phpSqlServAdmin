@@ -3,8 +3,21 @@ import {Routes,Route,useNavigate,useLocation} from "react-router-dom";
 import Layout from "./components/layout";
 
 //pages
+//server 
 import ServerIndex from "./routes/server/serverIndex";
-import ServersServerDatabases,{DatabasesSql,DatabasesTables} from "./routes/serversServerDatabases";
+
+//database
+import Databaseindex from './routes/server/database/databaseIndex';
+import DatabaseObjects from './routes/server/database/databaseObjects';
+
+//schema
+import SchemaIndex from './routes/server/database/schema/schemaIndex';
+
+//Table
+import TableIndex from './routes/server/database/schema/table/tableIndex';
+
+
+import {DatabasesSql,DatabasesTables} from "./routes/serversServerDatabases";
 import ServersServerDatabasesDatabaseSchemaTablesTable,{  
           TableBrowse,
           TableSearch,
@@ -31,13 +44,14 @@ function App() {
       <Route path="/*" element={<Layout />}>
         <Route path="server">
           <Route index element={<ServerIndex />} />
+          <Route path=":server/database">
+            <Route index element={<Databaseindex />} />
+            <Route path=":database">
+              <Route path="objects" element={<DatabaseObjects />} />
 
 
-          <Route exact path=":server/databases" element={<ServersServerDatabases />} />
 
-          
-          <Route path=":server/databases/:database">
-          <Route exact path="tables" element={<DatabasesTables />} />
+
           <Route exact path="sql" element={<DatabasesSql />} />
 
           <Route exact path="schema/:schema">            
@@ -57,6 +71,15 @@ function App() {
           </Route>
 
         </Route>
+
+
+
+          </Route>
+
+          
+
+
+
 
 
         </Route>

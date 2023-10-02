@@ -15,7 +15,7 @@ export default function BreadCrumbs(){
           
           {
             current.server && (
-              <NavLink to={`/server/${current.server}/databases`}>
+              <NavLink to={`/server/${current.server}/database`}>
               <span className="db-element-clickable">
                 {current.server}
               </span >
@@ -23,13 +23,13 @@ export default function BreadCrumbs(){
             )
           }
   
-  
+
           {
             current.database && (
             <>
             {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i> 
     
-            <NavLink to={`/server/${current.server}/databases/${current.database}/tables`}>
+            <NavLink to={`/server/${current.server}/database/${current.database}/objects`}>
             <span className="db-element-clickable">
               <i className="btn fa fa-database" aria-hidden="true"></i>
               {current.database}
@@ -39,11 +39,12 @@ export default function BreadCrumbs(){
             )
           }
 
+
           {current.schema && (
             <>
             {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i>
 
-            <NavLink to={`/server/${current.server}/databases/${current.database}/schema/${current.schema}/tables`}>
+            <NavLink to={`/server/${current.server}/database/${current.database}/schema/${current.schema}/tables`}>
             <span className="db-element-clickable">
               <i className="btn fa fa-cubes" aria-hidden="true"></i>
               {current.schema}
@@ -60,7 +61,7 @@ export default function BreadCrumbs(){
             {' '}
             <i className="fa fa-angle-double-right" aria-hidden="true"></i>
             
-            <NavLink to={`/server/${current.server}/databases/${current.database}/schema/${current.schema}/tables/${current.table}/structure`}>
+            <NavLink to={`/server/${current.server}/database/${current.database}/schema/${current.schema}/tables/${current.table}/structure`}>
             <span>
               <i className="btn fa fa-table" aria-hidden="true"></i>
               {current.table}

@@ -2,12 +2,12 @@ import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Table,Alert,Modal,Button } from "react-bootstrap";
-import useConnectionCurrents from "../../../services/useConnectionCurrents";
-import { loadDatabaseTables,fetchTableList } from '../../../store/dbTreeSlice';
-import { QueryActions,runQuery } from "../../../store/querySlice";
-import {LastQuery,QueryResults} from "../../../components/query";
+import useConnectionCurrents from "../../../../../services/useConnectionCurrents";
+import { loadDatabaseTables,fetchTableList } from '../../../../../store/dbTreeSlice';
+import { QueryActions,runQuery } from "../../../../../store/querySlice";
+import {LastQuery,QueryResults} from "../../../../../components/query";
 
-export default function DatabasesTables(){
+export default function TableIndex(){
     const [modalDanger, setModalDanger] = useState({show:false,tableName:''});
     const dispatch = useDispatch();
     const {server,database,schema,connectionName} = useConnectionCurrents();

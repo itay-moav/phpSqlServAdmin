@@ -12,3 +12,5 @@ export default function useConnectionCurrents(){
     currents.connectionName = useSelector(findConnectionNameByServerAndDb(currents.server,currents.database));
     return currents;
 }
+
+//TODO I need to delete this and modify config on server to match!
