@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import useCurrents from "../../services/useCurrents";
+import useBaseUrl from "../../services/useBaseUrl";
 
 export default function BreadCrumbs(){
     const current = useCurrents();
+    const baseUrl = useBaseUrl();
     
     return (
       <header className="page-head-wrapper">     
@@ -15,7 +17,7 @@ export default function BreadCrumbs(){
           
           {
             current.server && (
-              <NavLink to={`/server/${current.server}/database`}>
+              <NavLink to={`${baseUrl('server')}/database`}>
               <span className="db-element-clickable">
                 {current.server}
               </span >
@@ -29,7 +31,7 @@ export default function BreadCrumbs(){
             <>
             {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i> 
     
-            <NavLink to={`/server/${current.server}/database/${current.database}/objects`}>
+            <NavLink to={`${baseUrl('database')}/objects`}>
             <span className="db-element-clickable">
               <i className="btn fa fa-database" aria-hidden="true"></i>
               {current.database}
@@ -44,7 +46,7 @@ export default function BreadCrumbs(){
             <>
             {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i>
 
-            <NavLink to={`/server/${current.server}/database/${current.database}/schema/${current.schema}/tables`}>
+            <NavLink to={`${baseUrl('schema')}/table`}>
             <span className="db-element-clickable">
               <i className="btn fa fa-cubes" aria-hidden="true"></i>
               {current.schema}
@@ -61,7 +63,7 @@ export default function BreadCrumbs(){
             {' '}
             <i className="fa fa-angle-double-right" aria-hidden="true"></i>
             
-            <NavLink to={`/server/${current.server}/database/${current.database}/schema/${current.schema}/tables/${current.table}/structure`}>
+            <NavLink to={`${baseUrl('table')}/structure`}>
             <span>
               <i className="btn fa fa-table" aria-hidden="true"></i>
               {current.table}
