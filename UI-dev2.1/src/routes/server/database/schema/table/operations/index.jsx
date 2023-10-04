@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import { Jumbotron, OperationCard } from "../../../../components/atoms";
+import { Jumbotron, OperationCard } from "../../../../../../components/atoms";
 
 export default function TableOperations(){
 

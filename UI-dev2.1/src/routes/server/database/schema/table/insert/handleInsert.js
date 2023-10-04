@@ -1,6 +1,5 @@
 export default function handleInsert(dispatch,connectionName,database,schema,table){
     return data => {
-        console.log('DDDDDDDDD',data);
         const column_names = Object.keys(data);
         let sql = `INSERT INTO ${database}.${schema}.${table} (${column_names.join(",")}) \n`;
         sql += " VALUES (";

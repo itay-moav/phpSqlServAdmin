@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import useConnectionCurrents from "../../../../services/useConnectionCurrents";
-import { runQuery } from "../../../../store/querySlice";
-import {LastQuery,QueryEditor,QueryResults} from "../../../../components/query";
-import FieldsHelper from "../../fieldsHelper";
+import useConnectionCurrents from "../../../../../../services/useConnectionCurrents";
+import { runQuery } from "../../../../../../store/querySlice";
+import {LastQuery,QueryEditor,QueryResults} from "../../../../../../components/query";
+import FieldsHelper from "../../../../../../components/dbTableHelpers/fieldsHelper";
 
 export default function TableBrowse(){
     const dispatch = useDispatch();

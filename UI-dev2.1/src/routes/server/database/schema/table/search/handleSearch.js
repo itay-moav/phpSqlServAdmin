@@ -1,4 +1,4 @@
-import { runQuery } from "../../../../store/querySlice";
+import { runQuery } from "../../../../../../store/querySlice";
 
 export default function handleSearch(dispatch,connectionName,server,database,schema,table){
 

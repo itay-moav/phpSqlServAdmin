@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { Button, Table} from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import useConnectionCurrents from "../../../../services/useConnectionCurrents";
-import { tableStructure } from "../../../../store/dbTreeSlice";
-import { Jumbotron } from "../../../../components/atoms";
-import { QueryActions } from "../../../../store/querySlice";
-import {LastQuery,QueryResults} from "../../../../components/query";
+import useConnectionCurrents from "../../../../../../services/useConnectionCurrents";
+import { tableStructure } from "../../../../../../store/dbTreeSlice";
+import { Jumbotron } from "../../../../../../components/atoms";
+import { QueryActions } from "../../../../../../store/querySlice";
+import {LastQuery,QueryResults} from "../../../../../../components/query";
 import handleSearch from "./handleSearch";
 
 export default function TableSearch(){
