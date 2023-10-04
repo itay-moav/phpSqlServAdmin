@@ -39,7 +39,8 @@ function App() {
               <Route path="objects" element={<DatabaseObjects />} />
               <Route path="sql" element={<SqlQueryPage />} />
               <Route path="schema/:schema">
-                <Route index element={<DatabaseObjects />} />        
+                <Route path="objects" element={<DatabaseObjects />} />
+                <Route path="sql" element={<SqlQueryPage />} />      
 
                 <Route path="table/:table" element={<Table />}>
                   <Route index element={TableIndex} />

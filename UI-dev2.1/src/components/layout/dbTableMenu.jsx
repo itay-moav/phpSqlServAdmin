@@ -29,14 +29,14 @@ export default function DbTableMenu(){
                                                             const active = (owner===schema) && (currentTable === table.tName);
                                                             return (<ListGroup.Item key={table.tName} active={active}>
                                                                         &nbsp;
-                                                                        <NavLink to={`server/${server}/databases/${database}/schema/${owner}/tables/${table.tName}/structure`}>
+                                                                        <NavLink to={`server/${server}/database/${database}/schema/${owner}/table/${table.tName}/structure`}>
                                                                         <i className="btn fa fa-table db-element-clickable" aria-hidden="true"></i>
                                                                         </NavLink>
                                                                         {/*Temporary link to the create sql */}
-                                                                        <NavLink to={`server/${server}/databases/${database}/schema/${owner}/tables/${table.tName}/createsql`}>
+                                                                        <NavLink to={`server/${server}/database/${database}/schema/${owner}/table/${table.tName}/createsql`}>
                                                                         <i className="btn fa fa-book db-element-clickable" aria-hidden="true"></i>
                                                                         </NavLink>
-                                                                        <NavLink to={`server/${server}/databases/${database}/schema/${owner}/tables/${table.tName}/browse`}>
+                                                                        <NavLink to={`server/${server}/database/${database}/schema/${owner}/table/${table.tName}/browse`}>
                                                                         <span className="table-name db-element-clickable">{table.tName}</span>
                                                                         </NavLink>
                                                                     </ListGroup.Item>);

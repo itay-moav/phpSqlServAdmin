@@ -46,7 +46,7 @@ export default function BreadCrumbs(){
             <>
             {' '}<i className="fa fa-angle-double-right" aria-hidden="true"></i>
 
-            <NavLink to={`${baseUrl('schema')}/table`}>
+            <NavLink to={`${baseUrl('schema')}/objects`}>
             <span className="db-element-clickable">
               <i className="btn fa fa-cubes" aria-hidden="true"></i>
               {current.schema}
