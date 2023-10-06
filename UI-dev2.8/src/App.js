@@ -53,26 +53,10 @@ function App() {
                   <Route exact path="structure" element={<TableStructure />} />
                   <Route exact path="operations" element={<TableOperations />} />
                 </Route>
-              
+              </Route>
             </Route>
-
-        </Route>
-
-
-
           </Route>
-
-          
-
-
-
-
-
         </Route>
-
-
-
-   
         <Route index path="*" element={<h2>WhereTF have you gone?!</h2>} />
       </Route>
     </Routes>
