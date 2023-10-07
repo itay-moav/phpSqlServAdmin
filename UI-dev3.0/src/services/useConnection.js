@@ -1,5 +1,4 @@
-import { useParams } from "react-router-dom";
-
+import useConnectionCurrents from "./useConnectionCurrents";
 export default function useConnection(){
-    return useParams().server || false;
+    return useConnectionCurrents().connectionName;
 }
