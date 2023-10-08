@@ -5,27 +5,54 @@ import {ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME,URL_PARAMS__DATABASE_NAME} f
 
 
 // ---------------------------------------------------------------- API --------------------------------------------------------------
-//Dispatches a query to the server
-export const runQuery = createAsyncThunk('query/run', async ({connectionName,server,database,query}) => {
+
+/**
+ * Makes it to either call the predefined queries api call or the regular query run
+ * 
+ * @param {string} connectionName 
+ * @param {string} database 
+ * @param {string} query 
+ * @param {*} queryParams 
+ * @returns 
+ */
+function helperApiCallBuilder(connectionName,database,query,queryParams){
+  let url = `/query/predefined/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}/queryName/${query}`;
+  let apiCallParams =  {params:{queryParams}};
+  if(query.indexOf(' ') >= 0){
+    url = `/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`;
+    apiCallParams =  {params:{query}};
+  }
+
+  return {url,apiCallParams};
+}
+
+/**
+ * Dispatches a query to the server
+ */
+export const runQuery = createAsyncThunk('query/run', async ({connectionName,server,database,query,queryParams=[]}) => {
   if(!connectionName){
     console.error('No conncetionname was found in runQuery');
     return {};
   }
-  console.log('ABOUT TO RUN:',connectionName,database,query);
-  const {data} = await http.post(`/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`,{params:{query}});
+  console.log('ABOUT TO RUN:',connectionName,database,query,queryParams);
+  const apiCall = helperApiCallBuilder(connectionName,database,query,queryParams);
+  const {data} = await http.post(apiCall.url,apiCall.apiCallParams);
   data.payload.currentServer = server;
   data.payload.currentDatabse = database;
   return data.payload;
 });
 
-//Dispatches a query to the server without updating the query editors UI of this query
-export const runQuerySilent = createAsyncThunk('query/runSilent', async ({connectionName,server,database,query}) => {
+/**
+ * Dispatches a query to the server without updating the query editors UI of this query
+ */
+export const runQuerySilent = createAsyncThunk('query/runSilent', async ({connectionName,server,database,query,queryParams=[]}) => {
   if(!connectionName){
     console.error('No conncetionname was found in runQuerySilent');
     return {};
   }
-  console.log('ABOUT TO SILENT RUN:',connectionName,database,query);
-  const {data} = await http.post(`/query/run/${ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME}/${connectionName}/${URL_PARAMS__DATABASE_NAME}/${database}`,{params:{query}});
+  console.log('ABOUT TO SILENT RUN:',connectionName,database,query,queryParams);
+  const apiCall = helperApiCallBuilder(connectionName,database,query,queryParams);
+  const {data} = await http.post(apiCall.url,apiCall.apiCallParams);
   data.payload.currentServer = server;
   data.payload.currentDatabse = database;
   return data.payload;
@@ -72,7 +99,6 @@ const Query = createSlice({
   //handlers/reducers for the query Thunk
   extraReducers(builder) {
     builder
-      //server tree
       .addCase(runQuery.pending, (state) => {
         state.queryStatus = LoadStatus.LOADING
       })
