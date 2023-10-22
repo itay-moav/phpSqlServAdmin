@@ -29,7 +29,7 @@ function helperApiCallBuilder(connectionName,database,query,queryParams){
 /**
  * Dispatches a query to the server
  */
-export const runQuery = createAsyncThunk('query/run', async ({connectionName,server,database,query,queryParams=[]}) => {
+export const runQuery = createAsyncThunk('query/run', async ({connectionName,server,database,query,queryParams={}}) => {
   if(!connectionName){
     console.error('No conncetionname was found in runQuery');
     return {};
@@ -45,7 +45,7 @@ export const runQuery = createAsyncThunk('query/run', async ({connectionName,ser
 /**
  * Dispatches a query to the server without updating the query editors UI of this query
  */
-export const runQuerySilent = createAsyncThunk('query/runSilent', async ({connectionName,server,database,query,queryParams=[]}) => {
+export const runQuerySilent = createAsyncThunk('query/runSilent', async ({connectionName,server,database,query,queryParams={}}) => {
   if(!connectionName){
     console.error('No conncetionname was found in runQuerySilent');
     return {};

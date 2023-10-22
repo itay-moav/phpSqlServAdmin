@@ -25,6 +25,7 @@ class QueryPredefinedCreate extends \Talis\Chain\aFilteredValidatedChainLink{
     protected function get_next_bl():array{
         return [
             [\lib\Database\FindConnectionName(),[]],
+            [\model\Query\PredefinedQueries::class,[]],
             [\model\Query\Run::class,[]],
             [\Talis\Chain\DoneSuccessfull::class,[]]
         ];

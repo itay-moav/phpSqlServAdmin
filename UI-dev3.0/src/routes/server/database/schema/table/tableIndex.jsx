@@ -45,14 +45,17 @@ export default function TableIndex(){
     //Start the truncate table action
     const startEmpty = tableName => {
         const alertText = (<>You are about to empty table <b>[{tableName}]</b> Are you sure?</>);
-        const query = `TRUNCATE TABLE ${tableName};`;
+        const warningMessage = `TRUNCATE TABLE ${tableName};`;
+        const query="_truncate";//this is a predefined query
+        const queryParams = {tableName};
+
         setModalDanger({
             show:true,
             tableName,
             text:alertText,
-            query,
+            query:warningMessage,
             action: ()=>{
-                dispatch(runQuery({ connectionName,server,database,query}));
+                dispatch(runQuery({ connectionName,server,database,query,queryParams}));
                 resetModalAction();//just reset
             }
         });

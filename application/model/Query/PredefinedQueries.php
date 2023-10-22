@@ -20,5 +20,13 @@ class PredefinedQueries extends \Talis\Chain\aChainLink{
         return $this;
     }
     
+    /**
+     * Truncate tableName
+     */
+    private function query_truncate():void{
+        $table_name = $this->Request->getBodyParamOrFail('queryParams')->tableName;
+        $this->Request->addToBodyParams('query', "TRUNCATE TABLE {$table_name}");
+    }
+    
     
 }

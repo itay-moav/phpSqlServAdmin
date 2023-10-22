@@ -15,7 +15,7 @@ export default function TableCreateSql(){
                         setSqlCreateStatement(response.data.payload.createSql);
                     });
         },
-        [table]
+        [connectionName,database,schema,table]
     );
 
     return (
