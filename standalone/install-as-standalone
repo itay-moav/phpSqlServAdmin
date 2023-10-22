@@ -1,10 +1,16 @@
+#!/bin/bash -x
 #TODO make dev folder a variable
 cp ../UI-dev3.0/standalone.env.production ../UI-dev3.0/.env.production
 cd ../UI-dev3.0
+pwd
+ls -ltra
 rm -fr build node_modules
+npm i
 npm run build
 cd ..
+pwd
 rm -fr standalone/vulcan
 mv UI-dev3.0/build standalone/vulcan
 cd standalone
+pwd
 ./kickbutt.sh
