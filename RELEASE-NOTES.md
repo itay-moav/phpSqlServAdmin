@@ -11,3 +11,7 @@ V3.0.0
 - Qucik dump facility - dumps current resultset (full or just current page) with or without table schema
 - add sort on columns
 - add views and triggers to side menu
+- fix react erros on build 
+- fix composer issues
+- fix static analysis issues
+
