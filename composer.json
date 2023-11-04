@@ -1,5 +1,5 @@
 {
-	"name": "vulcan",
+	"name": "director-moav/vulcan",
 	"description": "phpmysql like system to handle MSSQL with dev shortcuts",
 	"type": "git",
 	"keywords": [
