@@ -8,7 +8,7 @@ function app_env():array
     $ret = [
         'log' => [
             'name' => 'VULCAN_PHPSQLSERVADMIN_',
-            'handler' => 'File', //ColoredFile'//'Stdio',//'Nan'
+            'handler' => 'StdError',//'File', //ColoredFile'//'Stdio',//'Nan'
             'verbosity' => 4,
             'uri' => '/var/log/vulcan/',
             'low_memory_footprint' => false

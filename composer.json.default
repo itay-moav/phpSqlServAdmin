@@ -6,8 +6,7 @@
 		"MSsql "
 	],
 	"require": {
-		"php": ">=8.1",
-		"director-moav/zimlogger": "v1.0.1",
+		"director-moav/zimlogger": "v1.2.1",
 		"director-moav/talis-ms": "dev-master"
 	},
 	"require-dev": {
