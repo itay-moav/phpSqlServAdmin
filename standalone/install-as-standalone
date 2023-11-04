@@ -12,8 +12,17 @@ pwd
 rm -fr standalone/vulcan
 mv UI-dev3.0/build standalone/vulcan
 echo "Installing with default composer. If you added plugins which require changes to composer, Replace composer.json with your own composer.json, and re-run this script."
-rm -fr vendor composer.lock
+rm -fr vendor composer.lock composer.json
+echo "If there is a composer.json.private, using that. Otherwise using composer.json.default"
+if [ -e ./composer.json.private ]; then
+    echo "identified a private json file, using that"
+    cp ./composer.json.private ./composer.json
+else
+    echo "Using default composer.json"
+    cp ./composer.json.default ./composer.json
+fi
 composer u -o --no-dev
+
 cd standalone
 pwd
 ./kickbutt.sh

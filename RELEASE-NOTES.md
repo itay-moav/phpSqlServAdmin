@@ -5,5 +5,9 @@ V3.0.0
 
 - Enable deep links
 - table operation page  
-- Paged query results  
-- Abstract colors and various Atoms  
+- Paged query results  + total number of records in dataset
+- Abstract colors and various Atoms
+- sqldump facility
+- Qucik dump facility - dumps current resultset (full or just current page) with or without table schema
+- add sort on columns
+- add views and triggers to side menu
