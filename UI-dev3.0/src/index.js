@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import {fetchServers} from "./store/dbTreeSlice";
+import {fetchServers,loadDatabases,findConnectionNameByServer} from "./store/dbTreeSlice";
 
 import "./index.css";
 import App from './App';
@@ -17,8 +17,15 @@ log.setLogHandler(env.logHandler);
 log.setLogLevel(env.logVerbosity);
 http.setAppUrl(env.apiBaseUrl);
 
-//Fetch config.php
-store.dispatch(fetchServers());
+//Fetch config.php and await for it to finish before we continue. Lives depend on it
+const ahhhMyServers = store.dispatch(fetchServers());
+await ahhhMyServers.unwrap();
+
+//TODO Implement some logic here to fix this shit
+let currentState = store.getState();
+const connName = findConnectionNameByServer('127.0.0.1');
+const c = store.dispatch(loadDatabases({connectionName:connName(currentState),currentServer:'127.0.0.1'}));
+await c.unwrap();
 
 const container = document.getElementById('root');
 const root = createRoot(container);

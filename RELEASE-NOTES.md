@@ -17,3 +17,6 @@ V3.0.0
 - fix static analysis issues
 - fix bug when running insert with this error (multiple sentence) I do not hget an alert
 SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot insert explicit value for identity column in table 'constellations' when IDENTITY_INSERT is set to OFF.
+- implement a way to norify users when system setup is lacking.
+-- log folder is not accessible or no existing
+-- sql server is not accessible

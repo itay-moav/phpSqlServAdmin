@@ -1,21 +1,16 @@
 import {NavLink} from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import useCurrents from "../../../services/useCurrents";
-import { loadDatabases,findConnectionNameByServer,shouldLoadDatabases } from '../../../store/dbTreeSlice';
+import { loadDatabases,findConnectionNameByServer,shouldLoadDatabases, databaseListSelector } from '../../../store/dbTreeSlice';
 import { useEffect } from "react";
 
 export default function Databaseindex(){
     const currentServer = useCurrents().server;
     const dispatch = useDispatch();
     const connectionName = useSelector(findConnectionNameByServer(currentServer));
+    
     //Read list of databases from state
-    const databaseListSelector = state => {
-        if(currentServer && state.dbTree.tree[currentServer].databases){//server has dabases loaded in state
-            return Object.keys(state.dbTree.tree[currentServer].databases);
-        } 
-        return [];
-    };
-    const databaseList  = useSelector(databaseListSelector);
+    const databaseList  = useSelector(databaseListSelector(currentServer));
     const shouldDispatchLoadDb = useSelector(shouldLoadDatabases(currentServer));
 
     //Try to load the list of databases for the selected connection from the backend
