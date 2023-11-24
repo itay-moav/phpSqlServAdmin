@@ -2,9 +2,11 @@ V3.0.0
 ======
 - Create the predefined queries store and APIs [V see truncate table/empty table operation as a working example]
 - Create a standalone app launch on top of php -S [V See install script under /standalon and then go to localhost:8000/vulcan]
+- Enable deep links :[V  This was implemented on the rood index.js by analyzing the url. Normal browsing the url there will be just vulcan/ if it is anything else (see code for exact rule)
+  It will assume a deep link or browser refresh was done. It will trigger a series of thunk dispatches to load the current db data in order and in sync way].
+  
 
 - FIX bug ON FIRST CREATION! (possibly on multiple sentences sql) on url http://localhost:3000/vulcan/servers/127.0.0.1/databases/stargates/schema/stellar_bodies/tables/galaxies/structure
-- Enable deep links
 - table operation page  
 - Paged query results  + total number of records in dataset
 - Abstract colors and various Atoms

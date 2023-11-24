@@ -1,9 +1,7 @@
 import React,{useEffect} from 'react';
 import {Routes,Route,useNavigate,useLocation} from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
 
 import Layout from "./components/layout";
-import useCurrents from './services/useCurrents';
 
 //pages
 import SqlQueryPage from './components/query/sqlQueryPage';
@@ -19,35 +17,9 @@ import DatabaseObjects from './routes/server/database/databaseObjects';
 import TableIndex from './routes/server/database/schema/table/tableIndex';
 import Table, {TableBrowse,TableSearch,TableInsert,TableSql,TableCreateSql,TableStructure,TableOperations} from './routes/server/database/schema/table/table';
 
-
-
-
-import { findConnectionNameByServer, loadDatabases, shouldLoadDatabases } from './store/dbTreeSlice';
-
-
-
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
-  /*
-  const currents = useCurrents();
-  const dispatch = useDispatch();
-  const connectionName = useSelector(findConnectionNameByServer(currents.server));
-  const shouldDispatchLoadDb = useSelector(shouldLoadDatabases(currents.server));
-
-
-  if(location.pathname !== "/" && location.pathname !== "/server"){
-    console.log('Browser refresh on url ',location.pathname);
-    //if we are in db land
-    if(location.pathname.includes("/database")){
-      console.log("REFRESH: Loading databases for current server");
-      if(shouldDispatchLoadDb){
-        const ahhMyDatabases = dispatch(loadDatabases({connectionName,server:currents.server}));
-        ahhMyDatabases.unwrap();
-      }
-    }
-  }*/
-
   useEffect(
     ()=>{
       

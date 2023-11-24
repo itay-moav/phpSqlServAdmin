@@ -29,6 +29,7 @@ export default function TableIndex(){
                 dispatch(loadDatabaseTables({connectionName,server,database}));
             }
             dispatch(QueryActions.reset());
+        // eslint-disable-next-line 
         },[connectionName,server,database]
     );
 
