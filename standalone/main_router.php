@@ -1,5 +1,9 @@
 <?php
-
+if(strpos($_SERVER["REQUEST_URI"],'/vulcan/server') === 0) {
+    // serve the index.html
+    readfile('./vulcan/index.html');
+    exit;
+}
 if (strpos($_SERVER["REQUEST_URI"],'/vulcan') === 0) {
     return false;    // serve the requested resource as-is.
 }
@@ -9,9 +13,3 @@ require_once '../config/bootstrap.php';
 
 // localhost:8000/api/talis/discovery
 (new \Talis\Doors\Rest)->gogogo('/api');
-
-// localhost:8000/api/v0/talis/discovery
-// (new \Talis\Doors\Rest)->gogogo('/api/v0');
-
-// localhost:8000/talis/discovery
-// (new \Talis\Doors\Rest)->gogogo('');
