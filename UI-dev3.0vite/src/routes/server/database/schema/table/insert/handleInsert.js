@@ -1,7 +1,6 @@
 export default function handleInsert(dispatch,connectionName,database,schema,table){
     console.log('homin');
     return data => {
-        console.log('aaaaaaaaaa',data);
         const column_names = Object.keys(data);
         let sql = `INSERT INTO ${database}.${schema}.${table} (${column_names.join(",")}) \n`;
         sql += " VALUES (";
@@ -12,6 +11,5 @@ export default function handleInsert(dispatch,connectionName,database,schema,tab
 
         }
         sql += `\n'${data[column_names[i]]}'\n)`;//last one, no comma at end
-        console.log('sssss',sql);
     }
 }
