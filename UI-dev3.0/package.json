@@ -20,16 +20,6 @@
   "bugs": {
     "url": "https://github.com/itay-moav/vulcan/issues"
   },
-  "dependenciesssssss": {
-    "@reduxjs/toolkit": "^1.9.1",
-    "axios": "^1.2.2",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.7.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.42.1",
-    "react-redux": "^8.0.5",
-    "react-scripts": "^5.0.1"
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -52,6 +42,7 @@
     "@babel/plugin-transform-react-jsx-source": "^7.22.5"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^1.9.6",
     "axios": "^1.5.1",
     "react": "^18.2.0",

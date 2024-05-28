@@ -22,3 +22,8 @@ SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot in
 - implement a way to norify users when system setup is lacking.
 -- log folder is not accessible or no existing
 -- sql server is not accessible
+- Bump dependencies
+- Migrate to use VITE
+- fix bug in standalone mode : use the proper open command for linux. Use some logic to figure out how to open vulcan url
+- handle TOBEDELETED
+- in the tables / insert page. Make the identitity(1,129) reflect the actual number that should be there
