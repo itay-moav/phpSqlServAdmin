@@ -17,7 +17,7 @@ export default function Layout(){
           <Col md={3}>
             <Row>
               <Col>
-                <h3 className="mb-0 pb-0" style={{cursor:"pointer",color:"red",fontFamily:"Marker Felt, fantasy"}} onClick={()=>window.location.href="/vulcan"}>VULCAN <small style={{fontSize:"0.4em"}}>v{`${process.env.REACT_APP_VERSION}`}</small></h3>
+                <h3 className="mb-0 pb-0" style={{cursor:"pointer",color:"red",fontFamily:"Marker Felt, fantasy"}} onClick={()=>window.location.href="/vulcan"}>VULCAN <small style={{fontSize:"0.4em"}}>v{__APP_VERSION__}</small></h3>
                 <small style={{fontSize:"0.6em"}}>Powered by <a href="https://github.com/itay-moav/TalisMS">TalisMS</a> and ReactJS</small>
               </Col>
             </Row>

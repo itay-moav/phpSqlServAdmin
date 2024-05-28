@@ -8,13 +8,12 @@ import "./index.css";
 import App from './App';
 
 //CONFIGURE SERVICES
-import env  from "./services/config";
 import http from "./services/http";
 import log  from "./services/log";
 
-log.setLogHandler(env.logHandler);
-log.setLogLevel(env.logVerbosity);
-http.setAppUrl(env.apiBaseUrl);
+log.setLogHandler(import.meta.env.VITE_LOG_HANDLER);
+log.setLogLevel(import.meta.env.VITE_LOG_LEVEL);
+http.setAppUrl(import.meta.env.VITE_API_ENDPOINT);
 
 
 //----------------------------------- PRE LOADING START A--------------------------------------------------------------

@@ -1,9 +1,8 @@
 {
   "name": "vulcan",
-  "homepage": "/vulcan/",
-  "version": "3.0.0",
   "description": "Vulcan MS-SQL dev mate app",
   "private": true,
+  "version": "3.0.0",
   "type": "module",
   "author": "Director Moav",
   "license": "ISC",

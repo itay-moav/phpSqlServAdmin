@@ -6,7 +6,7 @@ export default defineConfig({
   base: "/vulcan",
   plugins: [react()],
   define: {
-      '__APP_VERSION__': JSON.stringify(process.env.npm_package_version),
-      '__APP_NAME__':    JSON.stringify(process.env.npm_package_name)
+      __APP_VERSION__: JSON.stringify('3.0.0'),
+      __APP_NAME__:    JSON.stringify(process.env.npm_package_name)
   }
 })

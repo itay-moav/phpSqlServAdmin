@@ -20,16 +20,13 @@ import Table, {TableBrowse,TableSearch,TableInsert,TableSql,TableCreateSql,Table
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log('aaaaaaaaaaaaaa',location.pathname);
+
   useEffect(
     ()=>{
       
       if(location.pathname === "/"){
         navigate('server');
       }
-
-
-
      // eslint-disable-next-line
     },[]
   );
