@@ -4,7 +4,8 @@ V3.0.0
 - Create a standalone app launch on top of php -S [V See install script under /standalon and then go to localhost:8000/vulcan]
 - Enable deep links :[V  This was implemented on the rood index.js by analyzing the url. Normal browsing the url there will be just vulcan/ if it is anything else (see code for exact rule)
   It will assume a deep link or browser refresh was done. It will trigger a series of thunk dispatches to load the current db data in order and in sync way].
-  
+- Migrate to use VITE
+- Bump npm dependencies  
 
 - FIX bug ON FIRST CREATION! (possibly on multiple sentences sql) on url http://localhost:3000/vulcan/servers/127.0.0.1/databases/stargates/schema/stellar_bodies/tables/galaxies/structure
 - table operation page  
@@ -22,8 +23,7 @@ SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot in
 - implement a way to norify users when system setup is lacking.
 -- log folder is not accessible or no existing
 -- sql server is not accessible
-- Bump dependencies
-- Migrate to use VITE
+- Bump composer dependencies
 - fix bug in standalone mode : use the proper open command for linux. Use some logic to figure out how to open vulcan url
 - handle TOBEDELETED
 - in the tables / insert page. Make the identitity(1,129) reflect the actual number that should be there
