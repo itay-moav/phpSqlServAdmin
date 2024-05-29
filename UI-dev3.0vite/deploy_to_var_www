@@ -1,0 +1,4 @@
+#!/bin/bash -x
+rm -fr ./dist
+vite build
+sudo cp -r dist/* /var/www/vulcan/.

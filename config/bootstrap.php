@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * This API system has no state, so far....
  *
