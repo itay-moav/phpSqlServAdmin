@@ -34,10 +34,10 @@ abstract class ChainWithConnection extends \Talis\Chain\aChainLink
                 $env[\ENVIRONMENT__DBCONNECTIONS__DATABASE] = $dbname;
             }
             
-            if(isset(app_env()[\ENVIRONMENT__DBCONNECTIONS][$connection_name]['user_connection'])){//This is a tailored connection, uses proxy or some other starnge configuration
-                $this->conn = $env['user_connection']($connection_name,$env,\ZimLogger\MainZim::$CurrentLogger);
+            if(isset(app_env()[\ENVIRONMENT__DBCONNECTIONS][$connection_name]['user_connection'])){//This is a tailored connection, uses proxy or some other strange configuration
+                $this->conn = $env['user_connection']($connection_name,$env,\Talis\Corwin::logger());
             } else {
-                $this->conn = new Connection($connection_name,$env,\ZimLogger\MainZim::$CurrentLogger);
+                $this->conn = new Connection($connection_name,$env,\Talis\Corwin::logger());
             }
             $this->Request->addToBodyParams('CONN',$this->conn);
             

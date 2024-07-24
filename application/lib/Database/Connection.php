@@ -9,9 +9,9 @@ class Connection implements iConnection{
 
     /**
      *
-     * @var \ZimLogger\Streams\aLogStream
+     * @var \Talis\commons\iLogger
      */
-    private \ZimLogger\Streams\aLogStream $Logger;
+    private \Talis\commons\iLogger $Logger;
 
     /**
      * Native DB class.
@@ -85,18 +85,19 @@ class Connection implements iConnection{
 
     /**
      * Creating an instance
-     * Although this is a type of sigleton, we are using a public modifier here, as we inherit the PDO class
+     * Although this is a type of singleton, we are using a public modifier here, as we inherit the PDO class
      * which have a public constructor.
      * 
      * @param string $connection_name
      * @param array<string, string> $conf_data
      * @param \ZimLogger\Streams\aLogStream $Logger
      */
-    public function __construct(string $connection_name, array $conf_data, \ZimLogger\Streams\aLogStream $Logger)
+    public function __construct(string $connection_name, array $conf_data, \Talis\commons\iLogger $Logger)
     {
         $this->Logger = $Logger;
         $this->connection_name = $connection_name;
-        $dns = "sqlsrv:server = tcp:{$conf_data['server']},{$conf_data ['port']}";
+        $TrustServerCertificate = $conf_data['TrustServerCertificate'] ? ';TrustServerCertificate=yes' : '';
+        $dns = "sqlsrv:server = tcp:{$conf_data['server']},{$conf_data ['port']}{$TrustServerCertificate}";
         if(isset($conf_data [\ENVIRONMENT__DBCONNECTIONS__DATABASE])){
             $dns .= "; Database = {$conf_data [\ENVIRONMENT__DBCONNECTIONS__DATABASE]}";
         }

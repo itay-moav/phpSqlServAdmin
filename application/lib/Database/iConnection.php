@@ -15,9 +15,9 @@ interface iConnection{
      * 
      * @param string $connection_name
      * @param array<string, string> $conf_data
-     * @param \ZimLogger\Streams\aLogStream $Logger
+     * @param \Talis\commons\iLogger $Logger
      */
-    public function __construct(string $connection_name, array $conf_data, \ZimLogger\Streams\aLogStream $Logger);
+    public function __construct(string $connection_name, array $conf_data, \Talis\commons\iLogger $Logger);
     
     /**
      * @param string $sql

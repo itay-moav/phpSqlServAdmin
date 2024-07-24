@@ -48,6 +48,9 @@ require_once __DIR__ . '/config.php';
 
 \Talis\Corwin::$APP_PATH = APP_PATH;
 
+//Here you CAN change the logger for TalisMS specificly (not likely needed)
+\Talis\Corwin::set_logger(new \lib\MyZimLoggerWrapper(\ZimLogger\MainZim::$GlobalLogger));
+
 //lib to figure out which way do we connect
 require_once LIB_PATH . '/Database/FindConnectionName.php';
 
