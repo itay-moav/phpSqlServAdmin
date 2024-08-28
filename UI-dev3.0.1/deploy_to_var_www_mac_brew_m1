@@ -1,0 +1,4 @@
+#!/bin/bash -x
+rm -fr ./dist
+vite build
+cp -r dist/* /opt/homebrew/var/www/vulcan/.
