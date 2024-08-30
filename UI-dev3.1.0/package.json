@@ -2,7 +2,7 @@
   "name": "vulcan",
   "description": "Vulcan MS-SQL dev mate app",
   "private": true,
-  "version": "3.0.0",
+  "version": "3.1.0",
   "type": "module",
   "author": "Director Moav",
   "license": "ISC",
