@@ -1,0 +1,31 @@
+/*Using shcema https://www.colorhexa.com/50c878*/
+
+.table-list > .list-group-item{
+    background-color: #194f2b;
+}
+.table-list > .list-group-item > a{
+    color: #A7F3D0;
+}
+
+.table-list > .list-group-item.active{
+    background-color: #226d3b;
+    border-style:none;
+}
+.table-list > .list-group-item:hover{
+    color: #D1FAE5;
+    background-color: #1d5e33;
+}
+
+.table-name{
+    font-size: 0.85rem;
+}
+
+.table-list > .list-group-item-primary{
+    color: #D1FAE5;
+    background-color: #144023;
+    cursor: pointer;
+}
+
+.table-list > .list-group-item-secondary{
+    color: #059669;
+}

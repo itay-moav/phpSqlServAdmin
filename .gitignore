@@ -4,6 +4,4 @@
 vendor
 composer.json.private
 composer.json
-composer.lock
-.DS_Store
 

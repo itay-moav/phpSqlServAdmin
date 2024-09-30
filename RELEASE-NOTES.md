@@ -1,4 +1,4 @@
-V3.0.0
+V3.0.0 (closed on 20240528)
 ======
 - Create the predefined queries store and APIs [V see truncate table/empty table operation as a working example]
 - Create a standalone app launch on top of php -S [V See install script under /standalon and then go to localhost:8000/vulcan]
@@ -7,6 +7,16 @@ V3.0.0
 - Migrate to use VITE
 - Bump npm dependencies  
 
+V3.1.0 (started on: 20240528,closed on: )
+======
+
+
+
+
+
+
+TODOs
+=====
 - FIX bug ON FIRST CREATION! (possibly on multiple sentences sql) on url http://localhost:3000/vulcan/servers/127.0.0.1/databases/stargates/schema/stellar_bodies/tables/galaxies/structure
 - table operation page  
 - Paged query results  + total number of records in dataset
