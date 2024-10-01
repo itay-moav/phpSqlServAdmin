@@ -9,7 +9,7 @@ echo "* Spinneup localhost:8000/vulcan                                          
 echo "*                                                                                       *"
 echo "* log folder: /var/log/vulcan                                                           *"
 echo "*                                                                                       *"
-echo "* PID  `ps -ef | grep "php -S localhost" | tr -s ' ' | cut -d ' ' -f3 | sed -n '1p'`                                                                            *"
+echo "* PID  `ps -ef | grep -v grep |grep "php -S localhost" | tr -s ' ' | cut -d ' ' -f3 | sed -n '1p'`                                                                            *"
 echo "*****************************************************************************************"
 
 open http://localhost:8000/vulcan
