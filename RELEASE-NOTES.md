@@ -9,11 +9,10 @@ V3.0.0 (closed on 20240528)
 
 V3.1.0 (started on: 20240528,closed on: )
 ======
-
-
-
-
-
+- fix composer issues
+- Bump composer dependencies
+- Use an iLogger to interact with ZimLogger
+- Add a poc to kickbut with pid and some more info on start
 
 TODOs
 =====
@@ -22,18 +21,18 @@ TODOs
 - Paged query results  + total number of records in dataset
 - Abstract colors and various Atoms
 - sqldump facility
-- Qucik dump facility - dumps current resultset (full or just current page) with or without table schema
+- Quick dump facility - dumps current resultset (full or just current page) with or without table schema
 - add sort on columns
 - add views and triggers to side menu
 - fix react erros on build 
-- fix composer issues
+
 - fix static analysis issues
 - fix bug when running insert with this error (multiple sentence) I do not hget an alert
 SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot insert explicit value for identity column in table 'constellations' when IDENTITY_INSERT is set to OFF.
 - implement a way to norify users when system setup is lacking.
 -- log folder is not accessible or no existing
 -- sql server is not accessible
-- Bump composer dependencies
+
 - fix bug in standalone mode : use the proper open command for linux. Use some logic to figure out how to open vulcan url
 - handle TOBEDELETED
 - in the tables / insert page. Make the identitity(1,129) reflect the actual number that should be there
