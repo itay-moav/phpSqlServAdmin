@@ -46,10 +46,10 @@ require_once __DIR__ . '/config.php';
     app_env()['log']['low_memory_footprint']
 );
 
-\Talis\Corwin::$APP_PATH = APP_PATH;
+\Talis\TalisMain::$APP_PATH = APP_PATH;
 
 //Here you CAN change the logger for TalisMS specificly (not likely needed)
-\Talis\Corwin::set_logger(new \lib\MyZimLoggerWrapper(\ZimLogger\MainZim::$GlobalLogger));
+\Talis\TalisMain::set_logger(new \lib\MyZimLoggerWrapper(\ZimLogger\MainZim::$GlobalLogger));
 
 //lib to figure out which way do we connect
 require_once LIB_PATH . '/Database/FindConnectionName.php';
@@ -60,13 +60,13 @@ require_once LIB_PATH . '/Database/FindConnectionName.php';
 \SiTEL\DataSources\Sql\Factory::getConnectionMySQL('mysql_master',\app_env()['database']['mysql_master']);
 
 //subscribe the sql debug function to the logger
-$fn = fn()=>\SiTEL\DataSources\Sql\Factory::getDebugInfo();
+$fn = fn()=>someFunctionOrClass::getDebugInfo();
 \ZimLogger\MainZim::full_stack_subscribe_to_default($fn,'database');
 */
  
 
 //Init function to run before starting the chains
 /*
-\Talis\Corwin::$registered_init_func = function(\Talis\Message\Request $Request){
+\Talis\TalisMain::$registered_init_func = function(\Talis\Message\Request $Request){
 };
 */

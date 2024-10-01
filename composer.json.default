@@ -6,7 +6,7 @@
 		"MSsql "
 	],
 	"require": {
-		"director-moav/zimlogger": "v1.2.1",
+		"director-moav/zimlogger": "v2.0.1",
 		"director-moav/talis-ms": "dev-master"
 	},
 	"require-dev": {

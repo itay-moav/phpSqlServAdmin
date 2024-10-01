@@ -21,7 +21,7 @@ abstract class ChainWithConnection extends \Talis\Chain\aChainLink
     public function __construct(\Talis\Message\Request $Request,\Talis\Message\Response $Response,array $params=[]){
         parent::__construct($Request, $Response,$params);
         $conn   = $this->Request->getBodyParam('CONN',null);
-        $connection_name = \Talis\Corwin::$Context->resource(\ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME);
+        $connection_name = \Talis\TalisMain::$Context->resource(\ENVIRONMENT__DBCONNECTIONS__CONNECTION_NAME);
         if(!$conn && $connection_name !== \Talis\Context::NaN){ //There is no active connection, but we do have a connection name
             
             $env = app_env()[\ENVIRONMENT__DBCONNECTIONS][$connection_name];
@@ -35,9 +35,9 @@ abstract class ChainWithConnection extends \Talis\Chain\aChainLink
             }
             
             if(isset(app_env()[\ENVIRONMENT__DBCONNECTIONS][$connection_name]['user_connection'])){//This is a tailored connection, uses proxy or some other strange configuration
-                $this->conn = $env['user_connection']($connection_name,$env,\Talis\Corwin::logger());
+                $this->conn = $env['user_connection']($connection_name,$env,\Talis\TalisMain::logger());
             } else {
-                $this->conn = new Connection($connection_name,$env,\Talis\Corwin::logger());
+                $this->conn = new Connection($connection_name,$env,\Talis\TalisMain::logger());
             }
             $this->Request->addToBodyParams('CONN',$this->conn);
             
